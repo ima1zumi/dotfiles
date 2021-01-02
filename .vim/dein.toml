@@ -31,3 +31,5 @@ repo = 'airblade/vim-gitgutter'
 [[plugins]] # カラースキーム
 repo = 'cocopon/iceberg.vim'
 
+[[plugins]] # 検索件数を表示
+repo = 'osyo-manga/vim-anzu'
