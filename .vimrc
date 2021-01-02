@@ -51,6 +51,17 @@ endif
 "############################################
 "############################################
 "############################################
+" vimrc を読み込むたびに autocmd の設定をリセットする設定
+augroup my_vimrc
+    autocmd!
+augroup END
+
+" MyAutocmd で autocmd を設定しておく
+command! -bang -nargs=*
+\   MyAutocmd
+\   autocmd<bang> my_vimrc <args>
+
+" vimrc を何回読み込んでも autocmd は 1回しか追加されない
 
 set clipboard+=unnamed
 
@@ -77,7 +88,7 @@ set smartcase "検索文字列に大文字が含まれている場合は区別�
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set incsearch "インクリメントサーチ
 
-" rg があれば使う
+" rg があれば vimgrep の代わりに使う
 if executable('rg')
   set grepprg=rg\ --vimgrep
   set grepformat=%f:%l:%c:%m
@@ -117,9 +128,9 @@ nnoremap <Esc><Esc> :nohlsearch<CR>
 "C-nでNERDTree起動
 nnoremap <C-n> :NERDTreeToggle<CR>
 "ファイル未指定で起動した時に自動でNERDTreeを起動
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+MyAutocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "NERDTreeだけのこったら消す
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+MyAutocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "dotfilesを表示
 let NERDTreeShowHidden=1
 
