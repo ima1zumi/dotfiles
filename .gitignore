@@ -34,6 +34,7 @@
 !/.vim/after/**
 !/.vim/init.vim
 !/.vim/coc-settings.json
+!/.vim/dein.toml
 !/.bin/
 !/.bin/**
 !/.bin.local
