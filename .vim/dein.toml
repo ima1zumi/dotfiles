@@ -1,0 +1,33 @@
+[[plugins]] # あいまい検索
+repo = 'junegunn/fzf'
+build_on = '''
+./install -all
+'''
+
+[[plugins]] # 曖昧検索
+repo = 'junegunn/fzf.vim'
+
+[[plugins]] # ヘルプの日本語化
+repo = 'vim-jp/vimdoc-ja'
+
+[[plugins]] # ディレクトリツリーを表示
+repo = 'preservim/nerdtree'
+
+[[plugins]] # git操作
+repo = 'tpope/vim-fugitive'
+
+[[plugins]] # quickrun
+repo = 'thinca/vim-quickrun'
+
+[[plugins]] # nerdtree に git のマークを出す
+repo = 'Xuyuanp/nerdtree-git-plugin'
+
+[[plugins]] # 検索
+repo = 'ctrlpvim/ctrlp.vim'
+
+[[plugins]] # git で差分がある行を表示
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]] # カラースキーム
+repo = 'cocopon/iceberg.vim'
+
