@@ -85,6 +85,7 @@ alias gloa='git log --oneline --graph --all'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gp='git push'
+alias gpl='git pull --rebase'
 
 # bundler
 alias bi='bundle install'
