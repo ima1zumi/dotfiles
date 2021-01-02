@@ -60,6 +60,7 @@ export PATH=/usr/local/Cellar/vim/8.2.1600/bin:$PATH
 alias v='vim'
 alias vz='vim ~/.zshrc'
 alias vv='vim ~/.vimrc'
+alias vd='vim ~/.vim/dein.toml'
 
 # source
 alias sz='source ~/.zshrc'
