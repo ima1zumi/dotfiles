@@ -113,3 +113,6 @@ source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
+
+source /Users/mi/.zinit/plugins/b4b4r07---enhancd/init.sh
+zinit load "b4b4r07/enhancd"
