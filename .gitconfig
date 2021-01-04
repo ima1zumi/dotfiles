@@ -1,0 +1,20 @@
+[user]
+	name = ima1zumi
+	email = mariimaizumi5@gmail.com
+	username = ima1zumi
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+        excludesfile = /Users/mi/.gitignore_global
+	editor = vim
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[alias]
+    openpr = "!f() { gh pr view `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%%'` --web; }; f"
+[init]
+	defaultBranch = main
