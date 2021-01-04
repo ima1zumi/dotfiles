@@ -161,7 +161,7 @@ nnoremap <silent> <Space><CR> :execute ":tab drop ".$AFTER_FTPLUGIN."/".&filetyp
 set helplang=ja
 
 " swapをtmp配下に作る
-:set directory=$PWD/.vim/tmp
+:set directory=/Users/mi/ghq/github.com/ima1zumi/.vim/tmp
 
 " Quickrun シュッとするやつ
 let g:quickrun_config = {
