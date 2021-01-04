@@ -62,7 +62,7 @@
 !/.config/**
 !/.gitignore_global
 !/.gitconfig_shared
-!/.git-prompt.sh
+!/.gitconfig
 
 !/README.md
 !/LICENSE
