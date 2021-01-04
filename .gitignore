@@ -21,6 +21,7 @@
 !/.zsh/zfunc/**
 !/.zsh/completion/
 /.zsh/completion/**
+!/.zsh/pure/**/*
 !/.virc
 !/.vimrc
 !/.vim/
@@ -61,6 +62,7 @@
 !/.config/**
 !/.gitignore_global
 !/.gitconfig_shared
+!/.git-prompt.sh
 
 !/README.md
 !/LICENSE
