@@ -21,6 +21,7 @@
 !/.zsh/zfunc/**
 !/.zsh/completion/
 /.zsh/completion/**
+!/.zsh/pure/**/*
 !/.virc
 !/.vimrc
 !/.vim/
