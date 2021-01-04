@@ -26,9 +26,6 @@ setopt share_history
 # EDITOR setting
 export EDITOR='vim'
 
-# prompt setting
-source ~/.git-prompt.sh
-
 # Ctrl+D防止
 setopt IGNOREEOF
 
@@ -41,10 +38,6 @@ colors
 autoload -Uz compinit
 compinit
 
-# prompt_pure
-autoload -U promptinit; promptinit
-prompt pure
-
 # nvm
 # node.js重いので一旦消す
 # export NVM_DIR="$HOME/.nvm"
@@ -53,8 +46,8 @@ prompt pure
 
 #zsh-autosuggestions
 #https://github.com/zsh-users/zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-export PATH=/usr/local/Cellar/vim/8.2.1600/bin:$PATH
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# export PATH=/usr/local/Cellar/vim/8.2.1600/bin:$PATH
 
 # vim
 alias v='vim'
@@ -116,3 +109,6 @@ autoload -Uz _zinit
 
 source /Users/mi/.zinit/plugins/b4b4r07---enhancd/init.sh
 zinit load "b4b4r07/enhancd"
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit light sindresorhus/pure
+zinit light zsh-users/zsh-autosuggestions
