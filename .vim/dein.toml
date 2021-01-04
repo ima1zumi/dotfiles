@@ -33,3 +33,6 @@ repo = 'cocopon/iceberg.vim'
 
 [[plugins]] # 検索件数を表示
 repo = 'osyo-manga/vim-anzu'
+
+[[plugins]] # 行番号を指定してファイルを開く
+repo = 'bogado/file-line'
