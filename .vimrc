@@ -161,7 +161,7 @@ nnoremap <silent> <Space><CR> :execute ":tab drop ".$AFTER_FTPLUGIN."/".&filetyp
 set helplang=ja
 
 " swapをtmp配下に作る
-:set directory=~/.vim/tmp
+:set directory=$PWD/.vim/tmp
 
 " Quickrun シュッとするやつ
 let g:quickrun_config = {
@@ -197,6 +197,7 @@ nnoremap <F5> :call <SID>openpre_open()<CR>
 
 " カラースキーム
 colorscheme iceberg
+set bg=dark
 
 "previm
 let g:previm_open_cmd = 'open -a Google\ Chrome'
