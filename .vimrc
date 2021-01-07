@@ -193,7 +193,7 @@ function! s:openpre_open() abort
   let cmd = printf('git openpr %s', sha1)
   echo system(cmd)
 endfunction
-nnoremap <F5> :call <SID>openpre_open()<CR>
+nnoremap <S-o> :call <SID>openpre_open()<CR>
 
 " カラースキーム
 colorscheme iceberg
