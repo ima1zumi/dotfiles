@@ -39,3 +39,6 @@ repo = 'bogado/file-line'
 
 [[plugins]] # ステータスバー
 repo = 'itchyny/lightline.vim'
+
+[[plugins]] # コマンドを置き換える
+repo = 'tyru/vim-altercmd'

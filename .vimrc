@@ -63,6 +63,9 @@ command! -bang -nargs=*
 
 " vimrc を何回読み込んでも autocmd は 1回しか追加されない
 
+" altercmdを先に読み込んでおく
+call altercmd#load()
+
 set clipboard+=unnamed
 
 "#####表示設定#####
@@ -93,9 +96,10 @@ if executable('rg')
   set grepprg=rg\ --vimgrep
   set grepformat=%f:%l:%c:%m
 endif
-
 " 自動QuickFix
 au QuickfixCmdPost make,grep,grepadd,vimgrep copen
+" lg で :lgrep
+AlterCommand lg lgrep
 
 "空白文字の可視化
 set list
