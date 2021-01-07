@@ -36,3 +36,6 @@ repo = 'osyo-manga/vim-anzu'
 
 [[plugins]] # 行番号を指定してファイルを開く
 repo = 'bogado/file-line'
+
+[[plugins]] # ステータスバー
+repo = 'itchyny/lightline.vim'
