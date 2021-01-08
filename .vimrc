@@ -199,6 +199,11 @@ function! s:openpre_open() abort
 endfunction
 nnoremap <S-o> :call <SID>openpre_open()<CR>
 
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+
+
+
 " カラースキーム
 colorscheme iceberg
 set bg=dark
