@@ -42,3 +42,13 @@ repo = 'itchyny/lightline.vim'
 
 [[plugins]] # コマンドを置き換える
 repo = 'tyru/vim-altercmd'
+
+[[plugins]] # denite の依存プラグイン
+repo = 'roxma/nvim-yarp'
+
+[[plugins]] # denite の依存プラグイン
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]] # 対話的なインターフェースを提供
+# pip3 install --user pynvim が必要
+repo = 'Shougo/denite.nvim'
