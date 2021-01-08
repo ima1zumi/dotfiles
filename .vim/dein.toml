@@ -52,3 +52,6 @@ repo = 'roxma/vim-hug-neovim-rpc'
 [[plugins]] # 対話的なインターフェースを提供
 # pip3 install --user pynvim が必要
 repo = 'Shougo/denite.nvim'
+
+[[plugins]] # コード補完
+repo = 'Shougo/deoplete.nvim'
