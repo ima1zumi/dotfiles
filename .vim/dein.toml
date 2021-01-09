@@ -55,3 +55,6 @@ repo = 'Shougo/denite.nvim'
 
 [[plugins]] # コード補完
 repo = 'Shougo/deoplete.nvim'
+
+[[plugins]] # endwise
+repo = 'tpope/vim-endwise'
