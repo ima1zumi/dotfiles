@@ -197,7 +197,7 @@ function! s:openpre_open() abort
   let cmd = printf('git openpr %s', sha1)
   echo system(cmd)
 endfunction
-nnoremap <S-o> :call <SID>openpre_open()<CR>
+nnoremap <F5> :call <SID>openpre_open()<CR>
 
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
