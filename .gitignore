@@ -65,6 +65,7 @@
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig
+!/.irbrc
 
 !/README.md
 !/LICENSE
