@@ -172,7 +172,7 @@ command! CopyRelativePath call setreg(v:register, expand("%:p:."))
 " キーマッピング
 nnoremap <Space>cpr :CopyRelativePath<CR>
 " 絶対パスを取得コマンド
-command! CopyAbsolutePath call setreg(v:register, expand("%"))
+command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 " キーマッピング
 nnoremap <Space>cpa :CopyAbsolutePath<CR>
 
