@@ -170,11 +170,11 @@ set helplang=ja
 " 相対パスを取得コマンド
 command! CopyRelativePath call setreg(v:register, expand("%:p:."))
 " キーマッピング
-nnoremap <Space>cpr :CopyRelativePath<CR>
+nnoremap <Space>cl :CopyRelativePath<CR>
 " 絶対パスを取得コマンド
 command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 " キーマッピング
-nnoremap <Space>cpa :CopyAbsolutePath<CR>
+nnoremap <Space>ca :CopyAbsolutePath<CR>
 
 
 " Quickrun シュッとするやつ
