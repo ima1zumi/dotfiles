@@ -58,3 +58,6 @@ repo = 'Shougo/deoplete.nvim'
 
 [[plugins]] # endwise
 repo = 'tpope/vim-endwise'
+
+[[plugins]] # インデントを表示
+repo = 'Yggdroot/indentLine'

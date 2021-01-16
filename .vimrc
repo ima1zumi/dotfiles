@@ -222,7 +222,9 @@ if has('vim_starting') && !has("gui_running")
     let &t_SR .= "\e[4 q"
 endif
 
-
+" indentline"
+let g:indentLine_color_term =239
+let g:indentLine_char = '¦'
 
 " カラースキーム
 colorscheme iceberg
