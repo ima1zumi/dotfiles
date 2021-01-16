@@ -66,6 +66,7 @@
 !/.gitconfig_shared
 !/.gitconfig
 !/.irbrc
+!/.Brewfile
 
 !/README.md
 !/LICENSE
