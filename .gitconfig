@@ -18,3 +18,5 @@
     openpr = "!f() { gh pr view `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%%'` --web; }; f"
 [init]
 	defaultBranch = main
+[include]
+	path = ~/.gitconfig_shared
