@@ -61,3 +61,9 @@ repo = 'tpope/vim-endwise'
 
 [[plugins]] # インデントを表示
 repo = 'Yggdroot/indentLine'
+
+[[plugins]] # open github
+repo = 'tyru/open-browser.vim'
+
+[[plugins]] # open github
+repo = 'tyru/open-browser-github.vim'
