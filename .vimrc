@@ -107,6 +107,10 @@ set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
 hi NonText    ctermbg=NONE ctermfg=59 guibg=NONE guifg=NONE
 hi SpecialKey ctermbg=NONE ctermfg=59 guibg=NONE guifg=NONE
 
+" encoding
+set fileformats=unix,dos,mac
+set fileencodings=utf-8,sjis
+
 "#####keybind#####
 "jjをEscに
 inoremap jj <Esc>
