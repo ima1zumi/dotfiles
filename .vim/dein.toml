@@ -67,3 +67,6 @@ repo = 'tyru/open-browser.vim'
 
 [[plugins]] # open github
 repo = 'tyru/open-browser-github.vim'
+
+[[plugins]] # binary
+repo = 'Shougo/vinarise.vim'
