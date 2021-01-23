@@ -198,6 +198,9 @@ let g:quickrun_config = {
 \  },
 \}
 
+" QuickRun
+nnoremap <Space>r :QuickRun<CR>
+
 " git 変更行
 highlight GitGutterAdd ctermfg=blue ctermbg=brown
 
