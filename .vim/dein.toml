@@ -70,3 +70,9 @@ repo = 'tyru/open-browser-github.vim'
 
 [[plugins]] # binary
 repo = 'Shougo/vinarise.vim'
+
+[[plugins]] # operator-replace の依存プラグイン
+repo = 'kana/vim-operator-user'
+
+[[plugins]] # オペレータ拡張
+repo = 'kana/vim-operator-replace'

@@ -196,10 +196,30 @@ let g:quickrun_config = {
 \    "command" : "rails",
 \    "exec"    : "%c test %s:p",
 \  },
+\  "ruby.rspec" : {
+\    "command" : "rspec",
+\    "exec"    : "bundle exec %c %s:p\\:%{line('.')}",
+\    "errorformat" : "%f:%l: %tarning: %m, %E%.%#:in `load': %f:%l:%m, %E%f:%l:in `%*[^']': %m, %-Z     # %f:%l:%.%#, %E  %\\d%\\+)%.%#, %C     %m, %-G%.%#",
+\  },
 \}
 
 " QuickRun
 nnoremap <Space>r :QuickRun<CR>
+MyAutocmd BufEnter *_spec.rb set ft=ruby.rspec
+
+" operator-replace
+nmap s <Plug>(operator-replace)
+vmap s <Plug>(operator-replace)
+
+" tab
+nnoremap <silent> <C-l> :tabnext<CR>
+nnoremap <silent> <C-h> :tabprevious<CR>
+nnoremap <silent> <C-Tab> :tabnext<CR>
+command! -bar TabMoveNext :execute "tabmove " tabpagenr() % tabpagenr("$") + (tabpagenr("$") == tabpagenr() ? 0 : 1)
+command! -bar TabMovePrev :execute "tabmove" (tabpagenr() + tabpagenr("$") - 2) % tabpagenr("$") + (tabpagenr() == 1 ? 1 : 0)
+nnoremap <silent> <S-l> :TabMoveNext<CR>
+nnoremap <silent> <S-h> :TabMovePrev<CR>
+nnoremap tt :tabnew<CR>
 
 " git 変更行
 highlight GitGutterAdd ctermfg=blue ctermbg=brown
