@@ -80,8 +80,10 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gp='git push'
 alias gpl='git pull --rebase'
-defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
-alias gplod='git pull --rebase origin $defaultbranch'
+function gplod() {
+  defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
+  git pull --rebase origin $defaultbranch
+}
 
 # bundler
 alias bi='bundle install'
