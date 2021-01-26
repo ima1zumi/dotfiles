@@ -236,6 +236,19 @@ function! s:openpre_open() abort
 endfunction
 nnoremap <F5> :call <SID>openpre_open()<CR>
 
+" undo
+function! s:mkdir(dir)
+    if !isdirectory(a:dir)
+        call mkdir(a:dir, "p")
+    endif
+endfunction
+
+" undo ファイルを保存するディレクトリ
+set undodir=$HOME/.vimundo
+call s:mkdir(&undodir)
+set undofile
+set undolevels=5000
+
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
 

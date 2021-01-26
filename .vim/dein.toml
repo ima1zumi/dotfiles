@@ -76,3 +76,6 @@ repo = 'kana/vim-operator-user'
 
 [[plugins]] # オペレータ拡張
 repo = 'kana/vim-operator-replace'
+
+[[plugins]] # undoを辿れるようにする
+repo = 'mbbill/undotree'
