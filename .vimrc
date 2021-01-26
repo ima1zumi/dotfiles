@@ -249,6 +249,24 @@ call s:mkdir(&undodir)
 set undofile
 set undolevels=5000
 
+" Denite
+MyAutocmd FileType denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+  inoremap <silent><buffer> <Down> <Esc>
+      \:call denite#move_to_parent()<CR>
+      \:call cursor(line('.')+1,0)<CR>
+      \:call denite#move_to_filter()<CR>A
+  inoremap <silent><buffer> <Up> <Esc>
+      \:call denite#move_to_parent()<CR>
+      \:call cursor(line('.')-1,0)<CR>
+      \:call denite#move_to_filter()<CR>A
+  imap <silent><buffer> <CR> <Esc>
+      \:call denite#move_to_parent()<CR>
+      \<CR>
+endfunction
+
+command! DeniteCtrlp Denite file/rec -start-filter -default-action=tabswitch
+
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
 
