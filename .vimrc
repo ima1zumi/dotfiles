@@ -171,11 +171,11 @@ set helplang=ja
 " swapをtmp配下に作る
 :set directory=/tmp
 
-" 相対パスを取得コマンド
+" 相対パスを取得するコマンド
 command! CopyRelativePath call setreg(v:register, expand("%:p:."))
 " キーマッピング
 nnoremap <Space>cl :CopyRelativePath<CR>
-" 絶対パスを取得コマンド
+" 絶対パスを取得するコマンド
 command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 " キーマッピング
 nnoremap <Space>ca :CopyAbsolutePath<CR>
