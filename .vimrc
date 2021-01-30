@@ -231,7 +231,7 @@ function! s:openpre_open() abort
   let fname = expand('%')
   let cmd = printf('git blame -L %d,%d %s | cut -d " " -f 1', line, line, fname)
   let sha1 = system(cmd)
-  let cmd = printf('git openpr %s', sha1)
+  let cmd = printf('gh openpr %s', sha1)
   echo system(cmd)
 endfunction
 nnoremap <F5> :call <SID>openpre_open()<CR>
