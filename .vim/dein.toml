@@ -79,3 +79,9 @@ repo = 'kana/vim-operator-replace'
 
 [[plugins]] # undoを辿れるようにする
 repo = 'mbbill/undotree'
+
+[[plugins]] # vim-textobj-ruby の依存プラグイン
+repo = 'kana/vim-textobj-user'
+
+[[plugins]] # rubyのtextobjを扱う
+repo = 'rhysd/vim-textobj-ruby'
