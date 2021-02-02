@@ -70,6 +70,7 @@ alias ll='ls -l -G'
 
 # git alias
 alias gc='git commit'
+alias gc='git commit -v'
 alias ga='git add'
 alias gs='git status'
 alias gco='git checkout'
@@ -84,6 +85,11 @@ function gplod() {
   defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
   git pull --rebase origin $defaultbranch
 }
+
+# gh command
+alias ghprc='gh pr create'
+alias ghprd='gh pr diff'
+alias ghprm='gh pr merge'
 
 # bundler
 alias bi='bundle install'
