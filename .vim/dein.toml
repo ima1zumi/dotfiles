@@ -85,3 +85,12 @@ repo = 'kana/vim-textobj-user'
 
 [[plugins]] # rubyのtextobjを扱う
 repo = 'rhysd/vim-textobj-ruby'
+
+[[plugins]] # ハイライト
+repo = 'sheerun/vim-polyglot'
+
+[[plugins]] # solargraph
+repo = 'neoclide/coc.nvim'
+
+[[plugins]] # カラースキーマを入れる
+repo = 'rafi/awesome-vim-colorschemes'
