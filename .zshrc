@@ -101,7 +101,7 @@ alias br='bin/rails'
 # ruby
 alias rubyw='ruby -W'
 alias irbw='irb -W'
-alias irbm='RBENV_VERSION=3.0.0 ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
+alias irbm='RBENV_VERSION=3.1.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
 
 
 ### Added by Zinit's installer
