@@ -79,7 +79,7 @@ set tabstop=2 " 画面上でタブ文字が占める幅
 set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
-set shiftwidth=2 " smartindentで増減する幅
+set shiftwidth=2 " smartindentで増減する
 
 set laststatus=2 "ステータス行を表示
 set cursorline "カーソル行にラインを表示
@@ -91,6 +91,7 @@ set ignorecase "大文字/小文字の区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set incsearch "インクリメントサーチ
+set hlsearch
 
 " rg があれば vimgrep の代わりに使う
 if executable('rg')
@@ -129,7 +130,9 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-nnoremap <Esc><Esc> :nohlsearch<CR>
+"nnoremap <Esc><Esc> :nohlsearch<CR>
+" スペースを挿入
+nnoremap <C-Space> i<Space><Esc><Right>
 
 " vim-anzu
 nmap n <Plug>(anzu-n-with-echo)
@@ -138,7 +141,9 @@ nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
 
 " clear status
-nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+"nmap <Esc><Esc> <Plug>(anzu-clear-search-status):nohlsearch<CR>
+nnoremap <silent> <Plug>(nohlsearch) :nohlsearch<CR>
+nmap <Esc><ESc> <Plug>(anzu-clear-search-status)<Plug>(nohlsearch)
 
 " statusline
 set statusline=%{anzu#search_status()}
@@ -253,6 +258,8 @@ set undolevels=5000
 " Denite
 MyAutocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
+  call deoplete#custom#buffer_option('auto_complete', v:false)
+  imap <silent><buffer> <Esc> <Plug>(denite_filter_quit)
   inoremap <silent><buffer> <Down> <Esc>
       \:call denite#move_to_parent()<CR>
       \:call cursor(line('.')+1,0)<CR>
@@ -264,9 +271,89 @@ function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <CR> <Esc>
       \:call denite#move_to_parent()<CR>
       \<CR>
+  inoremap <silent><buffer> <C-j> <Esc>
+      \:call denite#move_to_parent()<CR>
+      \:call cursor(line('.')+1,0)<CR>
+      \:call denite#move_to_filter()<CR>A
+  inoremap <silent><buffer> <C-k> <Esc>
+      \:call denite#move_to_parent()<CR>
+      \:call cursor(line('.')-1,0)<CR>
+      \:call denite#move_to_filter()<CR>A
+  inoremap <silent><buffer> <C-CR> <Esc>
+      \:call denite#move_to_parent()<CR>
+      \<CR>
+  inoremap <silent><buffer> <C-m> <Esc>
+      \:call denite#move_to_parent()<CR>
+      \<CR>
 endfunction
 
-command! DeniteCtrlp Denite file/rec -start-filter -default-action=tabswitch
+" Define mappings
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+
+"command! DeniteCtrlp Denite file/rec -start-filter -default-action=tabswitch
+"command! DeniteGrep Denite grep -start-filter -default-action=tabswitch
+command! -nargs=* -complete=customlist,denite#helper#complete
+\    DeniteCtrlp Denite file/rec -start-filter -default-action=tabswitch <args>
+command! -nargs=* -complete=customlist,denite#helper#complete
+\    DeniteGrep Denite grep -start-filter -default-action=tabswitch <args>
+
+command! DeniteQuickRunConfig :Denite quickrun_config -buffer-name=quickrun_config
+nnoremap <silent> <Space>qr :DeniteQuickRunConfig<CR>
+
+" ファイルの表示履歴一覧
+nnoremap <Space>dfo   :Denite file/old<CR>
+" プロジェクト直下のファイル一覧を表示する + 新規ファイル作成
+nnoremap <Space>dff   :DeniteProjectDir file/rec file:new<CR>
+" Grep する
+nnoremap <Space>dgr   :DeniteGrep<CR>
+" 最後に開いた Denite を開き直す
+nnoremap <Space>drm   :Denite -resume<CR>
+
+" :Denite のデフォルトの設定
+let s:denite_default_options = {}
+
+" 絞り込んだワードをハイライトする
+call extend(s:denite_default_options, {
+\    'highlight_matched_char': 'None',
+\    'highlight_matched_range': 'Search',
+\    'match_highlight': v:true,
+\})
+
+" denite を上に持っていく
+call extend(s:denite_default_options, {
+\    'direction': "top",
+\    'filter_split_direction': "top",
+\})
+
+" フィルタのプロンプトを設定
+call extend(s:denite_default_options, {
+\    'prompt': '> ',
+\})
+
+" デフォルトで絞り込みウィンドウを開く
+call extend(s:denite_default_options, {
+\    'start_filter': v:true,
+\})
+
+call denite#custom#option('default', s:denite_default_options)
+
+
+" denite-quickrun_config の並び順を単語順にする
+call denite#custom#source('quickrun_config', 'sorters', ['sorter/word'])
 
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
@@ -291,10 +378,6 @@ nnoremap <silent> <C-k> <Up>dd
 " indentline"
 let g:indentLine_color_term =239
 let g:indentLine_char = '¦'
-
-" カラースキーム
-colorscheme iceberg
-set bg=dark
 
 "previm
 let g:previm_open_cmd = 'open -a Google\ Chrome'
@@ -359,19 +442,16 @@ function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-" Define mappings
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
-endfunction
+
+" カラースキーマ
+"set bg=dark
+"colorscheme iceberg
+" Vim の起動後にフックする
+"MyAutocmd VimEnter * colorscheme iceberg
+"MyAutocmd VimEnter * set bg=dark
+" Vim の起動中だけ処理を呼ぶ
+if has('vim_starting')
+  colorscheme iceberg
+  set bg=dark
+endif
+

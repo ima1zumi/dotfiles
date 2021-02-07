@@ -123,3 +123,4 @@ zinit load "b4b4r07/enhancd"
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 zinit light zsh-users/zsh-autosuggestions
+export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"

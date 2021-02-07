@@ -89,8 +89,20 @@ repo = 'rhysd/vim-textobj-ruby'
 [[plugins]] # ハイライト
 repo = 'sheerun/vim-polyglot'
 
-[[plugins]] # solargraph
-repo = 'neoclide/coc.nvim'
+#[[plugins]] # solargraph
+#repo = 'neoclide/coc.nvim'
 
 [[plugins]] # カラースキーマを入れる
 repo = 'rafi/awesome-vim-colorschemes'
+
+[[plugins]] # アスタリスクで単語下を検索
+repo = 'haya14busa/vim-asterisk'
+
+[[plugins]] # QuickRun setting
+repo = 'osyo-manga/denite-quickrun_config'
+
+[[plugins]] # sqlUtilities
+repo = 'vim-scripts/Align'
+
+[[plugins]] # sql
+repo = 'vim-scripts/SQLUtilities'
