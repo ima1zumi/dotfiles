@@ -89,7 +89,7 @@ repo = 'rhysd/vim-textobj-ruby'
 [[plugins]] # ハイライト
 repo = 'sheerun/vim-polyglot'
 
-#[[plugins]] # solargraph
+#[[plugins]] # LSP
 #repo = 'neoclide/coc.nvim'
 
 [[plugins]] # カラースキーマを入れる
