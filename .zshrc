@@ -15,6 +15,13 @@ bindkey -M viins "^m" my_globalias
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+# nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# qmk_firmware
+export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
+
 # history
 # setopt histignorealldups
 HISTSIZE=100000
@@ -37,12 +44,6 @@ colors
 # 補完機能を有効にする
 autoload -Uz compinit
 compinit
-
-# nvm
-# node.js重いので一旦消す
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #zsh-autosuggestions
 #https://github.com/zsh-users/zsh-autosuggestions
@@ -123,4 +124,3 @@ zinit load "b4b4r07/enhancd"
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 zinit light zsh-users/zsh-autosuggestions
-export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
