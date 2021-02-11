@@ -106,3 +106,9 @@ repo = 'vim-scripts/Align'
 
 [[plugins]] # sql
 repo = 'vim-scripts/SQLUtilities'
+
+[[plugins]] #rails
+repo = 'tpope/vim-rails'
+
+[[plugins]]
+repo = 'vim-jp/vital.vim'
