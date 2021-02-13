@@ -110,5 +110,8 @@ repo = 'vim-scripts/SQLUtilities'
 [[plugins]] #rails
 repo = 'tpope/vim-rails'
 
-[[plugins]]
+[[plugins]] # Scrapbox tool が依存している
 repo = 'vim-jp/vital.vim'
+
+[[plugins]] # Filetype=Scrapbox
+repo = 'syusui-s/scrapbox-vim'

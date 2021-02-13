@@ -92,6 +92,7 @@ set smartcase "検索文字列に大文字が含まれている場合は区別�
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set incsearch "インクリメントサーチ
 set hlsearch
+filetype plugin on
 
 " rg があれば vimgrep の代わりに使う
 if executable('rg')
@@ -381,6 +382,41 @@ let g:indentLine_char = '¦'
 
 "previm
 let g:previm_open_cmd = 'open -a Google\ Chrome'
+
+"Scrapbox
+"" 必須プラグイン
+"  - https://github.com/vim-jp/vital.vim
+"
+" 概要
+"   :ScrapboxOpenBuffer で現在のバッファを scrapbox で開く
+"   1行目がタイトルでそれ以降が本文になる
+"
+" 設定
+"   `g:scrapbox_project_name` にプロジェクト名を設定する
+
+let g:scrapbox_project_name = "ima1zumi"
+
+let s:File = vital#vital#new().import("System.File")
+let s:URI = vital#vital#new().import("Web.URI")
+
+function! s:scrapbox_open(project_name, title, body)
+    let title = s:URI.encode(a:title)
+    let body = s:URI.encode(a:body)
+    let url = printf('https://scrapbox.io/%s/%s?body=%s', a:project_name, title, body)
+    echo url
+    call s:File.open(url)
+endfunction
+
+function! s:scrapbox_open_buffer(project_name, buffer)
+    let title = a:buffer->split("\n")[0]
+    let body = a:buffer->split("\n")[1:]->join("\n")
+    call s:scrapbox_open(a:project_name, title, body)
+endfunction
+
+"command! ScrapboxOpenBuffer
+"    \ call s:scrapbox_open_buffer(g:scrapbox_project_name, getline(1, "$")->join("\n"))
+command! -range=% ScrapboxOpenBuffer
+	\ call s:scrapbox_open_buffer(g:scrapbox_project_name, getline(<line1>, <line2>)->join("\n"))
 
 "lightline
 let g:lightline = {
