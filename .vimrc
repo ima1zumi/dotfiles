@@ -269,9 +269,9 @@ function! s:denite_filter_my_settings() abort
       \:call denite#move_to_parent()<CR>
       \:call cursor(line('.')-1,0)<CR>
       \:call denite#move_to_filter()<CR>A
-  imap <silent><buffer> <CR> <Esc>
-      \:call denite#move_to_parent()<CR>
-      \<CR>
+"  imap <silent><buffer> <CR> <Esc>
+"      \:call denite#move_to_parent()<CR>
+"      \<CR>
   inoremap <silent><buffer> <C-j> <Esc>
       \:call denite#move_to_parent()<CR>
       \:call cursor(line('.')+1,0)<CR>
