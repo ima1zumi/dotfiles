@@ -358,6 +358,12 @@ call denite#custom#source('quickrun_config', 'sorters', ['sorter/word'])
 
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
+" deoplete 対象外
+MyAutocmd FileType markdown
+\ call deoplete#custom#buffer_option('auto_complete', v:false)
+MyAutocmd FileType scrapbox
+\ call deoplete#custom#buffer_option('auto_complete', v:false)
+
 
 " CUI で起動した時にインサートモードのカーソルを | にする
 if has('vim_starting') && !has("gui_running")
