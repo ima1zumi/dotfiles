@@ -81,6 +81,8 @@ alias gloa='git log --oneline --graph --all'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gp='git push'
+alias gst='git stash'
+alias gstp='git stash pop'
 alias gpl='git pull --rebase'
 function gplod() {
   defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
