@@ -150,8 +150,6 @@ nmap <Esc><ESc> <Plug>(anzu-clear-search-status)<Plug>(nohlsearch)
 set statusline=%{anzu#search_status()}
 
 "#####NERDTree#####
-"#####NERDTree#####
-"#####NERDTree#####
 "C-nでNERDTree起動
 nnoremap <C-n> :NERDTreeToggle<CR>
 "ファイル未指定で起動した時に自動でNERDTreeを起動
@@ -269,9 +267,6 @@ function! s:denite_filter_my_settings() abort
       \:call denite#move_to_parent()<CR>
       \:call cursor(line('.')-1,0)<CR>
       \:call denite#move_to_filter()<CR>A
-"  imap <silent><buffer> <CR> <Esc>
-"      \:call denite#move_to_parent()<CR>
-"      \<CR>
   inoremap <silent><buffer> <C-j> <Esc>
       \:call denite#move_to_parent()<CR>
       \:call cursor(line('.')+1,0)<CR>
@@ -305,8 +300,6 @@ function! s:denite_my_settings() abort
   \ denite#do_map('toggle_select').'j'
 endfunction
 
-"command! DeniteCtrlp Denite file/rec -start-filter -default-action=tabswitch
-"command! DeniteGrep Denite grep -start-filter -default-action=tabswitch
 command! -nargs=* -complete=customlist,denite#helper#complete
 \    DeniteCtrlp Denite file/rec -start-filter -default-action=tabswitch <args>
 command! -nargs=* -complete=customlist,denite#helper#complete
@@ -484,13 +477,7 @@ function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-
 " カラースキーマ
-"set bg=dark
-"colorscheme iceberg
-" Vim の起動後にフックする
-"MyAutocmd VimEnter * colorscheme iceberg
-"MyAutocmd VimEnter * set bg=dark
 " Vim の起動中だけ処理を呼ぶ
 if has('vim_starting')
   colorscheme iceberg
