@@ -417,6 +417,19 @@ endfunction
 command! -range=% ScrapboxOpenBuffer
 	\ call s:scrapbox_open_buffer(g:scrapbox_project_name, getline(<line1>, <line2>)->join("\n"))
 
+" ft=scrapbox で buffer を開く
+function! s:scrapbox_edit(cmd)
+    execute a:cmd
+    setlocal filetype=scrapbox
+endfunction
+
+command! -complete=command -nargs=1
+\    ScrapboxEditOpen
+\    call s:scrapbox_edit(<q-args>)
+
+" 編集画面を新しいタブでシュッと開く
+nnoremap <silent> <Space>ss ScrapboxEditOpen tabnew<CR>
+
 "lightline
 let g:lightline = {
         \ 'colorscheme': 'wombat',
