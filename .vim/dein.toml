@@ -113,3 +113,6 @@ repo = 'vim-jp/vital.vim'
 
 [[plugins]] # Filetype=Scrapbox
 repo = 'syusui-s/scrapbox-vim'
+
+[[plugins]] # カラースキーマ
+repo = 'ghifarit53/tokyonight-vim'
