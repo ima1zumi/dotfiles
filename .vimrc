@@ -1,3 +1,7 @@
+" 先頭に記述する
+" polyglot の markdown を無効にする
+let g:polyglot_disabled = ['markdown']
+
 " https://knowledge.sakura.ad.jp/23248/
 " dein.vim settings {{{
 " install dir {{{
