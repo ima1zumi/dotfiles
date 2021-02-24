@@ -434,9 +434,15 @@ command! -complete=command -nargs=1
 " 編集画面を新しいタブでシュッと開く
 nnoremap <silent> <Space>ss ScrapboxEditOpen tabnew<CR>
 
+" カラースキーマ
+colorscheme iceberg
+if has('termguicolors') && $TERM_PROGRAM ==# 'iTerm.app'
+  set termguicolors
+end
+
 "lightline
 let g:lightline = {
-        \ 'colorscheme': 'wombat',
+        \ 'colorscheme': 'iceberg',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -493,17 +499,4 @@ endfunction
 function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
-
-" カラースキーマ
-" Vim の起動中だけ処理を呼ぶ
-if has('vim_starting')
-  colorscheme iceberg
-  set bg=dark
-"  set termguicolors
-"  
-"  let g:tokyonight_style = 'night' " available: night, storm
-"  let g:tokyonight_enable_italic = 1
-"  
-"  colorscheme tokyonight
-endif
 
