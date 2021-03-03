@@ -436,28 +436,46 @@ nnoremap <silent> <Space>ss ScrapboxEditOpen tabnew<CR>
 
 " カラースキーマ
 colorscheme iceberg
+" iTermとTerminal.appで分岐
 if has('termguicolors') && $TERM_PROGRAM ==# 'iTerm.app'
   set termguicolors
+  "lightline
+  let g:lightline = {
+          \ 'colorscheme': 'iceberg',
+          \ 'mode_map': {'c': 'NORMAL'},
+          \ 'active': {
+          \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+          \ },
+          \ 'component_function': {
+          \   'modified': 'LightlineModified',
+          \   'readonly': 'LightlineReadonly',
+          \   'fugitive': 'LightlineFugitive',
+          \   'filename': 'LightlineFilename',
+          \   'fileformat': 'LightlineFileformat',
+          \   'filetype': 'LightlineFiletype',
+          \   'fileencoding': 'LightlineFileencoding',
+          \   'mode': 'LightlineMode'
+          \ }
+          \ }
+else
+  let g:lightline = {
+          \ 'colorscheme': 'wombat',
+          \ 'mode_map': {'c': 'NORMAL'},
+          \ 'active': {
+          \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+          \ },
+          \ 'component_function': {
+          \   'modified': 'LightlineModified',
+          \   'readonly': 'LightlineReadonly',
+          \   'fugitive': 'LightlineFugitive',
+          \   'filename': 'LightlineFilename',
+          \   'fileformat': 'LightlineFileformat',
+          \   'filetype': 'LightlineFiletype',
+          \   'fileencoding': 'LightlineFileencoding',
+          \   'mode': 'LightlineMode'
+          \ }
+          \ }
 end
-
-"lightline
-let g:lightline = {
-        \ 'colorscheme': 'iceberg',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'LightlineModified',
-        \   'readonly': 'LightlineReadonly',
-        \   'fugitive': 'LightlineFugitive',
-        \   'filename': 'LightlineFilename',
-        \   'fileformat': 'LightlineFileformat',
-        \   'filetype': 'LightlineFiletype',
-        \   'fileencoding': 'LightlineFileencoding',
-        \   'mode': 'LightlineMode'
-        \ }
-        \ }
 
 function! LightlineModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
