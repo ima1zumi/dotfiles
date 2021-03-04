@@ -116,3 +116,6 @@ repo = 'syusui-s/scrapbox-vim'
 
 [[plugins]] # カラースキーマ
 repo = 'ghifarit53/tokyonight-vim'
+
+[[plugins]] # ハイライト
+repo = 't9md/vim-quickhl'
