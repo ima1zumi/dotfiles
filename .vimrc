@@ -378,13 +378,6 @@ if has('vim_starting') && !has("gui_running")
     let &t_SR .= "\e[4 q"
 endif
 
-" カーソル位置の上に改行を挿入
-" カーソル位置のテキストを下に動かすような挙動
-nnoremap <silent> <C-j> :call append(line(".")-1, "")<CR>
-
-" カーソル位置の上の行を削除
-" カーソル位置を上に動かすような挙動
-nnoremap <silent> <C-k> <Up>dd
 " indentline"
 let g:indentLine_color_term =239
 let g:indentLine_char = '¦'
