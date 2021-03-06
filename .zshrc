@@ -106,6 +106,12 @@ alias rubyw='ruby -W'
 alias irbw='irb -W'
 alias irbm='RBENV_VERSION=3.1.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
 
+# docker-compose
+alias dcd='docker-compose down'
+alias dcdv='docker-compose down -v'
+alias dcu='docker-compose up'
+alias dcr='docker-compose run --rm'
+alias dce='docker-compose exec'
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
