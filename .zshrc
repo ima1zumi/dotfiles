@@ -37,7 +37,7 @@ HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
 setopt share_history
 
 # EDITOR setting
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Ctrl+D防止
 setopt IGNOREEOF
@@ -56,11 +56,11 @@ compinit
 # source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # export PATH=/usr/local/Cellar/vim/8.2.1600/bin:$PATH
 
-# vim
-alias v='vim'
-alias vz='vim ~/.zshrc'
-alias vv='vim ~/.vimrc'
-alias vd='vim ~/.vim/dein.toml'
+# nvim
+alias v='nvim'
+alias vz='nvim ~/.zshrc'
+alias vv='nvim ~/.config/nvim/init.vim'
+alias vd='nvim ~/.config/nvim/dein.toml'
 
 # source
 alias sz='source ~/.zshrc'
