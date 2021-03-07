@@ -494,9 +494,13 @@ command! -range=% Kusa call s:kusa(<line1>, <line2>)
 
 " カラースキーマ
 colorscheme iceberg
-" iTermとTerminal.appで分岐
-if has('termguicolors') && $TERM_PROGRAM ==# 'iTerm.app'
+" Terminal.app以外のtermguicolors対応端末での設定
+if has('termguicolors') && $TERM_PROGRAM !=# 'Terminal.app'
   set termguicolors
+  " Vimではset bg=darkを設定しないとlightlineの表示がおかしくなる
+  if !has('nvim')
+    set bg=dark
+  endif
   "lightline
   let g:lightline = {
           \ 'colorscheme': 'iceberg',
@@ -515,6 +519,7 @@ if has('termguicolors') && $TERM_PROGRAM ==# 'iTerm.app'
           \   'mode': 'LightlineMode'
           \ }
           \ }
+" Terminal.app
 else
   let g:lightline = {
           \ 'colorscheme': 'wombat',
