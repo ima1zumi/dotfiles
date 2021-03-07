@@ -25,6 +25,9 @@ export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 # rustup
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# nvim
+export XDG_CONFIG_HOME=~/.config
+
 # history
 # setopt histignorealldups
 HISTSIZE=100000
