@@ -22,7 +22,6 @@ repo = 'thinca/vim-quickrun'
 [[plugins]] # nerdtree に git のマークを出す
 repo = 'Xuyuanp/nerdtree-git-plugin'
 
-
 [[plugins]] # 検索
 repo = 'ctrlpvim/ctrlp.vim'
 
