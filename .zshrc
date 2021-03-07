@@ -94,6 +94,10 @@ function gplod() {
   defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
   git pull --rebase origin $defaultbranch
 }
+function gplud() {
+  defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
+  git pull --rebase upstream $defaultbranch
+}
 
 # gh command
 alias ghprc='gh pr create'
