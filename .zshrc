@@ -22,6 +22,9 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # qmk_firmware
 export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 
+# rustup
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # history
 # setopt histignorealldups
 HISTSIZE=100000
