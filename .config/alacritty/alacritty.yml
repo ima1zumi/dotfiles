@@ -5,7 +5,9 @@ env:
 shell:
   program: /usr/local/bin/zsh
   args:
-    - --login
+    - -l
+    - -c
+    - "tmux attach || tmux"
 
 window:
   decolations: buttonless # mac only
