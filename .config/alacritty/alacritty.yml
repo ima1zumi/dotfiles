@@ -7,7 +7,7 @@ shell:
   args:
     - -l
     - -c
-    - "tmux attach || tmux"
+    - "tmux -2"
 
 window:
   decolations: buttonless # mac only
