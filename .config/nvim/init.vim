@@ -494,26 +494,26 @@ command! -range=% Kusa call s:kusa(<line1>, <line2>)
 
 " カラースキーマ
 colorscheme iceberg
-" 背景透過
-" colorscheme の後に書く
-highlight Normal ctermbg=NONE guibg=NONE
-highlight NonText ctermbg=NONE guibg=NONE
-highlight SpecialKey ctermbg=NONE guibg=NONE
-highlight EndOfBuffer ctermbg=NONE guibg=NONE
-" お好み
-"highlight LineNr ctermbg=NONE guibg=NONE
-"highlight SignColumn ctermbg=NONE guibg=NONE
-"highlight VertSplit ctermbg=NONE guibg=NONE
 " Terminal.app以外のtermguicolors対応端末での設定
-if has('termguicolors') && $TERM_PROGRAM !=# 'Terminal.app'
+if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   set termguicolors
   " tmux
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   " Vimではset bg=darkを設定しないとlightlineの表示がおかしくなる
   if !has('nvim')
     set bg=dark
   endif
+  " 背景透過
+  " colorscheme の後に書く
+  highlight Normal ctermbg=NONE guibg=NONE
+  highlight NonText ctermbg=NONE guibg=NONE
+  highlight SpecialKey ctermbg=NONE guibg=NONE
+  highlight EndOfBuffer ctermbg=NONE guibg=NONE
+  " お好み
+  "highlight LineNr ctermbg=NONE guibg=NONE
+  "highlight SignColumn ctermbg=NONE guibg=NONE
+  "highlight VertSplit ctermbg=NONE guibg=NONE
   "lightline
   let g:lightline = {
           \ 'colorscheme': 'iceberg',
