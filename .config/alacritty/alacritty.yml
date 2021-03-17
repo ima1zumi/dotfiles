@@ -6,8 +6,6 @@ shell:
   program: /usr/local/bin/zsh
   args:
     - -l
-    - -c
-    - "tmux -2"
 
 window:
   decolations: buttonless # mac only

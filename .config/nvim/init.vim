@@ -498,8 +498,8 @@ colorscheme iceberg
 if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   set termguicolors
   " tmux
-  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   " Vimではset bg=darkを設定しないとlightlineの表示がおかしくなる
   if !has('nvim')
     set bg=dark
