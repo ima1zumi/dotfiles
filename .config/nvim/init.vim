@@ -196,6 +196,8 @@ let g:quickrun_config = {
 \    "runner" : "job",
 \    "outputter/buffer/split" : ":botright 8sp",
 \    "outputter/setbufline/split" : ":botright 8sp",
+\    "hook/extend_config/enable" : 1,
+\    "hook/extend_config/force" : 1,
 \  },
 \  "ruby/minitest" : {
 \    "command" : "rails",
@@ -211,6 +213,15 @@ let g:quickrun_config = {
 \    "errorformat" : "%f:%l: %tarning: %m, %E%.%#:in `load': %f:%l:%m, %E%f:%l:in `%*[^']': %m, %-Z     # %f:%l:%.%#, %E  %\\d%\\+)%.%#, %C     %m, %-G%.%#",
 \  },
 \}
+
+"vim-quickrun-neovim-job
+if has('nvim')
+  " Use 'neovim_job' in Neovim
+  let g:quickrun_config._.runner = 'neovim_job'
+elseif exists('*ch_close_in')
+  " Use 'job' in Vim which support job feature
+  let g:quickrun_config._.runner = 'job'
+endif
 
 " QuickRun
 nnoremap <Space>r :QuickRun<CR>
@@ -451,29 +462,35 @@ function! Grurema_target()
 endfunction
 
 let s:config = {
-\  "rd" : {
-\    "type" : 'rd/bitclust_htmlfile',
-\  },
-\  "rd/_" : {
-\    "command" : "bitclust",
-\    "outputter" : "browser",
-\    "exec"    : "%c htmlfile %s:p %{ Grurema_target() } %o",
-\  },
-\  "rd/bitclust_htmlfile" : {
-\    "cmdopt"    : "--ruby=latest",
-\  },
-\  "rd/bitclust_htmlfile 3.0.0" : {
-\    "cmdopt"    : "--ruby=3.0.0",
-\  },
-\  "rd/bitclust_htmlfile 2.7.0" : {
-\    "cmdopt"    : "--ruby=2.7.0",
-\  },
-\  "rd/bitclust_htmlfile 2.6.0" : {
-\    "cmdopt"    : "--ruby=2.6.0",
-\  },
-\  "rd/bitclust_htmlfile 2.5.0" : {
-\    "cmdopt"    : "--ruby=2.5.0",
-\  },
+\    "rd" : {
+\        "type" : 'rd/bitclust_htmlfile',
+\    },
+\    "rd/_" : {
+\        "command" : "bitclust",
+\        "outputter" : "browser",
+\        "exec"    : "%c htmlfile %s:p %{ Grurema_target() } %o",
+\    },
+\    "rd/bitclust_htmlfile" : {
+\        "cmdopt"    : "--ruby=latest",
+\    },
+\    "rd/bitclust_htmlfile 3.0.0" : {
+\        "cmdopt"    : "--ruby=3.0.0",
+\    },
+\    "rd/bitclust_htmlfile 2.7.0" : {
+\        "cmdopt"    : "--ruby=2.7.0",
+\    },
+\    "rd/bitclust_htmlfile 2.6.0" : {
+\        "cmdopt"    : "--ruby=2.6.0",
+\    },
+\    "rd/bitclust_htmlfile 2.5.0" : {
+\        "cmdopt"    : "--ruby=2.5.0",
+\    },
+\    "rd/bitclust_htmlfile 2.0.0" : {
+\        "cmdopt"    : "--ruby=2.0.0",
+\    },
+\    "rd/bitclust_htmlfile 1.9.0" : {
+\        "cmdopt"    : "--ruby=1.9.0",
+\    },
 \}
 
 call extend(g:quickrun_config, s:config)

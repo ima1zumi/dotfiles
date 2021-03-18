@@ -118,3 +118,9 @@ repo = 'ghifarit53/tokyonight-vim'
 
 [[plugins]] # ハイライト
 repo = 't9md/vim-quickhl'
+
+[[plugins]] #quickrun job
+repo = 'lambdalisue/vim-quickrun-neovim-job'
+
+[[plugins]] # QuickRunの設定共通
+repo = 'osyo-manga/shabadou.vim'
