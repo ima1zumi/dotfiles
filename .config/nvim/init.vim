@@ -117,6 +117,7 @@ hi SpecialKey ctermbg=NONE ctermfg=59 guibg=NONE guifg=NONE
 " encoding
 set fileformats=unix,dos,mac
 set fileencodings=utf-8,sjis
+lang en_US.UTF-8
 
 "#####keybind#####
 "jjをEscに
