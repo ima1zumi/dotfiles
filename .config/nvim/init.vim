@@ -158,7 +158,7 @@ set statusline=%{anzu#search_status()}
 "C-nでNERDTree起動
 nnoremap <C-n> :NERDTreeToggle<CR>
 "ファイル未指定で起動した時に自動でNERDTreeを起動
-MyAutocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"MyAutocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "NERDTreeだけのこったら消す
 MyAutocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "dotfilesを表示
