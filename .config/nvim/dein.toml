@@ -124,3 +124,6 @@ repo = 'lambdalisue/vim-quickrun-neovim-job'
 
 [[plugins]] # QuickRunの設定共通
 repo = 'osyo-manga/shabadou.vim'
+
+[[plugins]] # ファイラ
+repo = 'Shougo/defx.nvim'
