@@ -385,6 +385,7 @@ call defx#custom#option('_', {
       \ 'show_ignored_files': 1,
       \ 'buffer_name': 'explorer',
       \ 'toggle': 1,
+      \ 'columns': 'indent:git:icons:filename:mark',
       \ })
 " 自動更新
 autocmd BufWritePost * call defx#redraw()
@@ -457,6 +458,9 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> cd
         \ defx#do_action('change_vim_cwd')
 endfunction
+
+nnoremap <Space>dfx :Defx<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " CUI で起動した時にインサートモードのカーソルを | にする
 if has('vim_starting') && !has("gui_running")

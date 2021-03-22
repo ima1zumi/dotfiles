@@ -127,3 +127,12 @@ repo = 'osyo-manga/shabadou.vim'
 
 [[plugins]] # ファイラ
 repo = 'Shougo/defx.nvim'
+
+[[plugins]] # defxにgit差分を表示
+repo = 'kristijanhusak/defx-git'
+
+[[plugins]] # defxアイコン
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]] # defxアイコン
+repo = 'kristijanhusak/defx-icons'
