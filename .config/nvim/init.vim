@@ -90,6 +90,11 @@ set cursorline "カーソル行にラインを表示
 set wildmenu "コマンドライン補完
 set nocompatible "viとの互換性を無効にする
 
+" v:oldfiles で保存するファイル数を設定
+" vimrc に書いておく必要がある
+set viminfo+='10000
+set viminfo-='100     " デフォルトの設定を削除しておかないと反映されない
+
 "#####検索設定#####
 set ignorecase "大文字/小文字の区別なく検索する
 set smartcase "検索文字列に大文字が含まれている場合は区別して検索する
