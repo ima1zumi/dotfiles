@@ -262,6 +262,20 @@ function! s:openpre_open() abort
 endfunction
 nnoremap <F5> :call <SID>openpre_open()<CR>
 
+" git 現在開いているファイルの master ブランチ時点でのファイルを Vim で開く
+function! s:git_show(branch, path, filetype)
+    let branch = a:branch == "" ? "master" : a:branch
+    let cmd = printf("git show %s:%s", branch, a:path)
+    new
+    execute "read!" cmd
+    let &filetype = a:filetype
+    " 一番上の行に移動して空行を削除
+    normal! ggdd
+endfunction
+
+command! -nargs=* GitShow
+\    call s:git_show(<q-args>, "./" . expand("%:."), &filetype)
+
 " undo
 function! s:mkdir(dir)
     if !isdirectory(a:dir)
