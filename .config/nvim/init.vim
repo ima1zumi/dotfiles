@@ -479,6 +479,9 @@ function! s:defx_my_settings() abort
 endfunction
 
 nnoremap <Space>dfx :Defx<CR>
+" 開いているファイルから検索
+nnoremap <Space>dfxe :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " CUI で起動した時にインサートモードのカーソルを | にする
