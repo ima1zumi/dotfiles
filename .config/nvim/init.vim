@@ -480,7 +480,7 @@ endfunction
 
 nnoremap <Space>dfx :Defx<CR>
 " 開いているファイルから検索
-nnoremap <Space>dfxe :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+" nnoremap <Space>dfxe :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
