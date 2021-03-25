@@ -195,6 +195,17 @@ command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 " キーマッピング
 nnoremap <Space>ca :CopyAbsolutePath<CR>
 
+" ale
+let g:ale_fixers = {'ruby': 'rubocop'}
+let g:ale_fix_on_save = 1
+
+" Only run linters named in ale_linters settings.
+let g:ale_linters_explicit = 1
+
+let g:ale_completion_enabled = 0
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_warning_str = 'W'
 
 " Quickrun シュッとするやつ
 let g:quickrun_config = {
