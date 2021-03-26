@@ -12,8 +12,8 @@ bindkey -M emacs "^m" my_globalias
 bindkey -M viins "^m" my_globalias
 
 # ruby rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -27,6 +27,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # nvim
 export XDG_CONFIG_HOME=~/.config
+
+# asdf
+. $HOME/.asdf/asdf.sh
 
 # history
 # setopt histignorealldups
@@ -48,6 +51,8 @@ colors
 
 # 補完
 # 補完機能を有効にする
+# # append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit
 compinit
 
@@ -116,7 +121,7 @@ alias br='bin/rails'
 # ruby
 alias rubyw='ruby -W'
 alias irbw='irb -W'
-alias irbm='RBENV_VERSION=3.1.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
+alias irbm='ASDF_RUBY_VERSION=3.1.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
 
 # docker-compose
 alias dcd='docker-compose down'
