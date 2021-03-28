@@ -195,6 +195,18 @@ command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 " キーマッピング
 nnoremap <Space>ca :CopyAbsolutePath<CR>
 
+" binary mode
+"バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
+augroup BinaryXXD
+  autocmd!
+  autocmd BufReadPost * if &binary | silent %!xxd -g 1
+  autocmd BufReadPost * set ft=xxd | endif
+  autocmd BufWritePre * if &binary | %!xxd -r
+  autocmd BufWritePre * endif
+  autocmd BufWritePost * if &binary | silent %!xxd -g 1
+  autocmd BufWritePost * set nomod | endif
+augroup END
+
 " ale
 let g:ale_fixers = {'ruby': 'rubocop'}
 let g:ale_fix_on_save = 1
@@ -361,7 +373,7 @@ command! DeniteQuickRunConfig :Denite quickrun_config -buffer-name=quickrun_conf
 nnoremap <silent> <Space>qr :DeniteQuickRunConfig<CR>
 
 " ファイルの表示履歴一覧
-nnoremap <Space>dfo   :Denite file/old<CR>
+nnoremap <Space>dfo   :Denite file/old -no-start-filter<CR>
 " プロジェクト直下のファイル一覧を表示する + 新規ファイル作成
 nnoremap <Space>dff   :DeniteProjectDir file/rec file:new<CR>
 " Grep する
@@ -442,6 +454,8 @@ function! s:defx_my_settings() abort
         \ defx#do_action('preview')
   nnoremap <silent><buffer><expr> o
         \ defx#do_action('open_tree', 'toggle')
+  nnoremap <silent><buffer><expr> O
+        \ defx#do_action('open_tree', 'recursive')
   nnoremap <silent><buffer><expr> K
         \ defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N
@@ -465,7 +479,7 @@ function! s:defx_my_settings() abort
         \ defx#do_action('yank_path')
   nnoremap <silent><buffer><expr> .
         \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
+  nnoremap <silent><buffer><expr> R
         \ defx#do_action('repeat')
   nnoremap <silent><buffer><expr> h
         \ defx#do_action('cd', ['..'])
@@ -537,15 +551,13 @@ function! s:scrapbox_open(project_name, title, body)
 endfunction
 
 function! s:scrapbox_open_buffer(project_name, buffer)
-    let title = a:buffer->split("\n")[0]
-    let body = a:buffer->split("\n")[1:]->join("\n")
-    call s:scrapbox_open(a:project_name, title, body)
+  let title = split(a:buffer, "\n")[0]
+  let body = join(split(a:buffer, "\n")[1:], "\n")
+  call s:scrapbox_open(a:project_name, title, body)
 endfunction
 
-"command! ScrapboxOpenBuffer
-"    \ call s:scrapbox_open_buffer(g:scrapbox_project_name, getline(1, "$")->join("\n"))
 command! -range=% ScrapboxOpenBuffer
-	\ call s:scrapbox_open_buffer(g:scrapbox_project_name, getline(<line1>, <line2>)->join("\n"))
+  \ call s:scrapbox_open_buffer(g:scrapbox_project_name, join(getline(<line1>, <line2>), "\n"))
 
 " ft=scrapbox で buffer を開く
 function! s:scrapbox_edit(cmd)
