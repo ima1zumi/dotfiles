@@ -551,15 +551,13 @@ function! s:scrapbox_open(project_name, title, body)
 endfunction
 
 function! s:scrapbox_open_buffer(project_name, buffer)
-    let title = a:buffer->split("\n")[0]
-    let body = a:buffer->split("\n")[1:]->join("\n")
-    call s:scrapbox_open(a:project_name, title, body)
+  let title = split(a:buffer, "\n")[0]
+  let body = join(split(a:buffer, "\n")[1:], "\n")
+  call s:scrapbox_open(a:project_name, title, body)
 endfunction
 
-"command! ScrapboxOpenBuffer
-"    \ call s:scrapbox_open_buffer(g:scrapbox_project_name, getline(1, "$")->join("\n"))
 command! -range=% ScrapboxOpenBuffer
-	\ call s:scrapbox_open_buffer(g:scrapbox_project_name, getline(<line1>, <line2>)->join("\n"))
+  \ call s:scrapbox_open_buffer(g:scrapbox_project_name, join(getline(<line1>, <line2>), "\n"))
 
 " ft=scrapbox で buffer を開く
 function! s:scrapbox_edit(cmd)
