@@ -373,7 +373,7 @@ command! DeniteQuickRunConfig :Denite quickrun_config -buffer-name=quickrun_conf
 nnoremap <silent> <Space>qr :DeniteQuickRunConfig<CR>
 
 " ファイルの表示履歴一覧
-nnoremap <Space>dfo   :Denite file/old<CR>
+nnoremap <Space>dfo   :Denite file/old -no-start-filter<CR>
 " プロジェクト直下のファイル一覧を表示する + 新規ファイル作成
 nnoremap <Space>dff   :DeniteProjectDir file/rec file:new<CR>
 " Grep する
@@ -454,6 +454,8 @@ function! s:defx_my_settings() abort
         \ defx#do_action('preview')
   nnoremap <silent><buffer><expr> o
         \ defx#do_action('open_tree', 'toggle')
+  nnoremap <silent><buffer><expr> O
+        \ defx#do_action('open_tree', 'recursive')
   nnoremap <silent><buffer><expr> K
         \ defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N
@@ -477,7 +479,7 @@ function! s:defx_my_settings() abort
         \ defx#do_action('yank_path')
   nnoremap <silent><buffer><expr> .
         \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
+  nnoremap <silent><buffer><expr> R
         \ defx#do_action('repeat')
   nnoremap <silent><buffer><expr> h
         \ defx#do_action('cd', ['..'])
