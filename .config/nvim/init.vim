@@ -195,6 +195,18 @@ command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 " キーマッピング
 nnoremap <Space>ca :CopyAbsolutePath<CR>
 
+" binary mode
+"バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
+augroup BinaryXXD
+  autocmd!
+  autocmd BufReadPost * if &binary | silent %!xxd -g 1
+  autocmd BufReadPost * set ft=xxd | endif
+  autocmd BufWritePre * if &binary | %!xxd -r
+  autocmd BufWritePre * endif
+  autocmd BufWritePost * if &binary | silent %!xxd -g 1
+  autocmd BufWritePost * set nomod | endif
+augroup END
+
 " ale
 let g:ale_fixers = {'ruby': 'rubocop'}
 let g:ale_fix_on_save = 1
