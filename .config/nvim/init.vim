@@ -178,11 +178,9 @@ set helplang=ja
 
 " 相対パスを取得するコマンド
 command! CopyRelativePath call setreg(v:register, expand("%:p:."))
-" キーマッピング
 nnoremap <Space>cl :CopyRelativePath<CR>
 " 絶対パスを取得するコマンド
 command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
-" キーマッピング
 nnoremap <Space>ca :CopyAbsolutePath<CR>
 
 " binary mode
@@ -196,6 +194,8 @@ augroup BinaryXXD
   autocmd BufWritePost * if &binary | silent %!xxd -g 1
   autocmd BufWritePost * set nomod | endif
 augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " ale
 let g:ale_fixers = {'ruby': 'rubocop'}
@@ -309,6 +309,26 @@ nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
 
 " Denite
+" denite-menu の設定
+let s:menus = {}
+
+" Denite menu:dotfile
+" をすると開くファイルを登録する
+let s:menus.dotfile = {
+    \ 'description': 'Edit your dotfile'
+    \ }
+let s:menus.dotfile.file_candidates = [
+    \ ['init.vim', '~/.config/nvim/init.vim'],
+    \ ['dein.toml', '~/.config/nvim/dein.toml'],
+    \ ['zshrc', '~/.zshrc'],
+    \ ]
+
+" 登録
+call denite#custom#var('menu', 'menus', s:menus)
+
+" 起動
+nnoremap <Space>ll :Denite menu -no-start-filter<CR>
+
 MyAutocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
   call deoplete#custom#buffer_option('auto_complete', v:false)
