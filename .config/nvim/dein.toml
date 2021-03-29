@@ -10,17 +10,11 @@ repo = 'junegunn/fzf.vim'
 [[plugins]] # ヘルプの日本語化
 repo = 'vim-jp/vimdoc-ja'
 
-[[plugins]] # ディレクトリツリーを表示
-repo = 'preservim/nerdtree'
-
 [[plugins]] # git操作
 repo = 'tpope/vim-fugitive'
 
 [[plugins]] # quickrun
 repo = 'thinca/vim-quickrun'
-
-[[plugins]] # nerdtree に git のマークを出す
-repo = 'Xuyuanp/nerdtree-git-plugin'
 
 [[plugins]] # 検索
 repo = 'ctrlpvim/ctrlp.vim'

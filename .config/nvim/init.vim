@@ -159,16 +159,6 @@ nmap <Esc><ESc> <Plug>(anzu-clear-search-status)<Plug>(nohlsearch)
 " statusline
 set statusline=%{anzu#search_status()}
 
-"#####NERDTree#####
-"C-nでNERDTree起動
-nnoremap <C-n> :NERDTreeToggle<CR>
-"ファイル未指定で起動した時に自動でNERDTreeを起動
-"MyAutocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"NERDTreeだけのこったら消す
-MyAutocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"dotfilesを表示
-let NERDTreeShowHidden=1
-
 "BSで削除できるものを指定する
 " indent  : 行頭の空白
 " eol     : 改行
