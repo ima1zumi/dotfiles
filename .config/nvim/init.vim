@@ -436,6 +436,7 @@ call defx#custom#option('_', {
       \ 'split': 'tab',
       \ 'show_ignored_files': 1,
       \ 'buffer_name': 'explorer',
+      \ 'auto_cd': 1,
       \ 'toggle': 1,
       \ 'columns': 'indent:git:icons:filename:mark',
       \ })
