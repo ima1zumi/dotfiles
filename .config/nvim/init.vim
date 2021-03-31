@@ -436,7 +436,6 @@ call defx#custom#option('_', {
       \ 'split': 'tab',
       \ 'show_ignored_files': 1,
       \ 'buffer_name': 'explorer',
-      \ 'auto_cd': 1,
       \ 'toggle': 1,
       \ 'columns': 'indent:git:icons:filename:mark',
       \ })
@@ -516,7 +515,7 @@ endfunction
 
 nnoremap <Space>dfx :Defx<CR>
 " 開いているファイルから検索
-" nnoremap <Space>dfxe :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+nnoremap <Space>dfr :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
