@@ -513,9 +513,8 @@ function! s:defx_my_settings() abort
         \ defx#do_action('change_vim_cwd')
 endfunction
 
-nnoremap <Space>dfx :Defx<CR>
 " 開いているファイルから検索
-nnoremap <Space>dfr :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+nnoremap <Space>dfx :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
