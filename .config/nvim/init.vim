@@ -435,16 +435,18 @@ MyAutocmd FileType scrapbox
 \ call deoplete#custom#buffer_option('auto_complete', v:false)
 
 " defx
-call defx#custom#option('_', {
-      \ 'split': 'tab',
-      \ 'show_ignored_files': 1,
-      \ 'buffer_name': 'explorer',
-      \ 'toggle': 1,
-      \ 'columns': 'indent:git:icons:filename:mark',
-      \ })
-" 自動更新
-autocmd BufWritePost * call defx#redraw()
-autocmd BufEnter * call defx#redraw()
+if has('nvim')
+  call defx#custom#option('_', {
+        \ 'split': 'tab',
+        \ 'show_ignored_files': 1,
+        \ 'buffer_name': 'explorer',
+        \ 'toggle': 1,
+        \ 'columns': 'indent:git:icons:filename:mark',
+        \ })
+  " 自動更新
+  autocmd BufWritePost * call defx#redraw()
+  autocmd BufEnter * call defx#redraw()
+endif
 " キーコンフィグ
 MyAutocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
@@ -517,7 +519,9 @@ function! s:defx_my_settings() abort
 endfunction
 
 " 開いているファイルから検索
-nnoremap <Space>dfx :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+if has('nvim')
+  nnoremap <Space>dfx :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
