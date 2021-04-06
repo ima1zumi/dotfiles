@@ -12,7 +12,7 @@ window:
 
 # font設定
 font:
-  size: 20 
+  size: 22
   normal:
     family: HackGenNerd
   bold:
