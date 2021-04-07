@@ -134,5 +134,3 @@ repo = 'kristijanhusak/defx-icons'
 [[plugins]] # buffer 同士の比較を簡単にする
 repo = 'deris/vim-diffbuf'
 
-[[plugins]] # linter
-repo = 'dense-analysis/ale'
