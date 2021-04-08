@@ -453,7 +453,7 @@ function! s:defx_my_settings() abort
         \ defx#do_action('open', 'vsplit')
   nnoremap <silent><buffer><expr> t
         \ defx#do_action('open', 'tabnew')
-  nnoremap <silent><buffer><expr> P
+  nnoremap <silent><buffer><expr> f
         \ defx#do_action('preview')
   nnoremap <silent><buffer><expr> o
         \ defx#do_action('open_tree', 'toggle')
@@ -508,7 +508,7 @@ endfunction
 
 " 開いているファイルから検索
 if has('nvim')
-  nnoremap <Space>dfx :Defx `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+  nnoremap <Space>dfx :Defx -vertical-preview `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
