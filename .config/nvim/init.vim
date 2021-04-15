@@ -182,6 +182,8 @@ nnoremap <Space>cl :CopyRelativePath<CR>
 " 絶対パスを取得するコマンド
 command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 nnoremap <Space>ca :CopyAbsolutePath<CR>
+" json を整形する (jq に依存)
+command! JSONFormatter %!jq '.'
 
 " binary mode
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
