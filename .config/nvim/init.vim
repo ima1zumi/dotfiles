@@ -301,6 +301,10 @@ xmap <Space>m <Plug>(quickhl-manual-this)
 nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
 
+" vim-better-whitespace
+" 警告の色をicebergっぽくする
+let g:better_whitespace_guicolor='#cc517a'
+
 " Denite
 " denite-menu の設定
 let s:menus = {}
