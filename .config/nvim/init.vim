@@ -176,6 +176,9 @@ set helplang=ja
 " swapをtmp配下に作る
 :set directory=/tmp
 
+" Rubyのシンタックスハイライト重い対策
+set regexpengine=1
+
 " 相対パスを取得するコマンド
 command! CopyRelativePath call setreg(v:register, expand("%:p:."))
 nnoremap <Space>cl :CopyRelativePath<CR>
