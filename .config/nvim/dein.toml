@@ -136,3 +136,6 @@ repo = 'deris/vim-diffbuf'
 
 [[plugins]] # 行末の空白を可視化
 repo = 'ntpeters/vim-better-whitespace'
+
+[[plugins]] # コメントアウト
+repo = 'tryu/caw.vim'
