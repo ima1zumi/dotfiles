@@ -138,4 +138,4 @@ repo = 'deris/vim-diffbuf'
 repo = 'ntpeters/vim-better-whitespace'
 
 [[plugins]] # コメントアウト
-repo = 'tryu/caw.vim'
+repo = 'tyru/caw.vim'
