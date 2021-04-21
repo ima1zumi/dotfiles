@@ -442,7 +442,6 @@ MyAutocmd FileType scrapbox
 " defx
 if has('nvim')
   call defx#custom#option('_', {
-        \ 'split': 'tab',
         \ 'show_ignored_files': 1,
         \ 'buffer_name': 'explorer',
         \ 'toggle': 1,
