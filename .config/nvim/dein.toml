@@ -139,3 +139,6 @@ repo = 'ntpeters/vim-better-whitespace'
 
 [[plugins]] # コメントアウト
 repo = 'tyru/caw.vim'
+
+[[plugins]] # かっこ自動挿入
+repo = 'cohama/lexima.vim'
