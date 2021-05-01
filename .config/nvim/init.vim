@@ -309,8 +309,8 @@ let g:previm_open_cmd = 'open -a Google\ Chrome'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 外部ファイル読み込み
-source <sfile>:h/denite.vim
 source <sfile>:h/defx.vim
+source <sfile>:h/denite.vim
 source <sfile>:h/quickrun.vim
 source <sfile>:h/rurema.vim
 source <sfile>:h/scrapbox.vim

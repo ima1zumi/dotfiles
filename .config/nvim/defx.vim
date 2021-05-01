@@ -11,7 +11,7 @@ if has('nvim')
   autocmd BufEnter * call defx#redraw()
 endif
 " キーコンフィグ
-MyAutocmd FileType defx call s:defx_my_settings()
+autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
