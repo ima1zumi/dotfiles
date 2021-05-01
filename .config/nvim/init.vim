@@ -287,94 +287,6 @@ MyAutocmd FileType markdown
 MyAutocmd FileType scrapbox
 \ call deoplete#custom#buffer_option('auto_complete', v:false)
 
-" defx
-if has('nvim')
-  call defx#custom#option('_', {
-        \ 'show_ignored_files': 1,
-        \ 'buffer_name': 'explorer',
-        \ 'toggle': 1,
-        \ 'columns': 'indent:git:icons:filename:mark',
-        \ })
-  " 自動更新
-  autocmd BufWritePost * call defx#redraw()
-  autocmd BufEnter * call defx#redraw()
-endif
-" キーコンフィグ
-MyAutocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-        \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> c
-        \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-        \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-        \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-        \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> E
-        \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> t
-        \ defx#do_action('open', 'tabnew')
-  nnoremap <silent><buffer><expr> f
-        \ defx#do_action('preview')
-  nnoremap <silent><buffer><expr> o
-        \ defx#do_action('open_tree', 'toggle')
-  nnoremap <silent><buffer><expr> O
-        \ defx#do_action('open_tree', 'recursive')
-  nnoremap <silent><buffer><expr> K
-        \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-        \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M
-        \ defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C
-        \ defx#do_action('toggle_columns',
-        \                'mark:indent:icon:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S
-        \ defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d
-        \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r
-        \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !
-        \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
-        \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy
-        \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-        \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> R
-        \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> h
-        \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-        \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q
-        \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-        \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-        \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-        \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-        \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
-        \ defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>
-        \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd
-        \ defx#do_action('change_vim_cwd')
-endfunction
-
-" 開いているファイルから検索
-if has('nvim')
-  nnoremap <Space>dfx :Defx -vertical-preview `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
-endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " CUI で起動した時にインサートモードのカーソルを | にする
@@ -398,6 +310,7 @@ let g:previm_open_cmd = 'open -a Google\ Chrome'
 
 " 外部ファイル読み込み
 source <sfile>:h/denite.vim
+source <sfile>:h/defx.vim
 source <sfile>:h/quickrun.vim
 source <sfile>:h/rurema.vim
 source <sfile>:h/scrapbox.vim
