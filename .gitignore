@@ -62,6 +62,7 @@
 !/.xsessionrc
 !/.config/
 !/.config/**
+/.config/gh/state.yml
 /.config/gh/hosts.yml
 !/.gitignore_global
 !/.gitconfig_shared
