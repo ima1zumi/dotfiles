@@ -51,7 +51,7 @@ function! s:defx_my_settings() abort
         \ defx#do_action('rename')
   nnoremap <silent><buffer><expr> !
         \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
+  nnoremap <silent><buffer><expr> e
         \ defx#do_action('execute_system')
   nnoremap <silent><buffer><expr> yy
         \ defx#do_action('yank_path')
