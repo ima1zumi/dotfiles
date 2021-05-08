@@ -64,6 +64,7 @@
 !/.config/**
 /.config/gh/state.yml
 /.config/gh/hosts.yml
+/.config/coc/extensions/node_modules/**
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig

@@ -47,9 +47,6 @@ repo = 'roxma/vim-hug-neovim-rpc'
 # pip3 install --user pynvim が必要
 repo = 'Shougo/denite.nvim'
 
-[[plugins]] # コード補完
-repo = 'Shougo/deoplete.nvim'
-
 [[plugins]] # endwise
 repo = 'tpope/vim-endwise'
 
@@ -142,3 +139,6 @@ repo = 'tyru/caw.vim'
 
 [[plugins]] # かっこ自動挿入
 repo = 'cohama/lexima.vim'
+
+[[plugins]] # LSP
+repo = 'neoclide/coc.nvim'

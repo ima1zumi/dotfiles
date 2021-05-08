@@ -279,14 +279,6 @@ vmap <Space>c <Plug>(caw:zeropos:toggle)
 nmap <Space>C <Plug>(caw:i:uncomment)
 vmap <Space>C <Plug>(caw:i:uncomment)
 
-" deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-" deoplete 対象外
-MyAutocmd FileType markdown
-\ call deoplete#custom#buffer_option('auto_complete', v:false)
-MyAutocmd FileType scrapbox
-\ call deoplete#custom#buffer_option('auto_complete', v:false)
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " CUI で起動した時にインサートモードのカーソルを | にする
@@ -309,6 +301,7 @@ let g:previm_open_cmd = 'open -a Google\ Chrome'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 外部ファイル読み込み
+source <sfile>:h/coc.vim
 source <sfile>:h/defx.vim
 source <sfile>:h/denite.vim
 source <sfile>:h/quickrun.vim
