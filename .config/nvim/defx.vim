@@ -83,6 +83,6 @@ endfunction
 
 " 開いているファイルから検索
 if has('nvim')
-  nnoremap <Space>dfx :Defx -vertical-preview `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
+  nnoremap <Space>df :Defx -vertical-preview `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
 endif
 
