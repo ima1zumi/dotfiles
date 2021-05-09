@@ -26,8 +26,8 @@ function! s:defx_my_settings() abort
         \ defx#do_action('open')
   nnoremap <silent><buffer><expr> E
         \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> t
-        \ defx#do_action('open', 'tabnew')
+  nnoremap <silent><buffer><expr><nowait> t
+        \ defx#do_action('multi', ['quit', ['open', 'tab drop']])
   nnoremap <silent><buffer><expr> f
         \ defx#do_action('preview')
   nnoremap <silent><buffer><expr> o
