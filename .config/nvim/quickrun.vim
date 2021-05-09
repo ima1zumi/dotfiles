@@ -6,6 +6,7 @@ let g:quickrun_config = {
 \    "outputter/setbufline/split" : ":botright 8sp",
 \    "hook/extend_config/enable" : 1,
 \    "hook/extend_config/force" : 1,
+\    "outputter/buffer/close_on_empty": 1
 \  },
 \  "ruby/minitest" : {
 \    "command" : "rails",
