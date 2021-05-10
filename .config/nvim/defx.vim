@@ -79,6 +79,7 @@ function! s:defx_my_settings() abort
         \ defx#do_action('print')
   nnoremap <silent><buffer><expr> cd
         \ defx#do_action('change_vim_cwd')
+  nnoremap <silent><buffer> gr :<C-u>call <SID>start_grep()<CR>
 endfunction
 
 " 開いているファイルから検索
@@ -86,3 +87,8 @@ if has('nvim')
   nnoremap <silent> fd :Defx -vertical-preview `escape(expand('%:p:h'), ' :')` -search=`expand('%:p')`<CR>
 endif
 
+function! s:start_grep()
+    let selected = filter(defx#get_selected_candidates(), 'v:val["is_selected"]')
+    let paths = map(selected, "v:val['action__path']")
+    call denite#start([{'name': 'grep', 'args': [paths] }], { "buffer_name": "grep", "post_action": "jump" })
+endfunction
