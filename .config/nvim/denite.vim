@@ -15,13 +15,24 @@ let s:menus.dotfile.file_candidates = [
 
 " 登録
 call denite#custom#var('menu', 'menus', s:menus)
+" rigprepを使う
+call denite#custom#var('grep', {
+      \ 'command': ['rg'],
+      \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+      \ 'recursive_opts': [],
+      \ 'pattern_opt': ['--regexp'],
+      \ 'separator': ['--'],
+      \ 'final_opts': [],
+      \ })
 
 " 起動
 nnoremap <Space>ll :Denite menu -no-start-filter<CR>
 
-MyAutocmd FileType denite-filter call s:denite_filter_my_settings()
+augroup my_denite
+    autocmd!
+    autocmd FileType denite-filter call s:denite_filter_my_settings()
+augroup END
 function! s:denite_filter_my_settings() abort
-  call deoplete#custom#buffer_option('auto_complete', v:false)
   imap <silent><buffer> <Esc> <Plug>(denite_filter_quit)
   inoremap <silent><buffer> <Down> <Esc>
       \:call denite#move_to_parent()<CR>
@@ -62,12 +73,11 @@ function! s:denite_my_settings() abort
   \ denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> <Space>
   \ denite#do_map('toggle_select').'j'
+  nnoremap <silent><buffer><expr><nowait> t
+        \ denite#do_map('do_action', 'tabswitch')
+  nnoremap <silent><buffer><expr> a
+        \ denite#do_map('choose_action')
 endfunction
-
-command! -nargs=* -complete=customlist,denite#helper#complete
-\    DeniteCtrlp Denite file/rec -start-filter -default-action=tabswitch <args>
-command! -nargs=* -complete=customlist,denite#helper#complete
-\    DeniteGrep Denite grep -start-filter -default-action=tabswitch <args>
 
 command! DeniteQuickRunConfig :Denite quickrun_config -buffer-name=quickrun_config
 nnoremap <silent> <Space>qr :DeniteQuickRunConfig<CR>
@@ -76,10 +86,24 @@ nnoremap <silent> <Space>qr :DeniteQuickRunConfig<CR>
 nnoremap <Space>dfo   :Denite file/old -no-start-filter<CR>
 " プロジェクト直下のファイル一覧を表示する + 新規ファイル作成
 nnoremap <Space>dff   :DeniteProjectDir file/rec file:new<CR>
-" Grep する
-nnoremap <Space>dgr   :DeniteGrep<CR>
 " 最後に開いた Denite を開き直す
 nnoremap <Space>drm   :Denite -resume<CR>
+
+" denite grep で第二引数にパスを受け取れるようにする
+function! s:grep(...)
+    let pattern = get(a:000, 0, "")
+    if empty(pattern)
+        let pattern = input("Pattern: ")
+    endif
+    let path = get(a:000, 1, "")
+    let current = getcwd()
+    call denite#start([{'name': 'grep', 'args': [current . "/" . path, "", pattern] }], { "buffer_name": "grep", "post_action": 'jump' })
+endfunction
+command! -nargs=* -complete=dir
+\    DeniteGrep call s:grep(<f-args>)
+
+" 末尾のスペースが消える対策にexecuteを使う
+execute "nnoremap <Space>re   :DeniteGrep "
 
 " :Denite のデフォルトの設定
 let s:denite_default_options = {}
@@ -108,7 +132,6 @@ call extend(s:denite_default_options, {
 \})
 
 call denite#custom#option('default', s:denite_default_options)
-
 
 " denite-quickrun_config の並び順を単語順にする
 call denite#custom#source('quickrun_config', 'sorters', ['sorter/word'])
