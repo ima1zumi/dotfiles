@@ -43,6 +43,9 @@ repo = 'bogado/file-line'
 [[plugins]] # QuickFixで置換
 repo = 'thinca/vim-qfreplace'
 
+[[plugins]] # rurema等の依存プラグイン
+repo = 'tyru/open-browser.vim'
+
 # --*--*--
 # 入力補助
 # --*--*--
@@ -134,12 +137,17 @@ repo = 'vim-scripts/Align'
 [[plugins]] # sql
 repo = 'vim-scripts/SQLUtilities'
 
+# --*--*--
 # Git
+# --*--*--
 [[plugins]] # git操作
 repo = 'tpope/vim-fugitive'
 
 [[plugins]] # git で差分がある行を表示
 repo = 'airblade/vim-gitgutter'
+
+[[plugins]] # fugitive の :GBrowse が依存
+repo = 'tpope/vim-rhubarb'
 
 # --*--*--
 # Scrapbox
@@ -149,3 +157,7 @@ repo = 'vim-jp/vital.vim'
 
 [[plugins]] # Filetype=Scrapbox
 repo = 'syusui-s/scrapbox-vim'
+
+# --*--*--
+# Browser
+# --*--*--
