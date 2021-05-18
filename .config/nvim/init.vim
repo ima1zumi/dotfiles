@@ -203,7 +203,6 @@ augroup BinaryXXD
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " ctrlp
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
@@ -309,6 +308,7 @@ source <sfile>:h/denite.vim
 source <sfile>:h/quickrun.vim
 source <sfile>:h/rurema.vim
 source <sfile>:h/scrapbox.vim
+source <sfile>:h/secrets.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
