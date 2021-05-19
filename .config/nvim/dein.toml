@@ -43,9 +43,6 @@ repo = 'bogado/file-line'
 [[plugins]] # QuickFixで置換
 repo = 'thinca/vim-qfreplace'
 
-[[plugins]] # rurema等の依存プラグイン
-repo = 'tyru/open-browser.vim'
-
 # --*--*--
 # 入力補助
 # --*--*--
@@ -161,3 +158,8 @@ repo = 'syusui-s/scrapbox-vim'
 # --*--*--
 # Browser
 # --*--*--
+[[plugins]] # ghosttext
+repo = 'subnut/nvim-ghost.nvim'
+
+[[plugins]] # rurema等の依存プラグイン
+repo = 'tyru/open-browser.vim'
