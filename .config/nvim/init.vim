@@ -101,8 +101,10 @@ set smartcase "検索文字列に大文字が含まれている場合は区別�
 set wrapscan "検索時に最後まで行ったら最初に戻る
 set incsearch "インクリメントサーチ
 set hlsearch
-" 置換のハイライトをONにするために有効にした ref: neovim/neovim #12308
-set inccommand=nosplit
+if has('nvim')
+  " 置換のハイライトをONにするために有効にした ref: neovim/neovim #12308
+  set inccommand=nosplit
+endif
 filetype plugin on
 
 " rg があれば vimgrep の代わりに使う
