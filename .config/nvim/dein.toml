@@ -61,6 +61,9 @@ repo = 'kana/vim-textobj-user'
 [[plugins]] # rubyのtextobjを扱う
 repo = 'rhysd/vim-textobj-ruby'
 
+[[plugins]] # `sil`
+repo = 'kana/vim-textobj-line'
+
 [[plugins]] # なんでもコメントアウト
 repo = 'tyru/caw.vim'
 
