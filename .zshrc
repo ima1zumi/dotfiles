@@ -11,10 +11,6 @@ zle -N my_globalias
 bindkey -M emacs "^m" my_globalias
 bindkey -M viins "^m" my_globalias
 
-# ruby rbenv
-#export PATH="$HOME/.rbenv/bin:$PATH"
-#eval "$(rbenv init -)"
-
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -56,11 +52,6 @@ fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit
 compinit
 
-#zsh-autosuggestions
-#https://github.com/zsh-users/zsh-autosuggestions
-# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-# export PATH=/usr/local/Cellar/vim/8.2.1600/bin:$PATH
-
 # nvim
 alias v='nvim'
 alias vz='nvim ~/.zshrc'
@@ -72,19 +63,14 @@ alias vt='nvim ~/.tmux.conf'
 # source
 alias sz='source ~/.zshrc'
 
-# cd alias
-alias ..='cd ..'
-alias ..2='cd ../../'
-alias ..3='cd ../../'
-
 # ls alias
 alias ls='ls -G'
 alias la='ls -la -G'
 alias ll='ls -l -G'
 
 # git alias
-alias gc='git commit'
 alias gc='git commit -v'
+alias gca='git commit --amend -v'
 alias ga='git add'
 alias gs='git status'
 alias gco='git checkout'
@@ -93,17 +79,13 @@ alias glo='git log --oneline'
 alias gloa='git log --oneline --graph --all'
 alias gd='git diff'
 alias gdc='git diff --cached'
-alias gp='git push'
+alias gp='git push upstream HEAD'
 alias gst='git stash'
 alias gstp='git stash pop'
 alias gpl='git pull --rebase'
 function gplod() {
   defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
   git pull --rebase origin $defaultbranch
-}
-function gplud() {
-  defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
-  git pull --rebase upstream $defaultbranch
 }
 
 # gh command
