@@ -65,7 +65,7 @@ function! s:denite_my_settings() abort
   \ denite#do_map('do_action')
   nnoremap <silent><buffer><expr> d
   \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
+  nnoremap <silent><buffer><expr> v
   \ denite#do_map('do_action', 'preview')
   nnoremap <silent><buffer><expr> q
   \ denite#do_map('quit')
@@ -102,7 +102,7 @@ endfunction
 command! -nargs=* -complete=dir
 \    DeniteGrep call s:grep(<f-args>)
 
-" 末尾のスペースが消える対策にexecuteを使う
+" 末尾のスペースが消える対策にexecuteを使ってnnoremapする
 execute "nnoremap <Space>re   :DeniteGrep "
 
 " :Denite のデフォルトの設定
@@ -132,6 +132,7 @@ call extend(s:denite_default_options, {
 \})
 
 call denite#custom#option('default', s:denite_default_options)
+call denite#custom#option('grep', s:denite_default_options)
 
 " denite-quickrun_config の並び順を単語順にする
 call denite#custom#source('quickrun_config', 'sorters', ['sorter/word'])

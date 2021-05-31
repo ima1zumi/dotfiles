@@ -28,7 +28,7 @@ function! s:defx_my_settings() abort
         \ defx#do_action('open', 'vsplit')
   nnoremap <silent><buffer><expr><nowait> t
         \ defx#do_action('multi', ['quit', ['open', 'tab drop']])
-  nnoremap <silent><buffer><expr> f
+  nnoremap <silent><buffer><expr> v
         \ defx#do_action('preview')
   nnoremap <silent><buffer><expr> o
         \ defx#do_action('open_tree', 'toggle')
