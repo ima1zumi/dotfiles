@@ -82,6 +82,9 @@ endfunction
 command! DeniteQuickRunConfig :Denite quickrun_config -buffer-name=quickrun_config
 nnoremap <silent> <Space>qr :DeniteQuickRunConfig<CR>
 
+command! DeniteDotfiles :Denite file/rec:~/ghq/github.com/ima1zumi/dotfiles/.config/nvim file:hidden:~/ghq/github.com/ima1zumi/dotfiles -source-names=hide
+nnoremap <silent> <Space>do :DeniteDotfiles<CR>
+
 " ファイルの表示履歴一覧
 nnoremap <Space>dfo   :Denite file/old -no-start-filter<CR>
 " プロジェクト直下のファイル一覧を表示する + 新規ファイル作成
@@ -116,10 +119,10 @@ call extend(s:denite_default_options, {
 \})
 
 " denite を上に持っていく
-call extend(s:denite_default_options, {
-\    'direction': "top",
-\    'filter_split_direction': "top",
-\})
+" call extend(s:denite_default_options, {
+"\    'direction': "top",
+"\    'filter_split_direction': "top",
+"\})
 
 " フィルタのプロンプトを設定
 call extend(s:denite_default_options, {
@@ -127,12 +130,13 @@ call extend(s:denite_default_options, {
 \})
 
 " デフォルトで絞り込みウィンドウを開く
-call extend(s:denite_default_options, {
-\    'start_filter': v:true,
-\})
+" call extend(s:denite_default_options, {
+"\    'start_filter': v:true,
+"\})
 
 call denite#custom#option('default', s:denite_default_options)
 call denite#custom#option('grep', s:denite_default_options)
+call denite#custom#option('filter', s:denite_default_options)
 
 " denite-quickrun_config の並び順を単語順にする
 call denite#custom#source('quickrun_config', 'sorters', ['sorter/word'])
