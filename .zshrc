@@ -73,7 +73,9 @@ alias gc='git commit -v'
 alias gca='git commit --amend -v'
 alias ga='git add'
 alias gs='git status'
-alias gco='git checkout'
+alias go='git checkout'
+alias gof='git branch --no-merged | fzf | xargs git checkout'
+alias gorf='git branch -a --no-merged | fzf | xargs git checkout'
 alias gl='git log'
 alias glo='git log --oneline'
 alias gloa='git log --oneline --graph --all'
@@ -131,3 +133,6 @@ zinit load "b4b4r07/enhancd"
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 zinit light zsh-users/zsh-autosuggestions
+
+# fzfのキーバインディングを設定
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
