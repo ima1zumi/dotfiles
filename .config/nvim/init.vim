@@ -107,6 +107,9 @@ if has('nvim')
 endif
 filetype plugin on
 
+" 縦分割したら右に出す
+set splitright
+
 " rg があれば vimgrep の代わりに使う
 if executable('rg')
   set grepprg=rg\ --vimgrep

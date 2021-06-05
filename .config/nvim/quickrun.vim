@@ -1,5 +1,8 @@
 " Quickrun シュッとするやつ
 let g:quickrun_config = {
+\ '*': {
+\    'split': 'vertical'
+\  },
 \  "_" : {
 \    "runner" : "job",
 \    "outputter/buffer/split" : ":botright 8sp",
@@ -21,6 +24,11 @@ let g:quickrun_config = {
 \    "exec"    : "bundle exec %c %s:p\\:%{line('.')}",
 \    "errorformat" : "%f:%l: %tarning: %m, %E%.%#:in `load': %f:%l:%m, %E%f:%l:in `%*[^']': %m, %-Z     # %f:%l:%.%#, %E  %\\d%\\+)%.%#, %C     %m, %-G%.%#",
 \  },
+\    "ruby.rspec/docker" : {
+\        "command" : "docker-compose",
+\        "cmdopt" : "exec -T web bin/rspec",
+\        "exec" : "%c %o %s:.\\:%{line('.')}",
+\    },
 \}
 
 "vim-quickrun-neovim-job
