@@ -25,6 +25,9 @@ repo = 't9md/vim-quickhl'
 [[plugins]] # 行末の空白を可視化
 repo = 'ntpeters/vim-better-whitespace'
 
+[[plugins]] # Ansi Escape を色付きで表示
+repo = 'powerman/vim-plugin-AnsiEsc'
+
 # --*--*--
 # Vim拡張
 # --*--*--
