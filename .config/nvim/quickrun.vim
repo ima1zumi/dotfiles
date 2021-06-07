@@ -1,4 +1,5 @@
 " Quickrun シュッとするやつ
+"  -c -fd --tty をつけているところは明示的にエスケープシーケンスを出力するための設定
 let g:quickrun_config = {
 \ '*': {
 \    'split': 'vertical'
@@ -21,13 +22,13 @@ let g:quickrun_config = {
 \  },
 \  "ruby.rspec" : {
 \    "command" : "rspec",
-\    "exec"    : "bundle exec %c %s:p\\:%{line('.')}",
+\    "exec"    : "bundle exec %c %s:p\\:%{line('.')} -c -fd --tty",
 \    "errorformat" : "%f:%l: %tarning: %m, %E%.%#:in `load': %f:%l:%m, %E%f:%l:in `%*[^']': %m, %-Z     # %f:%l:%.%#, %E  %\\d%\\+)%.%#, %C     %m, %-G%.%#",
 \  },
-\    "ruby.rspec/docker" : {
-\        "command" : "docker-compose",
-\        "cmdopt" : "exec -T web bin/rspec",
-\        "exec" : "%c %o %s:.\\:%{line('.')}",
+\  "ruby.rspec/docker" : {
+\    "command" : "docker-compose",
+\    "cmdopt" : "exec -T web bin/rspec -c -fd --tty",
+\    "exec" : "%c %o %s:.\\:%{line('.')}",
 \    },
 \}
 
@@ -42,4 +43,10 @@ endif
 
 " QuickRun
 nnoremap <Space>r :QuickRun<CR>
-MyAutocmd BufEnter *_spec.rb set ft=ruby.rspec
+autocmd BufEnter *_spec.rb set ft=ruby.rspec
+
+" ANSI escape をハイライトする
+augroup my-quickrun
+	autocmd!
+	autocmd FileType quickrun AnsiEsc
+augroup END
