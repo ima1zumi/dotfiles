@@ -73,7 +73,7 @@ function! s:defx_my_settings() abort
         \ line('.') == line('$') ? 'gg' : 'j'
   nnoremap <silent><buffer><expr> k
         \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
+  nnoremap <silent><buffer><expr> <C-d>
         \ defx#do_action('redraw')
   nnoremap <silent><buffer><expr> <C-g>
         \ defx#do_action('print')
