@@ -148,13 +148,12 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-"nnoremap <Esc><Esc> :nohlsearch<CR>
 " スペースを挿入
-nnoremap <C-Space> i<Space><Esc><Right>
+nnoremap <Space><Space> i<Space><Esc><Right>
 
 " vim-anzu
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
+nmap nzz <Plug>(anzu-n-with-echo)
+nmap Nzz <Plug>(anzu-N-with-echo)
 nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
 
