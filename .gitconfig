@@ -20,5 +20,6 @@
 	delete-merged-branch = "!f () { git branch --merged | egrep -v '\\*|master|develop|main|feature' | xargs git branch -d; }; f"
 [init]
 	defaultBranch = main
+	templatedir = .git_template/
 [include]
 	path = ~/.gitconfig_shared

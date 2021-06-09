@@ -71,6 +71,8 @@
 !/.gitconfig
 !/.irbrc
 !/.Brewfile
+!/.git_template/
+!/.git_template/**
 
 !/README.md
 !/LICENSE
