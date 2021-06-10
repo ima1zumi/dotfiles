@@ -310,8 +310,19 @@ endif
 let g:indentLine_color_term =239
 let g:indentLine_char = '¦'
 
-"previm
+" previm
 let g:previm_open_cmd = 'open -a Google\ Chrome'
+
+" vim-operator-stay-cursor
+" yank したときにカーソルを動かさない
+map y <Plug>(operator-stay-cursor-yank)
+
+" Use thinca/vim-operator-sequence
+" yank and highlight
+let g:operator#highlighter#config = { "clear_time" : 300, "group" : "Todo" }
+noremap <Plug>(yank) y
+noremap <expr> <Plug>(yank-highlight) operator#sequence#map("\<Plug>(operator-highlighter)", "\<Plug>(yank)")
+map <expr> y operator#stay_cursor#wrapper("\<Plug>(yank-highlight)", { "noremap" : 0 })
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
