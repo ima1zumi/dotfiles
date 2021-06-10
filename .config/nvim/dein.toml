@@ -28,6 +28,12 @@ repo = 'ntpeters/vim-better-whitespace'
 [[plugins]] # Ansi Escape を色付きで表示
 repo = 'powerman/vim-plugin-AnsiEsc'
 
+[[plugins]] # ハイライト
+repo = 'osyo-manga/vim-operator-highlighter'
+
+[[plugins]]
+repo = 'thinca/vim-operator-sequence'
+
 # --*--*--
 # Vim拡張
 # --*--*--
@@ -75,6 +81,9 @@ repo = 'cohama/lexima.vim'
 
 [[plugins]] # end に対応するやつをハイライト
 repo = 'andymass/vim-matchup'
+
+[[plugins]] # operator 実行時にカーソルを移動させない
+repo = 'osyo-manga/vim-operator-stay-cursor'
 
 # --*--*--
 # ファイラ
