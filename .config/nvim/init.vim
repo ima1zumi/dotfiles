@@ -152,8 +152,8 @@ vnoremap k gk
 nnoremap <Space><Space> i<Space><Esc><Right>
 
 " vim-anzu
-nmap nzz <Plug>(anzu-n-with-echo)
-nmap Nzz <Plug>(anzu-N-with-echo)
+nmap n <Plug>(anzu-n-with-echo)zz
+nmap N <Plug>(anzu-N-with-echo)zz
 nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
 
