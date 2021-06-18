@@ -84,7 +84,7 @@ set softtabstop=2 " 連続した空白に対してタブキーやバックスペ
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 set shiftwidth=2 " smartindentで増減する
-
+set textwidth=0 " 自動改行をオフにする
 set laststatus=2 "ステータス行を表示
 set cursorline "カーソル行にラインを表示
 set wildmenu "コマンドライン補完
