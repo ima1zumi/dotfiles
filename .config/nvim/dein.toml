@@ -16,9 +16,6 @@ repo = 'itchyny/lightline.vim'
 [[plugins]] # インデントを表示
 repo = 'Yggdroot/indentLine'
 
-[[plugins]] # いろいろな言語のハイライト
-repo = 'sheerun/vim-polyglot'
-
 [[plugins]] # 選択した文字をハイライト
 repo = 't9md/vim-quickhl'
 
