@@ -206,6 +206,14 @@ augroup BinaryXXD
   autocmd BufWritePost * set nomod | endif
 augroup END
 
+" 重いときの調査用
+command! Profile call s:command_profile()
+function! s:command_profile() abort
+  profile start /tmp/profile.log
+  profile func *
+  profile file *
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctrlp
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
