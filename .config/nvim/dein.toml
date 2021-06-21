@@ -32,6 +32,12 @@ repo = 'osyo-manga/vim-operator-highlighter'
 repo = 'thinca/vim-operator-sequence'
 
 # --*--*--
+# シンタックスハイライト
+# --*--*--
+[[plugins]] # toml
+repo = 'cespare/vim-toml'
+
+# --*--*--
 # Vim拡張
 # --*--*--
 [[plugins]] # コマンドを置き換える
