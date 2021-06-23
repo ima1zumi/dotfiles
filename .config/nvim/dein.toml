@@ -10,6 +10,9 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]] # カラースキーマ
 repo = 'cocopon/iceberg.vim'
 
+[[plugins]] # カラースキーマ
+repo = 'ghifarit53/tokyonight-vim'
+
 [[plugins]] # ステータスバー
 repo = 'itchyny/lightline.vim'
 
