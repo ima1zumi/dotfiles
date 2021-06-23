@@ -214,6 +214,19 @@ function! s:command_profile() abort
   profile file *
 endfunction
 
+" ColorScheme が変更されたら背景を透明にする
+function! s:set_haikei_toumei()
+  highlight Normal ctermbg=NONE guibg=NONE
+  highlight NonText ctermbg=NONE guibg=NONE
+  highlight SpecialKey ctermbg=NONE guibg=NONE
+  highlight EndOfBuffer ctermbg=NONE guibg=NONE
+  " お好み
+  "highlight LineNr ctermbg=NONE guibg=NONE
+  "highlight SignColumn ctermbg=NONE guibg=NONE
+  "highlight VertSplit ctermbg=NONE guibg=NONE
+endfunction
+MyAutocmd ColorScheme * call s:set_haikei_toumei()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctrlp
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -359,10 +372,10 @@ if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   endif
   " 背景透過
   " colorscheme の後に書く
-  highlight Normal ctermbg=NONE guibg=NONE
-  highlight NonText ctermbg=NONE guibg=NONE
-  highlight SpecialKey ctermbg=NONE guibg=NONE
-  highlight EndOfBuffer ctermbg=NONE guibg=NONE
+"   highlight Normal ctermbg=NONE guibg=NONE
+"   highlight NonText ctermbg=NONE guibg=NONE
+"   highlight SpecialKey ctermbg=NONE guibg=NONE
+"   highlight EndOfBuffer ctermbg=NONE guibg=NONE
   " お好み
   "highlight LineNr ctermbg=NONE guibg=NONE
   "highlight SignColumn ctermbg=NONE guibg=NONE
