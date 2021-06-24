@@ -20,7 +20,7 @@ font:
   italic:
     family: HackGenNerd
 
-background_opacity: 0.8
+background_opacity: 0.85
 
 key_bindings:
   - { key: Q, mods: Control, chars: "\x11" }
