@@ -306,14 +306,15 @@ nmap <Space>C <Plug>(caw:i:uncomment)
 vmap <Space>C <Plug>(caw:i:uncomment)
 
 " fugitive
-nnoremap <silent> <Space>fs  :Git<CR>
-nnoremap <silent> <Space>fb  :Git blame<CR>
-nnoremap <silent> <Space>fo  :GBrowse<CR>
-nnoremap <silent> <Space>fca :Git commit --ammend<CR>
-nnoremap <silent> <Space>fc  :Git commit -v -q<CR>
-nnoremap <silent> <Space>fd  :Gdiffsplit<CR>
-nnoremap <silent> <Space>fp  :Git push<CR>
-nnoremap <silent> <Space>fl  :Gclog -- %<CR>
+nnoremap <silent> <Space>gs  :Git<CR>
+nnoremap <silent> <Space>gb  :Git blame<CR>
+nnoremap <silent> <Space>gr  :.GBrowse<CR>
+nnoremap <silent> <Space>gca :Git commit --ammend -v<CR>
+nnoremap <silent> <Space>gc  :Git commit -v -q<CR>
+nnoremap <silent> <Space>gd  :Gdiffsplit<CR>
+nnoremap <silent> <Space>gp  :Git push upstream head<CR>
+nnoremap <silent> <Space>gfp :Git push --force-with-lease upstream head<CR>
+nnoremap <silent> <Space>gl  :Gclog -- %<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
