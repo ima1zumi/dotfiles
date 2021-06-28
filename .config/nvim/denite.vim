@@ -83,7 +83,7 @@ command! DeniteQuickRunConfig :Denite quickrun_config -buffer-name=quickrun_conf
 nnoremap <silent> <Space>qr :DeniteQuickRunConfig<CR>
 
 command! DeniteDotfiles :Denite file/rec:~/ghq/github.com/ima1zumi/dotfiles/.config/nvim file:hidden:~/ghq/github.com/ima1zumi/dotfiles -source-names=hide
-nnoremap <silent> <Space>do :DeniteDotfiles<CR>
+nnoremap <silent> <Space>oo :DeniteDotfiles<CR>
 
 " ファイルの表示履歴一覧
 nnoremap <Space>dfo   :Denite file/old -no-start-filter<CR>
