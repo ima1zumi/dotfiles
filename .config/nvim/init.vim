@@ -132,8 +132,6 @@ set fileencodings=utf-8,sjis
 lang en_US.UTF-8
 
 "#####keybind#####
-"jjをEscに
-inoremap jj <Esc>
 ":と;の入れ替え
 nnoremap : ;
 nnoremap ; :
