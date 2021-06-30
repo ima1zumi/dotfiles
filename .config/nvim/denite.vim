@@ -92,6 +92,16 @@ nnoremap <Space>dff   :DeniteProjectDir file/rec file:new<CR>
 " 最後に開いた Denite を開き直す
 nnoremap <Space>drm   :Denite -resume<CR>
 
+function! s:grep_root()
+    " こっちはカレントディレクトリを基準にする
+"     return getcwd()
+    " こっちは .git のディレクトリなんかを基準にする
+    return denite#project#path2project_directory(expand("%"), "")
+
+    " README.md なんかも基準とする場合
+"     return denite#project#path2project_directory(expand("%"), "README.rdoc,README.md")
+endfunction
+
 " denite grep で第二引数にパスを受け取れるようにする
 function! s:grep(...)
     let pattern = get(a:000, 0, "")
@@ -99,7 +109,7 @@ function! s:grep(...)
         let pattern = input("Pattern: ")
     endif
     let path = get(a:000, 1, "")
-    let current = getcwd()
+    let current = s:grep_root()
     call denite#start([{'name': 'grep', 'args': [current . "/" . path, "", pattern] }], { "buffer_name": "grep", "post_action": 'jump' })
 endfunction
 command! -nargs=* -complete=dir
