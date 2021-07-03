@@ -215,13 +215,6 @@ endfunction
 " ColorScheme が変更されたら背景を透明にする
 function! s:set_haikei_toumei()
   highlight Normal ctermbg=NONE guibg=NONE
-  highlight NonText ctermbg=NONE guibg=NONE
-  highlight SpecialKey ctermbg=NONE guibg=NONE
-  highlight EndOfBuffer ctermbg=NONE guibg=NONE
-  " お好み
-  "highlight LineNr ctermbg=NONE guibg=NONE
-  "highlight SignColumn ctermbg=NONE guibg=NONE
-  "highlight VertSplit ctermbg=NONE guibg=NONE
 endfunction
 MyAutocmd ColorScheme * call s:set_haikei_toumei()
 
