@@ -1,7 +1,3 @@
-" 先頭に記述する
-" polyglot の markdown を無効にする
-let g:polyglot_disabled = ['markdown']
-
 " https://knowledge.sakura.ad.jp/23248/
 " dein.vim settings {{{
 " install dir {{{
@@ -117,8 +113,6 @@ if executable('rg')
 endif
 " 自動QuickFix
 au QuickfixCmdPost make,grep,grepadd,vimgrep copen
-" lg で :lgrep
-AlterCommand lg lgrep
 
 "空白文字の可視化
 set list
@@ -156,7 +150,6 @@ nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
 
 " clear status
-"nmap <Esc><Esc> <Plug>(anzu-clear-search-status):nohlsearch<CR>
 nnoremap <silent> <Plug>(nohlsearch) :nohlsearch<CR>
 nmap <Esc><ESc> <Plug>(anzu-clear-search-status)<Plug>(nohlsearch)
 
@@ -168,11 +161,6 @@ set statusline=%{anzu#search_status()}
 " eol     : 改行
 " start   : 挿入モード開始位置より手前の文字
 set backspace=indent,eol,start
-
-"言語ごと
-"space enter
-let $AFTER_FTPLUGIN = $NEOBUNDLE_ORIGIN."/after/after/ftplugin"
-nnoremap <silent> <Space><CR> :execute ":tab drop ".$AFTER_FTPLUGIN."/".&filetype.".vim"<CR>
 
 " ヘルプの日本語化
 set helplang=ja
@@ -189,6 +177,7 @@ nnoremap <Space>cl :CopyRelativePath<CR>
 " 絶対パスを取得するコマンド
 command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 nnoremap <Space>ca :CopyAbsolutePath<CR>
+
 " json を整形する (jq に依存)
 command! JSONFormatter %!jq '.'
 
@@ -300,7 +289,7 @@ vmap <Space>C <Plug>(caw:i:uncomment)
 nnoremap <silent> <Space>gs  :Git<CR>
 nnoremap <silent> <Space>gb  :Git blame<CR>
 nnoremap <silent> <Space>gr  :.GBrowse<CR>
-nnoremap <silent> <Space>gca :Git commit --ammend -v<CR>
+nnoremap <silent> <Space>gca :Git commit --amend -v<CR>
 nnoremap <silent> <Space>gc  :Git commit -v -q<CR>
 nnoremap <silent> <Space>gd  :Gdiffsplit<CR>
 nnoremap <silent> <Space>gp  :Git push upstream head<CR>
@@ -319,7 +308,7 @@ if has('vim_starting') && !has("gui_running")
     let &t_SR .= "\e[4 q"
 endif
 
-" indentline"
+" indentline
 let g:indentLine_color_term =239
 let g:indentLine_char = '¦'
 
@@ -354,6 +343,7 @@ source <sfile>:h/secrets.vim
 colorscheme iceberg
 " Terminal.app以外のtermguicolors対応端末での設定
 if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
+  " 256色にする
   set termguicolors
   " tmux
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -362,17 +352,7 @@ if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   if !has('nvim')
     set bg=dark
   endif
-  " 背景透過
-  " colorscheme の後に書く
-"   highlight Normal ctermbg=NONE guibg=NONE
-"   highlight NonText ctermbg=NONE guibg=NONE
-"   highlight SpecialKey ctermbg=NONE guibg=NONE
-"   highlight EndOfBuffer ctermbg=NONE guibg=NONE
-  " お好み
-  "highlight LineNr ctermbg=NONE guibg=NONE
-  "highlight SignColumn ctermbg=NONE guibg=NONE
-  "highlight VertSplit ctermbg=NONE guibg=NONE
-  "lightline
+  " lightline の設定
   let g:lightline = {
           \ 'colorscheme': 'iceberg',
           \ 'mode_map': {'c': 'NORMAL'},
@@ -393,6 +373,7 @@ if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
           \ }
 " Terminal.app
 else
+  " lightline の設定
   let g:lightline = {
           \ 'colorscheme': 'wombat',
           \ 'mode_map': {'c': 'NORMAL'},
