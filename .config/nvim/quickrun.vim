@@ -30,6 +30,11 @@ let g:quickrun_config = {
 \    "cmdopt" : "exec -T web bin/rspec -c -fd --tty",
 \    "exec" : "%c %o %s:.\\:%{line('.')}",
 \    },
+\  "ruby.rspec/docker-bin-rspec" : {
+\    "command" : "docker-compose",
+\    "cmdopt" : "exec -T web bin/rspec",
+\    "exec" : "%c %o",
+\    },
 \}
 
 "vim-quickrun-neovim-job
@@ -50,3 +55,6 @@ augroup my-quickrun
 	autocmd!
 	autocmd FileType quickrun AnsiEsc
 augroup END
+
+" <C-c> で quickrun の実行を中断する
+nnoremap <expr><silent> <C-c> quickrun#session#exists() ? quickrun#session#sweep() : "\<C-c>"
