@@ -40,6 +40,9 @@ repo = 'thinca/vim-operator-sequence'
 [[plugins]] # toml
 repo = 'cespare/vim-toml'
 
+[[plugins]] # Vue.js
+repo = 'leafOfTree/vim-vue-plugin'
+
 # --*--*--
 # Vim拡張
 # --*--*--
