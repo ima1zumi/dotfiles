@@ -104,16 +104,34 @@ endfunction
 
 " denite grep で第二引数にパスを受け取れるようにする
 function! s:grep(...)
-    let pattern = get(a:000, 0, "")
+    let [args, options] = denite#helper#_parse_options_args(join(a:000))
+    let names = map(args, "v:val['name']")
+    let pattern = get(names, 0, "")
+    let path    = get(names, 1, "")
+
     if empty(pattern)
         let pattern = input("Pattern: ")
     endif
-    let path = get(a:000, 1, "")
     let current = s:grep_root()
-    call denite#start([{'name': 'grep', 'args': [current . "/" . path, "", pattern] }], { "buffer_name": "grep", "post_action": 'jump' })
+    call denite#start([{'name': 'grep', 'args': [current . "/" . path, "", pattern] }], extend({ "buffer_name": "grep", "post_action": 'jump' }, options))
 endfunction
-command! -nargs=* -complete=dir
-\    DeniteGrep call s:grep(<f-args>)
+
+" dir + :Denite のコマンドオプション補完
+function! DeniteGrepComplete(arglead, cmdline, cursorpos) abort
+    let dirs = filter(split(glob(a:arglead . "*/"), "\n"), "isdirectory(v:val)")
+    return dirs + denite#helper#complete(a:arglead, a:cmdline, a:cursorpos)
+endfunction
+
+" e.g.
+" :DeniteGrep
+" :DeniteGrep pattern
+" :DeniteGrep pattern dir
+" :DeniteGrep pattern dir -smartcase
+" :DeniteGrep pattern -smartcase
+" :DeniteGrep pattern -smartcase dir
+" :DeniteGrep pattern -no-smartcase dir
+command! -nargs=* -complete=customlist,DeniteGrepComplete
+\    DeniteGrep call s:grep(<q-args>)
 
 " 末尾のスペースが消える対策にexecuteを使ってnnoremapする
 execute "nnoremap <Space>re   :DeniteGrep "
