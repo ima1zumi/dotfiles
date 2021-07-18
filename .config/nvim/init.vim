@@ -63,9 +63,6 @@ command! -bang -nargs=*
 
 " vimrc を何回読み込んでも autocmd は 1回しか追加されない
 
-" altercmdを先に読み込んでおく
-call altercmd#load()
-
 set clipboard+=unnamed
 
 "#####表示設定#####
@@ -164,9 +161,6 @@ set backspace=indent,eol,start
 
 " ヘルプの日本語化
 set helplang=ja
-
-" swapをtmp配下に作る
-:set directory=/tmp
 
 " Rubyのシンタックスハイライト重い対策
 set regexpengine=1

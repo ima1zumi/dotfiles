@@ -46,9 +46,6 @@ repo = 'leafOfTree/vim-vue-plugin'
 # --*--*--
 # Vim拡張
 # --*--*--
-[[plugins]] # コマンドを置き換える
-repo = 'tyru/vim-altercmd'
-
 [[plugins]] # undoを辿れるようにする
 repo = 'mbbill/undotree'
 
