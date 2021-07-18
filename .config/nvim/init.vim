@@ -201,14 +201,6 @@ function! s:set_haikei_toumei()
 endfunction
 MyAutocmd ColorScheme * call s:set_haikei_toumei()
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ctrlp
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-" operator-replace
-nmap s <Plug>(operator-replace)
-vmap s <Plug>(operator-replace)
-
 " tab
 nnoremap <silent> <C-l> :tabnext<CR>
 nnoremap <silent> <C-h> :tabprevious<CR>
@@ -218,6 +210,14 @@ command! -bar TabMovePrev :execute "tabmove" (tabpagenr() + tabpagenr("$") - 2) 
 nnoremap <silent> <S-l> :TabMoveNext<CR>
 nnoremap <silent> <S-h> :TabMovePrev<CR>
 nnoremap tt :tabnew<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ctrlp
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" operator-replace
+nmap s <Plug>(operator-replace)
+vmap s <Plug>(operator-replace)
 
 " git 変更行
 highlight GitGutterAdd ctermfg=blue ctermbg=brown
