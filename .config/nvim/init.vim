@@ -320,6 +320,16 @@ noremap <Plug>(yank) y
 noremap <expr> <Plug>(yank-highlight) operator#sequence#map("\<Plug>(operator-highlighter)", "\<Plug>(yank)")
 map <expr> y operator#stay_cursor#wrapper("\<Plug>(yank-highlight)", { "noremap" : 0 })
 
+" vim-operator-surround
+" operator mappings
+" saaw'
+map <silent>sa <Plug>(operator-surround-append)
+" sda'
+map <silent>sd <Plug>(operator-surround-delete)
+" sra'"
+map <silent>sr <Plug>(operator-surround-replace)
+
+"vim-textobj-between"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 外部ファイル読み込み
