@@ -91,6 +91,9 @@ repo = 'andymass/vim-matchup'
 [[plugins]] # operator 実行時にカーソルを移動させない
 repo = 'osyo-manga/vim-operator-stay-cursor'
 
+[[plugins]] # text object の囲み文字
+repo = 'rhysd/vim-operator-surround'
+
 # --*--*--
 # ファイラ
 # --*--*--
