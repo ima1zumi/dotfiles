@@ -290,6 +290,11 @@ nnoremap <silent> <Space>gp  :Git push upstream head<CR>
 nnoremap <silent> <Space>gfp :Git push --force-with-lease upstream head<CR>
 nnoremap <silent> <Space>gl  :Gclog -- %<CR>
 
+" vim-gitgutter
+" 変更へジャンプ
+nmap <Space>gn <Plug>(GitGutterNextHunk)
+nmap <Space>gp <Plug>(GitGutterPrevHunk)
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " CUI で起動した時にインサートモードのカーソルを | にする
