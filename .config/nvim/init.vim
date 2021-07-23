@@ -63,7 +63,7 @@ command! -bang -nargs=*
 
 " vimrc を何回読み込んでも autocmd は 1回しか追加されない
 
-set clipboard+=unnamed
+set clipboard=unnamed
 
 "#####表示設定#####
 set number "行番号を表示する
