@@ -318,13 +318,6 @@ let g:previm_open_cmd = 'open -a Google\ Chrome'
 " yank したときにカーソルを動かさない
 map y <Plug>(operator-stay-cursor-yank)
 
-" Use thinca/vim-operator-sequence
-" yank and highlight
-let g:operator#highlighter#config = { "clear_time" : 300, "group" : "Todo" }
-noremap <Plug>(yank) y
-noremap <expr> <Plug>(yank-highlight) operator#sequence#map("\<Plug>(operator-highlighter)", "\<Plug>(yank)")
-map <expr> y operator#stay_cursor#wrapper("\<Plug>(yank-highlight)", { "noremap" : 0 })
-
 " vim-operator-surround
 " operator mappings
 " saaw'
