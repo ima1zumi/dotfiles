@@ -93,7 +93,7 @@ let s:bracket_rules = [
 \	{'at': '( \%# )', 'char': '<Space>', 'input': ''},
 \]
 
-let s:brackets = [['(', ')'], ['{', '}'], ['[', ']'], ['`', '`']]
+let s:brackets = [['(', ')'], ['{', '}'], ['[', ']'], ['`', '`'], ['"', '"'], ["'", "'"]]
 
 
 for s:rule in s:bracket_rules
