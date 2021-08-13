@@ -332,7 +332,16 @@ augroup my_fugitive
     autocmd FileType gitcommit setlocal textwidth=0
 augroup END
 
-"vim-textobj-between"
+" nvim-treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+    disable = {},
+  },
+}
+EOF
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 外部ファイル読み込み
