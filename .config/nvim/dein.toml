@@ -43,6 +43,9 @@ repo = 'cespare/vim-toml'
 [[plugins]] # Vue.js
 repo = 'leafOfTree/vim-vue-plugin'
 
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+
 # --*--*--
 # Vim拡張
 # --*--*--
