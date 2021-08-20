@@ -32,5 +32,8 @@ Temporary Items
 vendor/bundle
 .vscode/
 .solargraph.yml
-.tool-versions # asdf
-compile_commands.json # bear
+# asdf
+.tool-versions
+# bear
+compile_commands.json
+.cache/
