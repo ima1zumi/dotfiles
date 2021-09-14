@@ -70,7 +70,7 @@
 !/.gitconfig_shared
 !/.gitconfig
 !/.irbrc
-!/.Brewfile
+!/Brewfile
 !/.git_template/
 !/.git_template/**
 
