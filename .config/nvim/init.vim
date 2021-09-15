@@ -63,6 +63,9 @@ command! -bang -nargs=*
 
 " vimrc を何回読み込んでも autocmd は 1回しか追加されない
 
+" for denite, defx
+let g:python3_host_prog = expand('/usr/local/bin/python3')
+
 set clipboard=unnamed
 
 "#####表示設定#####
