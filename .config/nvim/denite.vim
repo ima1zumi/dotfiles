@@ -1,20 +1,4 @@
 " Denite
-" denite-menu の設定
-let s:menus = {}
-
-" Denite menu:dotfile
-" をすると開くファイルを登録する
-let s:menus.dotfile = {
-    \ 'description': 'Edit your dotfile'
-    \ }
-let s:menus.dotfile.file_candidates = [
-    \ ['init.vim', '~/.config/nvim/init.vim'],
-    \ ['dein.toml', '~/.config/nvim/dein.toml'],
-    \ ['zshrc', '~/.zshrc'],
-    \ ]
-
-" 登録
-call denite#custom#var('menu', 'menus', s:menus)
 " rigprepを使う
 call denite#custom#var('grep', {
       \ 'command': ['rg'],
@@ -24,9 +8,6 @@ call denite#custom#var('grep', {
       \ 'separator': ['--'],
       \ 'final_opts': [],
       \ })
-
-" 起動
-nnoremap <Space>ll :Denite menu -no-start-filter<CR>
 
 augroup my_denite
     autocmd!
