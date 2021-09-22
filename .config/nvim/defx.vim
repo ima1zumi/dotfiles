@@ -4,7 +4,7 @@ if has('nvim')
         \ 'show_ignored_files': 1,
         \ 'buffer_name': 'explorer',
         \ 'toggle': 1,
-        \ 'columns': 'indent:git:icons:filename:mark',
+        \ 'columns': 'indent:git:space:icons:space:filename:mark',
         \ })
   " 自動更新
   autocmd BufWritePost * call defx#redraw()
