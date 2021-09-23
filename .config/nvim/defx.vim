@@ -4,6 +4,7 @@ if has('nvim')
         \ 'show_ignored_files': 1,
         \ 'buffer_name': 'explorer',
         \ 'toggle': 1,
+        \ 'auto_cd': 1,
         \ 'columns': 'indent:git:space:icons:space:filename:mark',
         \ })
   " 自動更新
