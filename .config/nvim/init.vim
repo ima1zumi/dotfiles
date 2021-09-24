@@ -170,7 +170,15 @@ set regexpengine=1
 
 " 相対パスを取得するコマンド
 command! CopyRelativePath call setreg(v:register, expand("%:p:."))
-nnoremap <Space>cl :CopyRelativePath<CR>
+" .git からの相対パスを取得する
+function! s:project_relative_path() abort
+  let project_dir = denite#project#path2project_directory(expand("%"), "")
+  let full_path = expand("%:p")
+  echo substitute(full_path, project_dir, "", "")
+  return substitute(full_path, project_dir, "", "")
+endfunction
+command! CopyProjectRelativePath call setreg(v:register, s:project_relative_path())
+nnoremap <silent> <Space>cl :CopyProjectRelativePath<CR>
 " 絶対パスを取得するコマンド
 command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
 nnoremap <Space>ca :CopyAbsolutePath<CR>
