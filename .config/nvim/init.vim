@@ -85,6 +85,7 @@ set laststatus=2 "ステータス行を表示
 set cursorline "カーソル行にラインを表示
 set wildmenu "コマンドライン補完
 set nocompatible "viとの互換性を無効にする
+set autochdir "ファイルを開いたらカレントディレクトリを移動する
 
 " v:oldfiles で保存するファイル数を設定
 " vimrc に書いておく必要がある
