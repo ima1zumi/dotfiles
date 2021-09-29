@@ -9,6 +9,7 @@ shell:
 
 window:
   decolations: buttonless # mac only
+  opacity: 0.9
 
 # font設定
 font:
@@ -19,8 +20,6 @@ font:
     family: HackGenNerd
   italic:
     family: HackGenNerd
-
-background_opacity: 0.85
 
 key_bindings:
   - { key: Q, mods: Control, chars: "\x11" }
