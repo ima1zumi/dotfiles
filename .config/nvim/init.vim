@@ -51,6 +51,7 @@ endif
 "############################################
 "############################################
 "############################################
+
 " vimrc を読み込むたびに autocmd の設定をリセットする設定
 augroup my_vimrc
     autocmd!
@@ -225,7 +226,11 @@ nnoremap tt :tabnew<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctrlp
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" fzf
+set rtp+=/usr/local/opt/fzf
+nnoremap <silent> <C-p> :GFiles<CR>
 
 " operator-replace
 nmap s <Plug>(operator-replace)
