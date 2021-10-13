@@ -142,3 +142,6 @@ zinit light zsh-users/zsh-autosuggestions
 
 # fzfのキーバインディングを設定
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# batのカラースキーマ
+export BAT_THEME="ansi"

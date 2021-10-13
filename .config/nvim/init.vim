@@ -230,7 +230,18 @@ nnoremap tt :tabnew<CR>
 
 " fzf
 set rtp+=/usr/local/opt/fzf
+" setting FZF_DEFAULT_COMMAND for rg
+" https://github.com/junegunn/fzf.vim/issues/583
+let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 nnoremap <silent> <C-p> :GFiles<CR>
+
+" .git があるディレクトリで grep する
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+execute "nnoremap <Space>re :GGrep "
 
 " operator-replace
 nmap s <Plug>(operator-replace)
