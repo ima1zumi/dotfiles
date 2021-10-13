@@ -115,7 +115,7 @@ command! -nargs=* -complete=customlist,DeniteGrepComplete
 \    DeniteGrep call s:grep(<q-args>)
 
 " 末尾のスペースが消える対策にexecuteを使ってnnoremapする
-execute "nnoremap <Space>re   :DeniteGrep "
+" execute "nnoremap <Space>re   :DeniteGrep "
 
 " :Denite のデフォルトの設定
 let s:denite_default_options = {}
