@@ -79,7 +79,6 @@ alias gca='git commit --amend -v'
 alias ga='git add'
 alias gs='git status'
 alias go='git checkout'
-alias gof='git branch --no-merged | fzf | xargs git checkout'
 alias gorf='git branch -a --no-merged | fzf | xargs git checkout'
 alias gl='git log'
 alias glo='git log --oneline'
@@ -90,11 +89,48 @@ alias gp='git push upstream HEAD'
 alias gst='git stash'
 alias gstp='git stash pop'
 alias gpl='git pull --rebase'
+alias gj='cd $(ghq list -p|fzf)'
+
 function gplod() {
   defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
   git pull --rebase origin $defaultbranch
 }
-alias gj='cd $(ghq list -p|fzf)'
+
+# https://petitviolet.hatenablog.com/entry/20190708/1562544000#git-branch%E3%81%A8tag%E3%81%8B%E3%82%89%E9%81%B8%E6%8A%9E%E3%81%99%E3%82%8B
+# git branchとgit tagの結果からgit logを見ながらbranch/tagを選択する
+function select_from_git_branch() {
+  local list=$(\
+    git branch --sort=refname --sort=-authordate --color --all \
+      --format='%(authordate:short) %(objectname:short) %(refname:short) %(if)%(HEAD)%(then)* %(else)%(end)'; \
+    git tag --color -l \
+      --format='%(creatordate:short) %(objectname:short) %(align:width=45,position=left)%(refname:short)%(end)')
+
+  echo $list | fzf --preview 'f() {
+      set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}");
+      [ $# -eq 0 ] || git --no-pager log --oneline -100 --pretty=format:"%C(red)%ad%Creset %C(green)%h%Creset %C(blue)%<(15,trunc)%an%Creset: %s" --date=short --color $1;
+    }; f {}' |\
+    sed -e 's/\* //g' | \
+    awk '{print $3}'  | \
+    sed -e "s;remotes/;;g" | \
+    perl -pe 's/\n/ /g'
+}
+
+# ↑の関数で選んだbranch/tagを入力バッファに入れる
+function select_to_insert_branch() {
+    LBUFFER+=$(select_from_git_branch)
+    CURSOR=$#LBUFFER
+    #zle reset-prompt
+}
+
+
+# ↑の関数で選んだbranch/tagにgit checkoutする
+function select_git_checkout() {
+    local selected_file_to_checkout=`select_from_git_branch | sed -e "s;origin/;;g"`
+    if [ -n "$selected_file_to_checkout" ]; then
+      git checkout $(echo "$selected_file_to_checkout" | tr '\n' ' ')
+    fi
+}
+alias gof='select_git_checkout'
 
 # gh command
 alias ghprc='gh pr create'
