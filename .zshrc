@@ -126,6 +126,7 @@ function select_git_checkout() {
     local selected_file_to_checkout=`select_from_git_branch | sed -e "s;origin/;;g"`
     if [ -n "$selected_file_to_checkout" ]; then
       git checkout $(echo "$selected_file_to_checkout" | tr '\n' ' ')
+    fi
 }
 
 alias gof='select_git_checkout'
