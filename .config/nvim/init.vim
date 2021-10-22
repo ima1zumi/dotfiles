@@ -385,11 +385,13 @@ source <sfile>:h/secrets.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " カラースキーマ
-colorscheme iceberg
 " Terminal.app以外のtermguicolors対応端末での設定
 if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   " 256色にする
   set termguicolors
+  let g:tokyonight_style = 'night'
+  let g:tokyonight_enable_italic = 1
+  colorscheme tokyonight
   " tmux
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
