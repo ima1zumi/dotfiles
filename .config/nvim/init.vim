@@ -234,13 +234,16 @@ set rtp+=/usr/local/opt/fzf
 " setting FZF_DEFAULT_COMMAND for rg
 " https://github.com/junegunn/fzf.vim/issues/583
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+" bat でプレビューの色をつける
+" https://github.com/junegunn/fzf.vim/issues/1179#issuecomment-817194906
+let $FZF_PREVIEW_COMMAND="bat --color=always --style=numbers --line-range=:500 {}"
 nnoremap <silent> <C-p> :GFiles<CR>
 
 " .git があるディレクトリで grep する
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0],}), <bang>0)
 
 execute "nnoremap <Space>re :GGrep "
 
