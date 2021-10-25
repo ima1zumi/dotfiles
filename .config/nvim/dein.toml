@@ -46,6 +46,9 @@ repo = 'leafOfTree/vim-vue-plugin'
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 
+[[plugins]]
+repo = 'slim-template/vim-slim'
+
 # --*--*--
 # Vim拡張
 # --*--*--

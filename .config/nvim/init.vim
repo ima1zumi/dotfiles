@@ -374,6 +374,9 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
+" vim-slim
+MyAutocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 外部ファイル読み込み
