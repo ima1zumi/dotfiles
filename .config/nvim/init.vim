@@ -226,9 +226,6 @@ nnoremap <silent> <S-h> :TabMovePrev<CR>
 nnoremap tt :tabnew<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ctrlp
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
 " fzf
 set rtp+=/usr/local/opt/fzf
 " setting FZF_DEFAULT_COMMAND for rg
