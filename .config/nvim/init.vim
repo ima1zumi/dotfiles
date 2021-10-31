@@ -393,9 +393,15 @@ source <sfile>:h/secrets.vim
 if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   " 256色にする
   set termguicolors
+  " termguicolors のあとで tokyonight に設定
   let g:tokyonight_style = 'night'
-  let g:tokyonight_enable_italic = 1
   colorscheme tokyonight
+  " 背景を透明にする
+  " colorscheme の後に書く
+  highlight Normal ctermbg=NONE guibg=NONE
+  highlight NonText ctermbg=NONE guibg=NONE
+  highlight SpecialKey ctermbg=NONE guibg=NONE
+  highlight EndOfBuffer ctermbg=NONE guibg=NONE
   " tmux
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
