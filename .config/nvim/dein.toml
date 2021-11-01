@@ -194,8 +194,5 @@ repo = 'syusui-s/scrapbox-vim'
 # --*--*--
 # Browser
 # --*--*--
-#[[plugins]] # ghosttext
-#repo = 'subnut/nvim-ghost.nvim'
-
 [[plugins]] # rurema等の依存プラグイン
 repo = 'tyru/open-browser.vim'
