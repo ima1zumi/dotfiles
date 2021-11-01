@@ -129,12 +129,6 @@ repo = 'kristijanhusak/defx-icons'
 # 検索
 # --*--*--
 [[plugins]]
-repo = 'junegunn/fzf'
-build_on = '''
-./install -all
-'''
-
-[[plugins]]
 repo = 'junegunn/fzf.vim'
 
 [[plugins]] # アスタリスクで単語下を検索
