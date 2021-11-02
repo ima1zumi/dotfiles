@@ -129,11 +129,6 @@ set fileencodings=utf-8,sjis
 lang en_US.UTF-8
 
 "#####keybind#####
-":と;の入れ替え
-nnoremap : ;
-nnoremap ; :
-vnoremap : ;
-vnoremap ; :
 "クリップボード
 xnoremap p "_dP
 set whichwrap=b,s,h,l,<,>,[,],~
