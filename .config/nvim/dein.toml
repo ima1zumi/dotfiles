@@ -196,3 +196,9 @@ repo = 'syusui-s/scrapbox-vim'
 # --*--*--
 [[plugins]] # rurema等の依存プラグイン
 repo = 'tyru/open-browser.vim'
+
+# --*--*--
+# CSV
+# --*--*--
+[[plugins]] # CSV を便利に扱う
+repo = 'chrisbra/csv.vim'
