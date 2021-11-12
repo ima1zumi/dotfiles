@@ -38,3 +38,5 @@ vendor/bundle
 compile_commands.json
 .cache/
 .aws/credentials
+# esa-vim
+.esa-vim

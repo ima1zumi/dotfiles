@@ -192,6 +192,15 @@ repo = 'vim-jp/vital.vim'
 repo = 'syusui-s/scrapbox-vim'
 
 # --*--*--
+# esa
+# --*--*--
+[[plugins]] # esa.vim が依存している
+repo = 'mattn/webapi-vim'
+
+[[plugins]] # esa への投稿
+repo = 'upamune/esa.vim'
+
+# --*--*--
 # Browser
 # --*--*--
 [[plugins]] # rurema等の依存プラグイン
