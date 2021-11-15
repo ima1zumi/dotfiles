@@ -230,6 +230,7 @@ let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 " https://github.com/junegunn/fzf.vim/issues/1179#issuecomment-817194906
 let $FZF_PREVIEW_COMMAND="bat --color=always --style=numbers --line-range=:500 {}"
 nnoremap <silent> <C-p> :GFiles<CR>
+nnoremap <silent> <space>fh :History<CR>
 
 " .git があるディレクトリで grep する
 command! -bang -nargs=* GGrep
