@@ -138,8 +138,6 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-" スペースを挿入
-nnoremap <Space><Space> i<Space><Esc><Right>
 
 " vim-anzu
 nmap n <Plug>(anzu-n-with-echo)zz
