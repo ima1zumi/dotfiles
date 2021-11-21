@@ -161,9 +161,6 @@ set backspace=indent,eol,start
 " ヘルプの日本語化
 set helplang=ja
 
-" Rubyのシンタックスハイライト重い対策
-set regexpengine=1
-
 " 相対パスを取得するコマンド
 command! CopyRelativePath call setreg(v:register, expand("%:p:."))
 " .git からの相対パスを取得する
