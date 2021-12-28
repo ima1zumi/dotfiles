@@ -149,6 +149,7 @@ alias br='bin/rails'
 alias rubyw='ruby -W'
 alias irbw='irb -W'
 alias irbm='ASDF_RUBY_VERSION=3.1.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
+alias asdf='ASDF_RUBY_BUILD_VERSION=master asdf'
 
 # docker compose
 alias dcd='docker-compose down'
