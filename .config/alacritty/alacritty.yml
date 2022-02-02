@@ -9,7 +9,7 @@ shell:
 
 window:
   decolations: buttonless # mac only
-  opacity: 0.9
+  opacity: 1
 
 # font設定
 font:
