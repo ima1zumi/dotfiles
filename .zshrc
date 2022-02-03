@@ -86,6 +86,7 @@ alias gloa='git log --oneline --graph --all'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gp='git push upstream HEAD'
+alias gfp='git push --force-with-lease upstream HEAD'
 alias gst='git stash'
 alias gstp='git stash pop'
 alias gpl='git pull --rebase'
@@ -138,16 +139,7 @@ alias ghprc='gh pr create'
 alias ghprd='gh pr diff'
 alias ghprm='gh pr merge'
 
-# bundler
-alias bi='bundle install'
-alias be='bundle exec'
-
-# rails
-alias br='bin/rails'
-
 # ruby
-alias rubyw='ruby -W'
-alias irbw='irb -W'
 alias irbm='ASDF_RUBY_VERSION=3.2.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
 alias asdf='ASDF_RUBY_BUILD_VERSION=master asdf'
 
