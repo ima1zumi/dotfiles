@@ -331,9 +331,6 @@ endif
 let g:indentLine_color_term =239
 let g:indentLine_char = '¦'
 
-" previm
-let g:previm_open_cmd = 'open -a Google\ Chrome'
-
 " vim-operator-stay-cursor
 " yank したときにカーソルを動かさない
 map y <Plug>(operator-stay-cursor-yank)
