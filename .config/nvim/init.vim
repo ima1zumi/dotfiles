@@ -242,6 +242,11 @@ vmap s <Plug>(operator-replace)
 " git 変更行
 highlight GitGutterAdd ctermfg=blue ctermbg=brown
 
+" 常に左端のサイン列を表示させる
+set signcolumn=yes
+" ファイルを変更してサイン列に表示されるまでの時間を100ms
+set updatetime=100
+
 " github の pr を開く openpr
 " gitconfig に設定してある openpr が前提
 function! s:openpre_open() abort
