@@ -78,8 +78,8 @@ alias gc='git commit -v'
 alias gca='git commit --amend -v'
 alias ga='git add'
 alias gs='git status'
-alias go='git checkout'
-alias gorf='git branch -a --no-merged | fzf | xargs git checkout'
+alias gw='git switch'
+alias gorf='git branch -a --no-merged | fzf | xargs git switch'
 alias gl='git log'
 alias glo='git log --oneline'
 alias gloa='git log --oneline --graph --all'
@@ -122,15 +122,15 @@ function select_to_insert_branch() {
     CURSOR=$#LBUFFER
 }
 
-# ↑の関数で選んだbranch/tagにgit checkoutする
-function select_git_checkout() {
-    local selected_file_to_checkout=`select_from_git_branch | sed -e "s;origin/;;g"`
-    if [ -n "$selected_file_to_checkout" ]; then
-      git checkout $(echo "$selected_file_to_checkout" | tr '\n' ' ')
+# ↑の関数で選んだbranch/tagにgit switchする
+function select_git_switch() {
+    local selected_file_to_switch=`select_from_git_branch | sed -e "s;origin/;;g"`
+    if [ -n "$selected_file_to_switch" ]; then
+      git switch $(echo "$selected_file_to_switch" | tr '\n' ' ')
     fi
 }
 
-alias gof='select_git_checkout'
+alias gwf='select_git_switch'
 
 alias gdb='git branch -D $(git branch | tr -d " " | fzf --height 100% --prompt "DELETE BRANCH>" --preview "git log --color=always {}" | head -n 1 )'
 
