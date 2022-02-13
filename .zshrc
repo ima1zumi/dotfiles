@@ -97,6 +97,12 @@ function gplod() {
   git pull --rebase origin $defaultbranch
 }
 
+function grau() {
+  dir=`pwd | sed -e 's/.*\/\([^\/]*\)$/\1/'`
+  repo="https://github.com/ima1zumi/${dir}"
+  git remote add upstream $repo && git remote -v
+}
+
 # https://petitviolet.hatenablog.com/entry/20190708/1562544000#git-branch%E3%81%A8tag%E3%81%8B%E3%82%89%E9%81%B8%E6%8A%9E%E3%81%99%E3%82%8B
 # git branchとgit tagの結果からgit logを見ながらbranch/tagを選択する
 function select_from_git_branch() {
