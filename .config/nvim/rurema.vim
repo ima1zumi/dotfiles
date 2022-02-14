@@ -29,6 +29,9 @@ let s:config = {
 \    "rd/bitclust_htmlfile" : {
 \        "cmdopt"    : "--ruby=latest",
 \    },
+\    "rd/bitclust_htmlfile 3.2.0" : {
+\        "cmdopt"    : "--ruby=3.2.0",
+\    },
 \    "rd/bitclust_htmlfile 3.1.0" : {
 \        "cmdopt"    : "--ruby=3.1.0",
 \    },
