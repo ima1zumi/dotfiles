@@ -228,9 +228,11 @@ nnoremap <silent> <C-p> :GFiles<CR>
 nnoremap <silent> <space>fh :History<CR>
 
 " .git があるディレクトリで grep する
+" --hidden で隠しファイルも含める
+" --glob '!.git' で .git は対象から取り除く
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob ''!.git'' -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0],}), <bang>0)
 
 execute "nnoremap <Space>re :GGrep "
