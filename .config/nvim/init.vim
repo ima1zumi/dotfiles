@@ -54,13 +54,13 @@ endif
 
 " vimrc を読み込むたびに autocmd の設定をリセットする設定
 augroup my_vimrc
-    autocmd!
+  autocmd!
 augroup END
 
 " MyAutocmd で autocmd を設定しておく
 command! -bang -nargs=*
-\   MyAutocmd
-\   autocmd<bang> my_vimrc <args>
+      \   MyAutocmd
+      \   autocmd<bang> my_vimrc <args>
 
 " vimrc を何回読み込んでも autocmd は 1回しか追加されない
 
@@ -231,9 +231,9 @@ nnoremap <silent> <space>fh :History<CR>
 " --hidden で隠しファイルも含める
 " --glob '!.git' で .git は対象から取り除く
 command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob ''!.git'' -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0],}), <bang>0)
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob ''!.git'' -- '.shellescape(<q-args>), 1,
+      \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0],}), <bang>0)
 
 execute "nnoremap <Space>re :GGrep "
 
@@ -263,23 +263,23 @@ nnoremap <F5> :call <SID>openpre_open()<CR>
 
 " git 現在開いているファイルの master ブランチ時点でのファイルを Vim で開く
 function! s:git_show(branch, path, filetype)
-    let branch = a:branch == "" ? "master" : a:branch
-    let cmd = printf("git show %s:%s", branch, a:path)
-    new
-    execute "read!" cmd
-    let &filetype = a:filetype
-    " 一番上の行に移動して空行を削除
-    normal! ggdd
+  let branch = a:branch == "" ? "master" : a:branch
+  let cmd = printf("git show %s:%s", branch, a:path)
+  new
+  execute "read!" cmd
+  let &filetype = a:filetype
+  " 一番上の行に移動して空行を削除
+  normal! ggdd
 endfunction
 
 command! -nargs=* GitShow
-\    call s:git_show(<q-args>, "./" . expand("%:."), &filetype)
+      \    call s:git_show(<q-args>, "./" . expand("%:."), &filetype)
 
 " undo
 function! s:mkdir(dir)
-    if !isdirectory(a:dir)
-        call mkdir(a:dir, "p")
-    endif
+  if !isdirectory(a:dir)
+    call mkdir(a:dir, "p")
+  endif
 endfunction
 
 " undo ファイルを保存するディレクトリ
@@ -326,12 +326,12 @@ nmap <Space>gp <Plug>(GitGutterPrevHunk)
 
 " CUI で起動した時にインサートモードのカーソルを | にする
 if has('vim_starting') && !has("gui_running")
-    " 挿入モード時に非点滅の縦棒タイプのカーソル
-    let &t_SI .= "\e[6 q"
-    " ノーマルモード時に非点滅のブロックタイプのカーソル
-    let &t_EI .= "\e[2 q"
-    " 置換モード時に非点滅の下線タイプのカーソル
-    let &t_SR .= "\e[4 q"
+  " 挿入モード時に非点滅の縦棒タイプのカーソル
+  let &t_SI .= "\e[6 q"
+  " ノーマルモード時に非点滅のブロックタイプのカーソル
+  let &t_EI .= "\e[2 q"
+  " 置換モード時に非点滅の下線タイプのカーソル
+  let &t_SR .= "\e[4 q"
 endif
 
 " indentline
@@ -353,7 +353,7 @@ map <silent>sr <Plug>(operator-surround-replace)
 
 " fugitive の設定を上書きする
 augroup my_fugitive
-    autocmd FileType gitcommit setlocal textwidth=0
+  autocmd FileType gitcommit setlocal textwidth=0
 augroup END
 
 " nvim-treesitter
@@ -406,44 +406,44 @@ if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   endif
   " lightline の設定
   let g:lightline = {
-          \ 'colorscheme': 'iceberg',
-          \ 'mode_map': {'c': 'NORMAL'},
-          \ 'active': {
+        \ 'colorscheme': 'iceberg',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
           \   'left': [ [ 'mode', 'paste' ],
           \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
           \ },
           \ 'component_function': {
-          \   'modified': 'LightlineModified',
-          \   'readonly': 'LightlineReadonly',
-          \   'gitbranch': 'FugitiveHead',
-          \   'filename': 'LightlineFilename',
-          \   'fileformat': 'LightlineFileformat',
-          \   'filetype': 'LightlineFiletype',
-          \   'fileencoding': 'LightlineFileencoding',
-          \   'mode': 'LightlineMode'
-          \ }
-          \ }
-" Terminal.app
+            \   'modified': 'LightlineModified',
+            \   'readonly': 'LightlineReadonly',
+            \   'gitbranch': 'FugitiveHead',
+            \   'filename': 'LightlineFilename',
+            \   'fileformat': 'LightlineFileformat',
+            \   'filetype': 'LightlineFiletype',
+            \   'fileencoding': 'LightlineFileencoding',
+            \   'mode': 'LightlineMode'
+            \ }
+            \ }
+  " Terminal.app
 else
   " lightline の設定
   let g:lightline = {
-          \ 'colorscheme': 'wombat',
-          \ 'mode_map': {'c': 'NORMAL'},
-          \ 'active': {
+        \ 'colorscheme': 'wombat',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
           \   'left': [ [ 'mode', 'paste' ],
           \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
           \ },
           \ 'component_function': {
-          \   'modified': 'LightlineModified',
-          \   'readonly': 'LightlineReadonly',
-          \   'gitbranch': 'FugitiveHead',
-          \   'filename': 'LightlineFilename',
-          \   'fileformat': 'LightlineFileformat',
-          \   'filetype': 'LightlineFiletype',
-          \   'fileencoding': 'LightlineFileencoding',
-          \   'mode': 'LightlineMode'
-          \ }
-          \ }
+            \   'modified': 'LightlineModified',
+            \   'readonly': 'LightlineReadonly',
+            \   'gitbranch': 'FugitiveHead',
+            \   'filename': 'LightlineFilename',
+            \   'fileformat': 'LightlineFileformat',
+            \   'filetype': 'LightlineFiletype',
+            \   'fileencoding': 'LightlineFileencoding',
+            \   'mode': 'LightlineMode'
+            \ }
+            \ }
 end
 
 function! LightlineModified()

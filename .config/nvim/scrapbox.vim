@@ -15,11 +15,11 @@ let s:File = vital#vital#new().import("System.File")
 let s:URI = vital#vital#new().import("Web.URI")
 
 function! s:scrapbox_open(project_name, title, body)
-    let title = s:URI.encode(a:title)
-    let body = s:URI.encode(a:body)
-    let url = printf('https://scrapbox.io/%s/%s?body=%s', a:project_name, title, body)
-    echo url
-    call s:File.open(url)
+  let title = s:URI.encode(a:title)
+  let body = s:URI.encode(a:body)
+  let url = printf('https://scrapbox.io/%s/%s?body=%s', a:project_name, title, body)
+  echo url
+  call s:File.open(url)
 endfunction
 
 function! s:scrapbox_open_buffer(project_name, buffer)
@@ -29,17 +29,17 @@ function! s:scrapbox_open_buffer(project_name, buffer)
 endfunction
 
 command! -range=% ScrapboxOpenBuffer
-  \ call s:scrapbox_open_buffer(g:scrapbox_project_name, join(getline(<line1>, <line2>), "\n"))
+      \ call s:scrapbox_open_buffer(g:scrapbox_project_name, join(getline(<line1>, <line2>), "\n"))
 
 " ft=scrapbox で buffer を開く
 function! s:scrapbox_edit(cmd)
-    execute a:cmd
-    setlocal filetype=scrapbox
+  execute a:cmd
+  setlocal filetype=scrapbox
 endfunction
 
 command! -complete=command -nargs=1
-\    ScrapboxEditOpen
-\    call s:scrapbox_edit(<q-args>)
+      \    ScrapboxEditOpen
+      \    call s:scrapbox_edit(<q-args>)
 
 " 編集画面を新しいタブでシュッと開く
 nnoremap <silent> <Space>ss ScrapboxEditOpen tabnew<CR>
