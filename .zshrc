@@ -93,7 +93,7 @@ alias gpl='git pull --rebase'
 alias gj='cd $(ghq list -p|fzf)'
 
 function gplod() {
-  defaultbranch=`git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}'`
+  defaultbranch=`git remote show origin | grep 'HEAD branch' | awk '{print $NF}'`
   git pull --rebase origin $defaultbranch
 }
 
