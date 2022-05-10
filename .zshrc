@@ -74,11 +74,13 @@ alias la='ls -la -G'
 alias ll='ls -l -G'
 
 # git alias
+alias defaultbranch='git remote show origin | grep '\''HEAD branch'\'' | awk '\''{print $NF}'\'''
 alias gc='git commit -v'
 alias gca='git commit --amend -v'
 alias ga='git add'
 alias gs='git status'
 alias gw='git switch'
+alias gwd='git switch $(defaultbranch)'
 alias gorf='git branch -a --no-merged | fzf | xargs git switch'
 alias gl='git log'
 alias glo='git log --oneline'
@@ -90,12 +92,8 @@ alias gfp='git push --force-with-lease upstream HEAD'
 alias gst='git stash'
 alias gstp='git stash pop'
 alias gpl='git pull --rebase'
+alias gplod='git pull --rebase origin $(defaultbranch)'
 alias gj='cd $(ghq list -p|fzf)'
-
-function gplod() {
-  defaultbranch=`git remote show origin | grep 'HEAD branch' | awk '{print $NF}'`
-  git pull --rebase origin $defaultbranch
-}
 
 function grau() {
   dir=`pwd | sed -e 's/.*\/\([^\/]*\)$/\1/'`
