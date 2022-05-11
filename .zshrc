@@ -24,9 +24,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # nvim
 export XDG_CONFIG_HOME=~/.config
 
-# asdf
-. $HOME/.asdf/asdf.sh
-
 # history
 # setopt histignorealldups
 HISTSIZE=100000
@@ -52,10 +49,10 @@ colors
 
 # 補完
 # 補完機能を有効にする
-# # append completions to fpath
+# append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
-autoload -Uz compinit
-compinit
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 
 # nvim
 alias v='nvim'
