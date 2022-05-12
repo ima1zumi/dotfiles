@@ -145,11 +145,12 @@ alias irbm='ASDF_RUBY_VERSION=3.2.0-dev ruby -I /Users/mi/ghq/github.com/ruby/re
 alias asdf='ASDF_RUBY_BUILD_VERSION=master asdf'
 
 # docker compose
-alias dcd='docker-compose down'
-alias dcdv='docker-compose down -v'
-alias dcu='docker-compose up'
-alias dcr='docker-compose run --rm'
-alias dce='docker-compose exec'
+alias dcd='docker compose down'
+alias dcdv='docker compose down -v'
+alias dcu='docker compose up'
+alias dcr='docker compose run --rm'
+alias dce='docker compose exec'
+alias dsss='docker-sync-stack start'
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
