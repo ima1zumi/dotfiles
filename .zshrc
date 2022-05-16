@@ -24,6 +24,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # nvim
 export XDG_CONFIG_HOME=~/.config
 
+# macOS で Terminal.app を起動すると LC_CTYPE="UTF-8" になり ssh で警告が出る対策
+export LC_CTYPE="ja_JP.UTF-8"
+
 # history
 # setopt histignorealldups
 HISTSIZE=100000
