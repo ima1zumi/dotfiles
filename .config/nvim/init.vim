@@ -139,6 +139,9 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+" TerminalをEscで抜ける
+tnoremap <Esc> <C-\><C-n>
+
 " vim-anzu
 nmap n <Plug>(anzu-n-with-echo)zz
 nmap N <Plug>(anzu-N-with-echo)zz
