@@ -218,6 +218,9 @@ nnoremap <silent> <S-l> :TabMoveNext<CR>
 nnoremap <silent> <S-h> :TabMovePrev<CR>
 nnoremap tt :tabnew<CR>
 
+" Terminalを開くとデフォルトでインサートにする
+autocmd TermOpen * startinsert
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fzf
 set rtp+=/usr/local/opt/fzf
