@@ -27,6 +27,9 @@ export XDG_CONFIG_HOME=~/.config
 # macOS で Terminal.app を起動すると LC_CTYPE="UTF-8" になり ssh で警告が出る対策
 export LC_CTYPE="ja_JP.UTF-8"
 
+# asdf-ruby
+export ASDF_RUBY_BUILD_VERSION="master"
+
 # history
 # setopt histignorealldups
 HISTSIZE=100000
@@ -147,7 +150,6 @@ alias ghprm='gh pr merge'
 
 # ruby
 alias irbm='ASDF_RUBY_VERSION=3.2.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
-alias asdf='ASDF_RUBY_BUILD_VERSION=master asdf'
 
 # docker compose
 alias dcd='docker compose down'
