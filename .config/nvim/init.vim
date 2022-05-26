@@ -241,6 +241,15 @@ command! -bang -nargs=* GGrep
       \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob ''!.git'' -- '.shellescape(<q-args>), 1,
       \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0],}), <bang>0)
 
+" ref: https://zenn.dev/ktakayama/articles/19551f703fe7c0
+command! -bang FzfGitBranchFiles
+  \ call fzf#run({'source':
+  \   "git diff --name-only $(git show-branch --sha1-name $(git symbolic-ref --short refs/remotes/origin/HEAD) $(git rev-parse --abbrev-ref HEAD) | tail -1 | awk -F'[]~^[]' '{print $2}')",
+  \   'sink': 'e',
+  \   'options': '-m --prompt "GitBranchFiles> " --preview "bat --color=always  {}"',
+  \   'window': { 'width': 0.9, 'height': 0.6 }
+  \   })
+
 execute "nnoremap <Space>re :GGrep "
 
 " operator-replace
