@@ -247,8 +247,11 @@ command! -bang FzfGitBranchFiles
   \   "git diff --name-only $(git show-branch --sha1-name $(git symbolic-ref --short refs/remotes/origin/HEAD) $(git rev-parse --abbrev-ref HEAD) | tail -1 | awk -F'[]~^[]' '{print $2}')",
   \   'sink': 'e',
   \   'options': '-m --prompt "GitBranchFiles> " --preview "bat --color=always  {}"',
-  \   'window': { 'width': 0.9, 'height': 0.6 }
+  \   'window': { 'width': 0.9, 'height': 0.6 },
+  \   'dir': systemlist('git rev-parse --show-toplevel')[0]
   \   })
+
+nnoremap <silent> <space>fg :FzfGitBranchFiles<CR>
 
 execute "nnoremap <Space>re :GGrep "
 
