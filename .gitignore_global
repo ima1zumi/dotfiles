@@ -40,3 +40,6 @@ compile_commands.json
 .aws/credentials
 # esa-vim
 .esa-vim
+
+# vagrant
+.vagrant/
