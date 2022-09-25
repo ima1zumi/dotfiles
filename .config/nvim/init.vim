@@ -108,6 +108,8 @@ filetype plugin on
 
 " 縦分割したら右に出す
 set splitright
+" 横分割したら下に出す
+set splitbelow
 
 " rg があれば vimgrep の代わりに使う
 if executable('rg')
