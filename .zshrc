@@ -21,6 +21,9 @@ export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 # rustup
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# binutils
+# export PATH="/usr/local/opt/binutils/bin:$PATH"
+
 # nvim
 export XDG_CONFIG_HOME=~/.config
 
@@ -141,12 +144,16 @@ function select_git_switch() {
 
 alias gwf='select_git_switch'
 
-alias gdb='git branch -D $(git branch | tr -d " " | fzf --height 100% --prompt "DELETE BRANCH>" --preview "git log --color=always {}" | head -n 1 )'
+alias gdbr='git branch -D $(git branch | tr -d " " | fzf --height 100% --prompt "DELETE BRANCH>" --preview "git log --color=always {}" | head -n 1 )'
 
 # gh command
 alias ghprc='gh pr create'
 alias ghprd='gh pr diff'
 alias ghprm='gh pr merge'
+
+# gcc
+alias gcc='gcc-12'
+alias g++='g++-12'
 
 # ruby
 alias irbm='ASDF_RUBY_VERSION=3.2.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
