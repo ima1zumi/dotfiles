@@ -204,12 +204,6 @@ function! s:command_profile() abort
   profile file *
 endfunction
 
-" ColorScheme が変更されたら背景を透明にする
-function! s:set_haikei_toumei()
-  highlight Normal ctermbg=NONE guibg=NONE
-endfunction
-MyAutocmd ColorScheme * call s:set_haikei_toumei()
-
 " tab
 nnoremap <silent> <C-l> :tabnext<CR>
 nnoremap <silent> <C-h> :tabprevious<CR>
