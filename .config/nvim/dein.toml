@@ -134,9 +134,6 @@ repo = 'junegunn/fzf.vim'
 [[plugins]] # アスタリスクで単語下を検索
 repo = 'haya14busa/vim-asterisk'
 
-[[plugins]] # 検索件数を表示
-repo = 'osyo-manga/vim-anzu'
-
 [[plugins]] # リファレンスをみるためのツール
 repo = 'thinca/vim-ref'
 

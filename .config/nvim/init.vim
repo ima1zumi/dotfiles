@@ -144,19 +144,6 @@ vnoremap k gk
 " TerminalをEscで抜ける
 tnoremap <Esc> <C-\><C-n>
 
-" vim-anzu
-nmap n <Plug>(anzu-n-with-echo)zz
-nmap N <Plug>(anzu-N-with-echo)zz
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
-
-" clear status
-nnoremap <silent> <Plug>(nohlsearch) :nohlsearch<CR>
-nmap <Esc><ESc> <Plug>(anzu-clear-search-status)<Plug>(nohlsearch)
-
-" statusline
-set statusline=%{anzu#search_status()}
-
 "BSで削除できるものを指定する
 " indent  : 行頭の空白
 " eol     : 改行
