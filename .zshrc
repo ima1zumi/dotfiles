@@ -71,7 +71,6 @@ alias vz='nvim ~/.zshrc'
 alias vv='nvim ~/.config/nvim/init.vim'
 alias vd='nvim ~/.config/nvim/dein.toml'
 alias va='nvim ~/.config/alacritty/alacritty.yml'
-alias vt='nvim ~/.tmux.conf'
 
 # source
 alias sz='source ~/.zshrc'
