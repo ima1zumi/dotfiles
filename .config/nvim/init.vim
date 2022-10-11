@@ -144,6 +144,9 @@ vnoremap k gk
 " TerminalをEscで抜ける
 tnoremap <Esc> <C-\><C-n>
 
+" esc 2回でハイライトを削除
+nnoremap <Esc><Esc> :nohl<CR>
+
 "BSで削除できるものを指定する
 " indent  : 行頭の空白
 " eol     : 改行
