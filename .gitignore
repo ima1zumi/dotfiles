@@ -66,6 +66,7 @@
 /.config/gh/hosts.yml
 /.config/coc/**
 /.config/nvim/secrets.vim
+/.config/configstore/update-notifier-npm.json
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig
