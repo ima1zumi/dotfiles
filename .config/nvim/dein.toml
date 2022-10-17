@@ -49,6 +49,9 @@ repo = 'nvim-treesitter/nvim-treesitter'
 [[plugins]]
 repo = 'slim-template/vim-slim'
 
+[[plugins]]
+repo = 'pocke/rbs.vim'
+
 # --*--*--
 # Vim拡張
 # --*--*--
