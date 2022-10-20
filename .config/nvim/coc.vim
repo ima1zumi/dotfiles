@@ -29,9 +29,9 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 " インストールする拡張機能
 " :CocList extensions
 let g:coc_global_extensions = [
-      \  'coc-json',
-      \  'coc-tsserver',
-      \  'coc-solargraph',
       \  'coc-clangd',
+      \  'coc-json',
       \  'coc-pairs',
+      \  'coc-solargraph',
+      \  'coc-tsserver',
       \  ]
