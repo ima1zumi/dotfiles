@@ -232,7 +232,7 @@ command! -bang FzfGitBranchFiles
   \ call fzf#run({'source':
   \   "git diff --name-only $(git show-branch --sha1-name $(git symbolic-ref --short refs/remotes/origin/HEAD) $(git rev-parse --abbrev-ref HEAD) | tail -1 | awk -F'[]~^[]' '{print $2}')",
   \   'sink': 'e',
-  \   'options': '-m --prompt "GitBranchFiles> " --preview "bat --color=always  {}"',
+  \   'options': '-m --prompt "GitBranchFiles> " --preview "bat --color=always --style=numbers {}"',
   \   'window': { 'width': 0.9, 'height': 0.6 },
   \   'dir': systemlist('git rev-parse --show-toplevel')[0]
   \   })
