@@ -405,8 +405,8 @@ if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   " 256色にする
   set termguicolors
   " termguicolors のあとで tokyonight に設定
-  let g:tokyonight_style = 'night'
-  colorscheme tokyonight
+  "   let g:tokyonight_style = 'night'
+  colorscheme duskfox
   " 背景を透明にする
   " colorscheme の後に書く
   highlight Normal ctermbg=NONE guibg=NONE

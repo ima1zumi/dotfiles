@@ -11,6 +11,9 @@ repo = 'vim-jp/vimdoc-ja'
 repo = 'cocopon/iceberg.vim'
 
 [[plugins]] # カラースキーマ
+repo = 'EdenEast/nightfox.nvim'
+
+[[plugins]] # カラースキーマ
 repo = 'ghifarit53/tokyonight-vim'
 
 [[plugins]] # ステータスバー
