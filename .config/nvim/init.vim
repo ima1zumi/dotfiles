@@ -391,7 +391,6 @@ MyAutocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 source <sfile>:h/coc.vim
 source <sfile>:h/defx.vim
 source <sfile>:h/denite.vim
-" source <sfile>:h/lexima.vim
 source <sfile>:h/quickrun.vim
 source <sfile>:h/rurema.vim
 source <sfile>:h/scrapbox.vim

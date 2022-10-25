@@ -91,9 +91,6 @@ repo = 'kana/vim-textobj-line'
 [[plugins]] # なんでもコメントアウト
 repo = 'tyru/caw.vim'
 
-# [[plugins]] # かっこ自動挿入
-# repo = 'cohama/lexima.vim'
-
 [[plugins]] # end に対応するやつをハイライト
 repo = 'andymass/vim-matchup'
 
