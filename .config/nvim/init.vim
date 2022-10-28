@@ -415,82 +415,20 @@ if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   " tmux
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  " Vimではset bg=darkを設定しないとlightlineの表示がおかしくなる
-  if !has('nvim')
-    set bg=dark
-  endif
-  " lightline の設定
-  let g:lightline = {
-        \ 'colorscheme': 'iceberg',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-          \   'left': [ [ 'mode', 'paste' ],
-          \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-          \ },
-          \ 'component_function': {
-            \   'modified': 'LightlineModified',
-            \   'readonly': 'LightlineReadonly',
-            \   'gitbranch': 'FugitiveHead',
-            \   'filename': 'LightlineFilename',
-            \   'fileformat': 'LightlineFileformat',
-            \   'filetype': 'LightlineFiletype',
-            \   'fileencoding': 'LightlineFileencoding',
-            \   'mode': 'LightlineMode'
-            \ }
-            \ }
-  " Terminal.app
-else
-  " lightline の設定
-  let g:lightline = {
-        \ 'colorscheme': 'wombat',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-          \   'left': [ [ 'mode', 'paste' ],
-          \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-          \ },
-          \ 'component_function': {
-            \   'modified': 'LightlineModified',
-            \   'readonly': 'LightlineReadonly',
-            \   'gitbranch': 'FugitiveHead',
-            \   'filename': 'LightlineFilename',
-            \   'fileformat': 'LightlineFileformat',
-            \   'filetype': 'LightlineFiletype',
-            \   'fileencoding': 'LightlineFileencoding',
-            \   'mode': 'LightlineMode'
-            \ }
-            \ }
-end
+endif
 
-function! LightlineModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! LightlineReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
-endfunction
-
-function! LightlineFilename()
-  return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightlineFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
-
-function! LightlineMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
+lua <<END
+require'lualine'.setup {
+  options = {
+    theme = 'iceberg_dark',
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+}
+END

@@ -17,7 +17,7 @@ repo = 'EdenEast/nightfox.nvim'
 repo = 'ghifarit53/tokyonight-vim'
 
 [[plugins]] # ステータスバー
-repo = 'itchyny/lightline.vim'
+repo = 'nvim-lualine/lualine.nvim'
 
 [[plugins]] # インデントを表示
 repo = 'Yggdroot/indentLine'
