@@ -182,6 +182,12 @@ repo = 'tpope/vim-rhubarb'
 [[plugins]] # conflictをハイライト表示
 repo = 'rhysd/conflict-marker.vim'
 
+[[plugins]] # gin.vim の依存プラグイン
+repo = 'vim-denops/denops.vim'
+
+[[plugins]] # git
+repo = 'lambdalisue/gin.vim'
+
 # --*--*--
 # Scrapbox
 # --*--*--
