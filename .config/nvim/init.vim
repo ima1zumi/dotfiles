@@ -254,32 +254,6 @@ set signcolumn=yes
 " ファイルを変更してサイン列に表示されるまでの時間を100ms
 set updatetime=100
 
-" github の pr を開く openpr
-" gitconfig に設定してある openpr が前提
-function! s:openpre_open() abort
-  let line = line('.')
-  let fname = expand('%')
-  let cmd = printf('git blame -L %d,%d %s | cut -d " " -f 1', line, line, fname)
-  let sha1 = system(cmd)
-  let cmd = printf('gh openpr %s', sha1)
-  echo system(cmd)
-endfunction
-nnoremap <F5> :call <SID>openpre_open()<CR>
-
-" git 現在開いているファイルの master ブランチ時点でのファイルを Vim で開く
-function! s:git_show(branch, path, filetype)
-  let branch = a:branch == "" ? "master" : a:branch
-  let cmd = printf("git show %s:%s", branch, a:path)
-  new
-  execute "read!" cmd
-  let &filetype = a:filetype
-  " 一番上の行に移動して空行を削除
-  normal! ggdd
-endfunction
-
-command! -nargs=* GitShow
-      \    call s:git_show(<q-args>, "./" . expand("%:."), &filetype)
-
 " undo
 function! s:mkdir(dir)
   if !isdirectory(a:dir)
@@ -311,21 +285,48 @@ vmap <Space>c <Plug>(caw:zeropos:toggle)
 nmap <Space>C <Plug>(caw:i:uncomment)
 vmap <Space>C <Plug>(caw:i:uncomment)
 
-" fugitive
-nnoremap <silent> <Space>gs  :Git<CR>
-nnoremap <silent> <Space>gb  :Git blame<CR>
-nnoremap <silent> <Space>gr  :.GBrowse<CR>
-nnoremap <silent> <Space>gca :Git commit --amend -v<CR>
-nnoremap <silent> <Space>gc  :Git commit -v -q<CR>
-nnoremap <silent> <Space>gd  :Gdiffsplit<CR>
-nnoremap <silent> <Space>gp  :Git push upstream head<CR>
-nnoremap <silent> <Space>gfp :Git push --force-with-lease upstream head<CR>
-nnoremap <silent> <Space>gl  :Gclog -- %<CR>
+" gina
+nnoremap <silent> <Space>gs  :Gina status<CR>
+nnoremap <silent> <Space>gb  :Gina blame<CR>
+nnoremap <silent> <Space>gr  :Gina Browse --exact :<CR>
+nnoremap <silent> <Space>gca :Gina commit --amend -v<CR>
+nnoremap <silent> <Space>gc  :Gina commit -v -q<CR>
+nnoremap <silent> <Space>gd  :Gina compare --opener=vsplit<CR>
+nnoremap <silent> <Space>gp  :Gina push upstream head<CR>
+nnoremap <silent> <Space>gfp :Gina push --force-with-lease upstream head<CR>
+nnoremap <silent> <Space>gl  :Gina log<CR>
 
 " vim-gitgutter
 " 変更へジャンプ
 nmap <Space>gn <Plug>(GitGutterNextHunk)
 nmap <Space>gp <Plug>(GitGutterPrevHunk)
+
+" github の pr を開く openpr
+" gitconfig に設定してある openpr が前提
+function! s:openpre_open() abort
+  let line = line('.')
+  let fname = expand('%')
+  let cmd = printf('git blame -L %d,%d %s | cut -d " " -f 1', line, line, fname)
+  let sha1 = system(cmd)
+  let cmd = printf('gh openpr %s', sha1)
+  echo system(cmd)
+endfunction
+nnoremap <Space>gpr :call <SID>openpre_open()<CR>
+
+" git 現在開いているファイルの master ブランチ時点でのファイルを Vim で開く
+function! s:git_show(branch, path, filetype)
+  let branch = a:branch == "" ? "master" : a:branch
+  let cmd = printf("git show %s:%s", branch, a:path)
+  new
+  execute "read!" cmd
+  let &filetype = a:filetype
+  " 一番上の行に移動して空行を削除
+  normal! ggdd
+endfunction
+
+command! -nargs=* GitShow
+      \    call s:git_show(<q-args>, "./" . expand("%:."), &filetype)
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
