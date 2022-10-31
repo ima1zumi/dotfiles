@@ -286,15 +286,15 @@ nmap <Space>C <Plug>(caw:i:uncomment)
 vmap <Space>C <Plug>(caw:i:uncomment)
 
 " gina
-nnoremap <silent> <Space>gs  :Gina status<CR>
-nnoremap <silent> <Space>gb  :Gina blame<CR>
-nnoremap <silent> <Space>gr  :Gina Browse --exact :<CR>
-nnoremap <silent> <Space>gca :Gina commit --amend -v<CR>
-nnoremap <silent> <Space>gc  :Gina commit -v -q<CR>
-nnoremap <silent> <Space>gd  :Gina compare --opener=vsplit<CR>
-nnoremap <silent> <Space>gp  :Gina push upstream head<CR>
-nnoremap <silent> <Space>gfp :Gina push --force-with-lease upstream head<CR>
-nnoremap <silent> <Space>gl  :Gina log<CR>
+nnoremap <Space>gs  :Gina status<CR>
+nnoremap <Space>gb  :Gina blame<CR>
+nnoremap <Space>gr  :Gina Browse --exact :<CR>
+nnoremap <Space>gca :Gina commit --amend -v<CR>
+nnoremap <Space>gc  :Gina commit -v -q<CR>
+nnoremap <Space>gd  :Gina compare --opener=split<CR>
+nnoremap <Space>gp  :!git push upstream head<CR>
+nnoremap <Space>gfp :!git push --force-with-lease upstream head<CR>
+nnoremap <Space>gl  :Gina log<CR>
 
 " vim-gitgutter
 " 変更へジャンプ
