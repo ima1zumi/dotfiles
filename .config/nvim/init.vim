@@ -159,14 +159,14 @@ set helplang=ja
 " 相対パスを取得するコマンド
 command! CopyRelativePath call setreg(v:register, expand("%:p:."))
 " .git からの相対パスを取得する
-function! s:project_relative_path() abort
+function! ProjectRelativePath() abort
   let project_dir = denite#project#path2project_directory(expand("%"), "")
   let full_path = expand("%:p")
   let relative_path = "." . substitute(full_path, project_dir, "", "")
   echo relative_path
   return relative_path
 endfunction
-command! CopyProjectRelativePath call setreg(v:register, s:project_relative_path())
+command! CopyProjectRelativePath call setreg(v:register, ProjectRelativePath())
 nnoremap <silent> <Space>cl :CopyProjectRelativePath<CR>
 " 絶対パスを取得するコマンド
 command! CopyAbsolutePath call setreg(v:register, expand("%:p"))
@@ -426,7 +426,7 @@ require'lualine'.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
-    lualine_c = {'filename'},
+    lualine_c = {'ProjectRelativePath'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
