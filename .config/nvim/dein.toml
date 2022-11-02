@@ -40,8 +40,6 @@ repo = 'thinca/vim-operator-sequence'
 # --*--*--
 # シンタックスハイライト
 # --*--*--
-[[plugins]] # Vue.js
-repo = 'leafOfTree/vim-vue-plugin'
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
