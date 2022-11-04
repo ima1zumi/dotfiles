@@ -163,7 +163,6 @@ function! ProjectRelativePath() abort
   let project_dir = denite#project#path2project_directory(expand("%"), "")
   let full_path = expand("%:p")
   let relative_path = "." . substitute(full_path, project_dir, "", "")
-  echo relative_path
   return relative_path
 endfunction
 command! CopyProjectRelativePath call setreg(v:register, ProjectRelativePath())
