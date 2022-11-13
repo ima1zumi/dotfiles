@@ -339,9 +339,8 @@ if has('vim_starting') && !has("gui_running")
   let &t_SR .= "\e[4 q"
 endif
 
-" indentline
-let g:indentLine_color_term =239
-let g:indentLine_char = '¦'
+" vim-indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
 
 " vim-operator-stay-cursor
 " yank したときにカーソルを動かさない
@@ -367,6 +366,7 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = {
     "c",
     "javascript",
+    "json",
     "lua",
     "markdown",
     "ruby",

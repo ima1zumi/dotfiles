@@ -20,7 +20,7 @@ repo = 'ghifarit53/tokyonight-vim'
 repo = 'nvim-lualine/lualine.nvim'
 
 [[plugins]] # インデントを表示
-repo = 'Yggdroot/indentLine'
+repo = 'nathanaelkane/vim-indent-guides'
 
 [[plugins]] # 選択した文字をハイライト
 repo = 't9md/vim-quickhl'
