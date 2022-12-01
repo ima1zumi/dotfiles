@@ -32,6 +32,8 @@ Temporary Items
 vendor/bundle
 .vscode/
 .solargraph.yml
+.devcontainer/
+docker-compose.override.yml
 # asdf
 .tool-versions
 # bear
