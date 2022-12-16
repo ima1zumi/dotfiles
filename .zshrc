@@ -25,7 +25,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # export PATH="/usr/local/opt/binutils/bin:$PATH"
 
 # bison
-export PATH="/usr/local/Cellar/bison/3.8.2/bin:$PATH"
+export PATH="/usr/local/opt/bison/bin:$PATH"
 
 # nvim
 export XDG_CONFIG_HOME=~/.config
