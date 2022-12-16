@@ -140,6 +140,11 @@ nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
+" 検索したら必ずカーソルを画面中央に移動
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
 
 " TerminalをEscで抜ける
 tnoremap <Esc> <C-\><C-n>
