@@ -300,6 +300,23 @@ nnoremap <Space>gp  :!git push upstream head<CR>
 nnoremap <Space>gfp :!git push --force-with-lease upstream head<CR>
 nnoremap <Space>gl  :Gina log<CR>
 
+" Echo chunk info with j/k
+call gina#custom#mapping#nmap(
+      \ 'blame', 'j',
+      \ 'j<Plug>(gina-blame-echo)'
+      \)
+call gina#custom#mapping#nmap(
+      \ 'blame', 'k',
+      \ 'k<Plug>(gina-blame-echo)'
+      \)
+call gina#custom#mapping#nmap(
+      \ 'blame', 's',
+      \ ':call gina#action#call(''show:commit:tab'')<CR>',
+      \ {'noremap': 1, 'silent': 1},
+      \)
+call gina#custom#mapping#nmap('blame', 'dd', '<Plug>(gina-diff-tab)')
+
+" \{'noremap': 1, 'silent': 1, 'buffer': 1, 'nowait': 1}
 " vim-gitgutter
 " 変更へジャンプ
 nmap <Space>gn <Plug>(GitGutterNextHunk)
