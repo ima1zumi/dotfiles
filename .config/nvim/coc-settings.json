@@ -9,24 +9,6 @@
           "directory": "/tmp/ccls-cache"
         }
       }
-    },
-    "ruby-lsp": {
-      "command": "ruby-lsp",
-      "initializationOptions": {
-        "enabledFeatures": [
-          "codeActions",
-          "documentHighlights",
-          "documentLink",
-          "documentSymbols",
-          "foldingRanges",
-          "formatting",
-          "hover",
-          "inlayHint",
-          "onTypeFormatting",
-          "selectionRanges"
-        ]
-      },
-      "filetypes": ["ruby"]
     }
   },
   "clangd.path": "/Users/mi/ghq/github.com/ima1zumi/dotfiles/.config/coc/extensions/coc-clangd-data/install/12.0.1/clangd_12.0.1/bin/clangd",
