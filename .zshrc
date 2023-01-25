@@ -27,6 +27,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # bison
 export PATH="/usr/local/opt/bison/bin:$PATH"
 
+# esp tools
+export PATH="$HOME/esp/xtensa-esp32-elf/bin:$PATH"
+export IDF_PATH="$HOME/esp/esp-idf"
+
 # nvim
 export XDG_CONFIG_HOME=~/.config
 
