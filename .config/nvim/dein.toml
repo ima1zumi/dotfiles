@@ -89,6 +89,9 @@ repo = 'osyo-manga/vim-operator-stay-cursor'
 [[plugins]] # text object の囲み文字
 repo = 'rhysd/vim-operator-surround'
 
+[[plugins]] # コメント
+repo = 'numToStr/Comment.nvim'
+
 # --*--*--
 # ファイラ
 # --*--*--
