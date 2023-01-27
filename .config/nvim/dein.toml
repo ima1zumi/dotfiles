@@ -80,9 +80,6 @@ repo = 'rhysd/vim-textobj-ruby'
 [[plugins]] # `sil`
 repo = 'kana/vim-textobj-line'
 
-[[plugins]] # なんでもコメントアウト
-repo = 'tyru/caw.vim'
-
 [[plugins]] # end に対応するやつをハイライト
 repo = 'andymass/vim-matchup'
 

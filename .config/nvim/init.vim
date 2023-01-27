@@ -281,14 +281,6 @@ xmap <Space>M <Plug>(quickhl-manual-reset)
 " 警告の色をicebergっぽくする
 let g:better_whitespace_guicolor='#cc517a'
 
-" caw.vim
-" コメントアウトする
-nmap <Space>c <Plug>(caw:zeropos:toggle)
-vmap <Space>c <Plug>(caw:zeropos:toggle)
-" コメントアウトを解除する
-nmap <Space>C <Plug>(caw:i:uncomment)
-vmap <Space>C <Plug>(caw:i:uncomment)
-
 " gina
 nnoremap <Space>gs  :Gina status<CR>
 nnoremap <Space>gb  :Gina blame<CR>
