@@ -394,6 +394,10 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     disable = {},
   },
+  --- nvim-treesitter-endwise
+  endwise = {
+    enable = true,
+  },
 }
 EOF
 

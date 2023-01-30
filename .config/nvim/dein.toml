@@ -62,9 +62,6 @@ repo = 'thinca/vim-qfreplace'
 # --*--*--
 # 入力補助
 # --*--*--
-[[plugins]] # endwise
-repo = 'tpope/vim-endwise'
-
 [[plugins]] # operator-replace の依存プラグイン
 repo = 'kana/vim-operator-user'
 
@@ -91,6 +88,9 @@ repo = 'rhysd/vim-operator-surround'
 
 [[plugins]] # コメント
 repo = 'numToStr/Comment.nvim'
+
+[[plugins]] # endwise
+repo = 'RRethy/nvim-treesitter-endwise'
 
 # --*--*--
 # ファイラ
