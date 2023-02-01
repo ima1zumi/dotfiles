@@ -59,6 +59,9 @@ export EDITOR='nvim'
 # Ctrl+D防止
 setopt IGNOREEOF
 
+# emacsモード
+bindkey -e
+
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
