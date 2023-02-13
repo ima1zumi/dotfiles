@@ -86,7 +86,7 @@ set laststatus=2 "ステータス行を表示
 set cursorline "カーソル行にラインを表示
 set wildmenu "コマンドライン補完
 set nocompatible "viとの互換性を無効にする
-set autochdir "ファイルを開いたらカレントディレクトリを移動する
+" set autochdir "ファイルを開いたらカレントディレクトリを移動する
 set autoread " ファイルがVimの内部では変更されてないが、Vimの外部で変更されたことが判明したとき、自動的に読み直す
 
 " v:oldfiles で保存するファイル数を設定

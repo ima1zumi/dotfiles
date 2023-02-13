@@ -9,6 +9,13 @@
           "directory": "/tmp/ccls-cache"
         }
       }
+    },
+    "steep": {
+      "command": "steep",
+      "rootPatterns": ["Steepfile"],
+      "requireRootPattern": true,
+      "args" : ["langserver"],
+      "filetypes": ["ruby"]
     }
   },
   "clangd.path": "/Users/mi/ghq/github.com/ima1zumi/dotfiles/.config/coc/extensions/coc-clangd-data/install/12.0.1/clangd_12.0.1/bin/clangd",
