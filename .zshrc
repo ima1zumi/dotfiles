@@ -21,9 +21,6 @@ export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 # rustup
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# binutils
-# export PATH="/usr/local/opt/binutils/bin:$PATH"
-
 # bison
 export PATH="/usr/local/opt/bison/bin:$PATH"
 
