@@ -172,15 +172,6 @@ repo = 'rhysd/conflict-marker.vim'
 repo = 'lambdalisue/gina.vim'
 
 # --*--*--
-# Scrapbox
-# --*--*--
-[[plugins]] # Scrapbox tool が依存している
-repo = 'vim-jp/vital.vim'
-
-[[plugins]] # Filetype=Scrapbox
-repo = 'syusui-s/scrapbox-vim'
-
-# --*--*--
 # esa
 # --*--*--
 [[plugins]] # esa.vim が依存している
