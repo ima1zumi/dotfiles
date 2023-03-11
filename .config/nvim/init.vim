@@ -457,7 +457,6 @@ source <sfile>:h/defx.vim
 source <sfile>:h/denite.vim
 source <sfile>:h/quickrun.vim
 source <sfile>:h/rurema.vim
-source <sfile>:h/scrapbox.vim
 source <sfile>:h/secrets.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
