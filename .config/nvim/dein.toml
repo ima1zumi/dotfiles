@@ -95,12 +95,6 @@ repo = 'RRethy/nvim-treesitter-endwise'
 # --*--*--
 # ファイラ
 # --*--*--
-[[plugins]] # denite の依存プラグイン. Vim 用
-repo = 'roxma/nvim-yarp'
-
-[[plugins]] # denite の依存プラグイン. Vim 用
-repo = 'roxma/vim-hug-neovim-rpc'
-
 [[plugins]] # 対話的なインターフェースを提供
 # Vim では pip3 install --user pynvim が必要
 repo = 'Shougo/denite.nvim'
