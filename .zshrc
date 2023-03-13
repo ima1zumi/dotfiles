@@ -164,6 +164,9 @@ alias g++='g++-12'
 # ruby
 alias irbm='ASDF_RUBY_VERSION=3.3.0-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb'
 
+# bundler
+alias be='bundle exec'
+
 # docker compose
 alias dcd='docker compose down'
 alias dcdv='docker compose down -v'
