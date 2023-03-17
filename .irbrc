@@ -7,3 +7,7 @@ class String
     ord.to_s(16).upcase
   end
 end
+
+def showkey
+  STDIN.raw{10.times.map{STDIN.getbyte}}
+end
