@@ -1,3 +1,5 @@
+IRB.conf[:SAVE_HISTORY] = 100000
+
 class String
   def each_codepoint16
     each_codepoint { |s| p s.to_s(16).upcase }
