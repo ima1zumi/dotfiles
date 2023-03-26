@@ -310,7 +310,7 @@ call gina#custom#mapping#nmap('blame', 'dd', '<Plug>(gina-diff-tab)')
 " vim-gitgutter
 " 変更へジャンプ
 nmap <Space>gn <Plug>(GitGutterNextHunk)
-nmap <Space>gp <Plug>(GitGutterPrevHunk)
+nmap <Space>gN <Plug>(GitGutterPrevHunk)
 
 " github の pr を開く openpr
 " gitconfig に設定してある openpr が前提
