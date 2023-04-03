@@ -172,6 +172,7 @@ alias irbm='irbm'
 
 # bundler
 alias be='bundle exec'
+alias bi='bundle install'
 
 # docker compose
 alias dcd='docker compose down'
