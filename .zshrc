@@ -152,9 +152,10 @@ alias gwf='select_git_switch'
 alias gdbr='git branch -D $(git branch | tr -d " " | fzf --height 100% --prompt "DELETE BRANCH>" --preview "git log --color=always {}" | head -n 1 )'
 
 # gh command
-alias ghprc='gh pr create'
-alias ghprd='gh pr diff'
-alias ghprm='gh pr merge'
+alias hpc='gh pr create'
+alias hpd='gh pr diff'
+alias hpm='gh pr merge'
+alias hpo='gh pr checkout'
 
 # gcc
 alias gcc='gcc-12'
