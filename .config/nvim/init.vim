@@ -282,7 +282,7 @@ let g:better_whitespace_guicolor='#cc517a'
 " gina
 nnoremap <Space>gs  :Gina status<CR>
 nnoremap <Space>gb  :Gina blame<CR>
-nnoremap <Space>gr  :Gina Browse --exact :<CR>
+nnoremap <Space>gr  :Gina browse --exact :<CR>
 nnoremap <Space>gca :Gina commit --amend -v<CR>
 nnoremap <Space>gc  :Gina commit -v -q<CR>
 nnoremap <Space>gd  :Gina compare --opener=split<CR>
