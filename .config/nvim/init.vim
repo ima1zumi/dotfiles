@@ -368,11 +368,6 @@ map <silent>sd <Plug>(operator-surround-delete)
 " sra'"
 map <silent>sr <Plug>(operator-surround-replace)
 
-" fugitive の設定を上書きする
-augroup my_fugitive
-  autocmd FileType gitcommit setlocal textwidth=0
-augroup END
-
 " nvim-treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
