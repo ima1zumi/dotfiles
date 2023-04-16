@@ -286,7 +286,6 @@ nnoremap <Space>gca :Gina commit --amend -v<CR>
 nnoremap <Space>gc  :Gina commit -v -q<CR>
 nnoremap <Space>gd  :Gina compare --opener=split<CR>
 nnoremap <Space>gp  :!git push upstream head<CR>
-nnoremap <Space>gfp :!git push --force-with-lease upstream head<CR>
 nnoremap <Space>gl  :Gina log<CR>
 
 " Echo chunk info with j/k
