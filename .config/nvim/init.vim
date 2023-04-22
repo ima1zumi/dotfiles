@@ -144,10 +144,10 @@ nnoremap * *zz
 nnoremap # #zz
 
 " TerminalをEscで抜ける
-tnoremap <Esc> <C-\><C-n>
+tnoremap <silent> <Esc> <C-\><C-n>
 
 " esc 2回でハイライトを削除
-nnoremap <Esc><Esc> :nohl<CR>
+nnoremap <silent> <Esc><Esc> :nohl<CR>
 
 "BSで削除できるものを指定する
 " indent  : 行頭の空白
