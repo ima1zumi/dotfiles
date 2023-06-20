@@ -92,6 +92,9 @@ repo = 'numToStr/Comment.nvim'
 [[plugins]] # endwise
 repo = 'RRethy/nvim-treesitter-endwise'
 
+[[plugins]] # editorconfig
+repo = 'editorconfig/editorconfig-vim'
+
 # --*--*--
 # ファイラ
 # --*--*--
