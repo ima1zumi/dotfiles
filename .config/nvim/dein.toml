@@ -95,6 +95,9 @@ repo = 'RRethy/nvim-treesitter-endwise'
 [[plugins]] # editorconfig
 repo = 'editorconfig/editorconfig-vim'
 
+[[plugins]]
+repo = 'github/copilot.vim'
+
 # --*--*--
 # ファイラ
 # --*--*--
