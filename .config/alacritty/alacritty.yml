@@ -15,11 +15,11 @@ window:
 font:
   size: 24
   normal:
-    family: HackGen Console NFJ
+    family: HackGen Console NF
   bold:
-    family: HackGen Console NFJ
+    family: HackGen Console NF
   italic:
-    family: HackGen Console NFJ
+    family: HackGen Console NF
 
 key_bindings:
   - { key: Q,         mods: Control,   chars: "\x11" }
