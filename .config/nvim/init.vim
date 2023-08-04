@@ -280,7 +280,7 @@ let g:better_whitespace_guicolor='#cc517a'
 " gina
 nnoremap <Space>gs  :Gina status<CR>
 nnoremap <Space>gb  :Gina blame<CR>
-nnoremap <Space>gr  :Gina browse --exact :<CR>
+nnoremap <Space>go  :,Gina browse --exact :<CR>
 nnoremap <Space>gca :Gina commit --amend -v<CR>
 nnoremap <Space>gc  :Gina commit -v -q<CR>
 nnoremap <Space>gd  :Gina compare --opener=split<CR>
@@ -347,10 +347,6 @@ if has('vim_starting') && !has("gui_running")
   " 置換モード時に非点滅の下線タイプのカーソル
   let &t_SR .= "\e[4 q"
 endif
-
-" vim-indent-guides
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 2
 
 " vim-operator-stay-cursor
 " yank したときにカーソルを動かさない
@@ -453,6 +449,31 @@ source <sfile>:h/secrets.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+" VSCodeでは除外する
+if exists('g:vscode')
+else
+  " vim-indent-guides
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_start_level = 2
+
+  " lualine
+lua << EOF
+require'lualine'.setup {
+  options = {
+    theme = 'iceberg_dark',
+    },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch'},
+    lualine_c = {'ProjectRelativePath'},
+    lualine_x = {{'diagnostics', sources={'coc'}}, 'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+},
+}
+EOF
+
 " カラースキーマ
 " Terminal.app以外のtermguicolors対応端末での設定
 if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
@@ -467,23 +488,9 @@ if has('termguicolors') && $TERM_PROGRAM !=# 'Apple_Terminal'
   highlight NonText ctermbg=NONE guibg=NONE
   highlight SpecialKey ctermbg=NONE guibg=NONE
   highlight EndOfBuffer ctermbg=NONE guibg=NONE
+  highlight CopilotSuggestion guifg=#555588 ctermfg=8
   " tmux
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
-
-lua <<END
-require'lualine'.setup {
-  options = {
-    theme = 'iceberg_dark',
-    },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch'},
-    lualine_c = {'ProjectRelativePath'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-},
-}
-END
+endif
