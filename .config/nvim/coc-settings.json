@@ -23,6 +23,27 @@
       "requireRootPattern": true,
       "args" : ["--lsp"],
       "filetypes": ["ruby"]
+    },
+    "ruby-lsp": {
+      "command": "ruby-lsp",
+      "initializationOptions": {
+        "experimentalFeaturesEnabled": false,
+        "enabledFeatures": [
+          "codeActions",
+          "diagnostics",
+          "documentHighlights",
+          "documentLink",
+          "documentSymbols",
+          "foldingRanges",
+          "hover",
+          "inlayHint",
+          "onTypeFormatting",
+          "selectionRanges",
+          "semanticHighlighting",
+          "completion"
+        ]
+      },
+      "filetypes": ["ruby"]
     }
   },
   "clangd.path": "/Users/mi/ghq/github.com/ima1zumi/dotfiles/.config/coc/extensions/coc-clangd-data/install/12.0.1/clangd_12.0.1/bin/clangd",
