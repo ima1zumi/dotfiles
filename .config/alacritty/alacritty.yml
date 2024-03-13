@@ -13,7 +13,7 @@ window:
 
 # font設定
 font:
-  size: 24
+  size: 22
   normal:
     family: HackGen Console NF
   bold:
