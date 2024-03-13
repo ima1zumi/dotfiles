@@ -273,10 +273,6 @@ xmap <Space>m <Plug>(quickhl-manual-this)
 nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
 
-" vim-better-whitespace
-" 警告の色をicebergっぽくする
-let g:better_whitespace_guicolor='#cc517a'
-
 " gina
 nnoremap <Space>gs  :Gina status<CR>
 nnoremap <Space>gb  :Gina blame<CR>
@@ -361,35 +357,6 @@ map <silent>sd <Plug>(operator-surround-delete)
 " sra'"
 map <silent>sr <Plug>(operator-surround-replace)
 
-" nvim-treesitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
-    "c",
-    "javascript",
-    "json",
-    "lua",
-    "ruby",
-    "rust",
-    "toml",
-    "vim",
-    "vue",
-    "yaml"
-  },
-  highlight = {
-    enable = true,
-    disable = {},
-    },
-  --- nvim-treesitter-endwise
-  endwise = {
-    enable = true,
-},
-}
-EOF
-
-" vim-slim
-MyAutocmd BufNewFile,BufRead *.slim setlocal filetype=slim
-
 " Comment.nvim
 lua << EOF
 require('Comment').setup {
@@ -437,12 +404,12 @@ require('Comment').setup {
 }
 EOF
 
+lua << EOF
+require("ibl").setup()
+EOF
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" 外部ファイル読み込み
-source <sfile>:h/coc.vim
-source <sfile>:h/defx.vim
-source <sfile>:h/denite.vim
 source <sfile>:h/quickrun.vim
 source <sfile>:h/rurema.vim
 source <sfile>:h/secrets.vim
@@ -453,6 +420,45 @@ source <sfile>:h/secrets.vim
 " VSCodeでは除外する
 if exists('g:vscode')
 else
+
+" vim-better-whitespace
+" 警告の色をicebergっぽくする
+let g:better_whitespace_guicolor='#cc517a'
+
+" nvim-treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "c",
+    "javascript",
+    "json",
+    "lua",
+    "ruby",
+    "rust",
+    "toml",
+    "vim",
+    "vue",
+    "yaml"
+  },
+  highlight = {
+    enable = true,
+    disable = {},
+    },
+  --- nvim-treesitter-endwise
+  endwise = {
+    enable = true,
+},
+}
+EOF
+
+  " vim-slim
+  MyAutocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+
+  " 外部ファイル読み込み
+  source <sfile>:h/coc.vim
+  source <sfile>:h/defx.vim
+  source <sfile>:h/denite.vim
+
   " vim-indent-guides
   let g:indent_guides_enable_on_vim_startup = 1
   let g:indent_guides_start_level = 2
