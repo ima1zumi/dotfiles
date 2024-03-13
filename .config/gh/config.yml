@@ -28,3 +28,4 @@ aliases:
           }
         ' | jq .data.repository.object.associatedPullRequests.edges[0].node.number
     openpr: '!gh searchpr $1 | xargs -I ISSUE_NUMBER gh pr view ISSUE_NUMBER --web'
+version: "1"
