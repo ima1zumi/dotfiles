@@ -1,0 +1,81 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "toggl-track",
+  "title": "Toggl Track",
+  "description": "Start and stop time entries with Toggl Track",
+  "icon": "command-icon.png",
+  "keywords": [
+    "toggl",
+    "track",
+    "time",
+    "entry"
+  ],
+  "author": "franzwilhelm",
+  "contributors": [
+    "bkeys818",
+    "michaelfaisst"
+  ],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "index",
+      "title": "Start/Stop Time Entry",
+      "description": "Start a new time entry or end the running time entry.",
+      "mode": "view"
+    },
+    {
+      "name": "manageWorkspaces",
+      "title": "View Workspaces",
+      "description": "A list of all the workspace you have access to.",
+      "mode": "view",
+      "disabledByDefault": false
+    },
+    {
+      "name": "manageTags",
+      "title": "Manage Tags",
+      "description": "A list of all the tags you have access to.",
+      "mode": "view"
+    },
+    {
+      "name": "manageClients",
+      "title": "Manage Clients",
+      "description": "A list of all the clients you have access to.",
+      "mode": "view"
+    },
+    {
+      "name": "manageProjects",
+      "title": "Manage Projects",
+      "description": "A list of all the projects you have access to.",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "description": "The API token for your Toggl account.",
+      "name": "togglApiToken",
+      "placeholder": "Can be found at https://track.toggl.com/profile",
+      "required": true,
+      "title": "Toggl API Token",
+      "type": "password"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.64.4",
+    "@raycast/utils": "^1.10.1",
+    "dayjs": "^1.11.10",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^1.0.8",
+    "@types/node": "~20.8.10",
+    "@types/react": "~18.2.27",
+    "eslint": "^8.56.0",
+    "react-devtools": "~4.28.4",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "lint": "ray lint"
+  }
+}
