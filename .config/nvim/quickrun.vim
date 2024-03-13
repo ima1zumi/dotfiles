@@ -48,7 +48,6 @@ endif
 
 " QuickRun
 nnoremap <Space>r :QuickRun<CR>
-autocmd BufEnter *_spec.rb set ft=ruby.rspec
 
 " ANSI escape をハイライトする
 augroup my-quickrun
