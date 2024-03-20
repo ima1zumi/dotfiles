@@ -164,11 +164,11 @@ alias g++='g++-13'
 # ruby
 
 function irbm() {
-  echo "ASDF_RUBY_VERSION=3.3.0 ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb"
-  echo "$(ruby -v)"
+  echo "ASDF_RUBY_VERSION=ruby-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb"
+  echo "$(ASDF_RUBY_VERSION=ruby-dev ruby -v)"
   echo "IRB    branch: $(cd /Users/mi/ghq/github.com/ruby/irb && git rev-parse --abbrev-ref HEAD), HEAD: $(cd /Users/mi/ghq/github.com/ruby/irb && git show --format='%h' --no-patch)"
   echo Reline branch: $(cd /Users/mi/ghq/github.com/ruby/reline && git rev-parse --abbrev-ref HEAD), HEAD: $(cd /Users/mi/ghq/github.com/ruby/reline && git show --format='%h' --no-patch)
-  ASDF_RUBY_VERSION=3.3.0 ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb
+  ASDF_RUBY_VERSION=ruby-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb
 }
 
 alias irbm='irbm'
