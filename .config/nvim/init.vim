@@ -65,7 +65,7 @@ command! -bang -nargs=*
 " vimrc を何回読み込んでも autocmd は 1回しか追加されない
 
 " for denite, defx
-let g:python3_host_prog = expand('/usr/local/bin/python3')
+let g:python3_host_prog = system('echo -n $(which python3)')
 
 set clipboard=unnamed
 
@@ -210,7 +210,7 @@ autocmd TermOpen * startinsert
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fzf
-set rtp+=/usr/local/opt/fzf
+set rtp+=/opt/homebrew/bin/fzf
 " setting FZF_DEFAULT_COMMAND for rg
 " https://github.com/junegunn/fzf.vim/issues/583
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
@@ -412,7 +412,7 @@ EOF
 
 source <sfile>:h/quickrun.vim
 source <sfile>:h/rurema.vim
-source <sfile>:h/secrets.vim
+" source <sfile>:h/secrets.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
