@@ -11,6 +11,7 @@
 	excludesfile = ~/.gitignore_global
 	editor = nvim
 	commentChar = ";"
+	hooksPath = /Users/mi/.git_templates
 [diff]
 	tool = default-difftool
 [difftool "default-difftool"]
