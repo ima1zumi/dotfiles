@@ -68,6 +68,7 @@
 /.config/nvim/secrets.vim
 /.config/github-copilot/**
 /.config/configstore/update-notifier-npm.json
+/.config/raycast/**
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig
