@@ -67,7 +67,7 @@ colors
 # asdf
 . $HOME/.asdf/asdf.sh
 # append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
+# fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
 
@@ -164,11 +164,11 @@ alias g++='g++-13'
 # ruby
 
 function irbm() {
-  echo "ASDF_RUBY_VERSION=ruby-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb"
+  echo "ASDF_RUBY_VERSION=ruby-dev ruby -I ~/ghq/github.com/ruby/reline/lib -I ~/ghq/github.com/ruby/irb/lib ~/ghq/github.com/ruby/irb/exe/irb"
   echo "$(ASDF_RUBY_VERSION=ruby-dev ruby -v)"
-  echo "IRB    branch: $(cd /Users/mi/ghq/github.com/ruby/irb && git rev-parse --abbrev-ref HEAD), HEAD: $(cd /Users/mi/ghq/github.com/ruby/irb && git show --format='%h' --no-patch)"
-  echo Reline branch: $(cd /Users/mi/ghq/github.com/ruby/reline && git rev-parse --abbrev-ref HEAD), HEAD: $(cd /Users/mi/ghq/github.com/ruby/reline && git show --format='%h' --no-patch)
-  ASDF_RUBY_VERSION=ruby-dev ruby -I /Users/mi/ghq/github.com/ruby/reline/lib -I /Users/mi/ghq/github.com/ruby/irb/lib /Users/mi/ghq/github.com/ruby/irb/exe/irb
+  echo "IRB    branch: $(cd ~/ghq/github.com/ruby/irb && git rev-parse --abbrev-ref HEAD), HEAD: $(cd ~/ghq/github.com/ruby/irb && git show --format='%h' --no-patch)"
+  echo Reline branch: $(cd ~/ghq/github.com/ruby/reline && git rev-parse --abbrev-ref HEAD), HEAD: $(cd ~/ghq/github.com/ruby/reline && git show --format='%h' --no-patch)
+  ASDF_RUBY_VERSION=ruby-dev ruby -I ~/ghq/github.com/ruby/reline/lib -I ~/ghq/github.com/ruby/irb/lib ~/ghq/github.com/ruby/irb/exe/irb
 }
 
 alias irbm='irbm'
@@ -191,7 +191,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
-source /Users/mi/.local/share/zinit/plugins/b4b4r07---enhancd/init.sh
+source ~/.local/share/zinit/plugins/b4b4r07---enhancd/init.sh
 zinit load "b4b4r07/enhancd"
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
@@ -212,3 +212,5 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
+
+eval "$(direnv hook zsh)"
