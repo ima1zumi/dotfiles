@@ -197,8 +197,8 @@ zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 zinit light zsh-users/zsh-autosuggestions
 
-# fzfのキーバインディングを設定
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 
 # batのカラースキーマ
 export BAT_THEME="ansi"
