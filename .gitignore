@@ -76,6 +76,7 @@
 !/.Brewfile
 !/.git_templates/
 !/.git_templates/**
+!/.default-gems
 
 !/README.md
 !/LICENSE
