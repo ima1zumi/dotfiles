@@ -435,6 +435,7 @@ require'nvim-treesitter.configs'.setup {
     "lua",
     "ruby",
     "rust",
+    "terraform",
     "toml",
     "vim",
     "vue",
