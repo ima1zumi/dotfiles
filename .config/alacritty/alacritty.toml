@@ -26,7 +26,7 @@ foreground = "#d2d4de"
 TERM = "xterm-256color"
 
 [font]
-size = 22
+size = 20
 
 [font.bold]
 family = "HackGen Console NF"
