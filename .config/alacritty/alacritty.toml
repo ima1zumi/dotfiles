@@ -42,5 +42,4 @@ args = ["-l"]
 program = "/bin/zsh"
 
 [window]
-# decolations = "buttonless"
 opacity = 1
