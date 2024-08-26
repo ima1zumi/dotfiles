@@ -18,11 +18,6 @@ else
   end
 end
 
-if ENV['KT'] == '1'
-  require 'katakata_irb' rescue nil
-  puts 'Running on katakata_irb'
-end
-
 class String
   def each_codepoint16
     each_codepoint { |s| p s.to_s(16).upcase }
