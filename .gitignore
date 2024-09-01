@@ -78,6 +78,7 @@
 !/.git_templates/
 !/.git_templates/**
 !/.default-gems
+!/tools
 
 !/README.md
 !/LICENSE
