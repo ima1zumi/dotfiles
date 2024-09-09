@@ -40,8 +40,6 @@ docker-compose.override.yml
 compile_commands.json
 .cache/
 .aws/credentials
-# esa-vim
-.esa-vim
 
 # vagrant
 .vagrant/
