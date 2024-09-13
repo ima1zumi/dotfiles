@@ -183,7 +183,6 @@ alias dcdv='docker compose down -v'
 alias dcu='docker compose up'
 alias dcr='docker compose run --rm'
 alias dce='docker compose exec'
-alias dsss='docker-sync-stack start'
 
 ### Added by Zinit's installer
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
