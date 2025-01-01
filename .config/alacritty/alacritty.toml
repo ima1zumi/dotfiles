@@ -43,3 +43,4 @@ program = "/bin/zsh"
 
 [window]
 opacity = 1
+option_as_alt = "both"
