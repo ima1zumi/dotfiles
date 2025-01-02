@@ -76,7 +76,7 @@ alias v='nvim'
 alias vz='nvim ~/.zshrc'
 alias vv='nvim ~/.config/nvim/init.vim'
 alias vd='nvim ~/.config/nvim/dein.toml'
-alias va='nvim ~/.config/alacritty/alacritty.yml'
+alias va='nvim ~/.config/alacritty/alacritty.toml'
 
 # source
 alias sz='source ~/.zshrc'
@@ -107,6 +107,7 @@ alias gstp='git stash pop'
 alias gpl='git pull --rebase'
 alias gplod='git pull --rebase origin $(defaultbranch)'
 alias gj='cd $(ghq list -p|fzf)'
+alias gprc='gh pr checkout'
 
 function grau() {
   dir=`pwd | sed -e 's/.*\/\([^\/]*\)$/\1/'`
