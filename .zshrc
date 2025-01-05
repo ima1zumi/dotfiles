@@ -37,6 +37,9 @@ export LC_CTYPE="ja_JP.UTF-8"
 # asdf-ruby
 export ASDF_RUBY_BUILD_VERSION="master"
 
+# reline
+export WITH_VTERM="1"
+
 # history
 # setopt histignorealldups
 HISTSIZE=100000
