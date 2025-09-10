@@ -157,8 +157,8 @@ repo = 'osyo-manga/shabadou.vim'
 # --*--*--
 [[plugins]] # LSP
 repo = 'neoclide/coc.nvim'
-source = 'release'
-build = 'coc#util#install()'
+rev = 'release'
+merged = 0
 
 # --*--*--
 # SQL
