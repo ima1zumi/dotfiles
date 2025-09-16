@@ -41,6 +41,7 @@
 !/.bin/
 !/.bin/**
 !/.bin.local
+/.bin/claude.sh
 !/.tmux.conf
 !/.tmux/
 !/.tmux/conf/
@@ -70,6 +71,8 @@
 /.config/configstore/update-notifier-npm.json
 /.config/raycast/**
 /.config/op/
+/.config/mise/config.toml
+/.config/.claude
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig
@@ -80,6 +83,7 @@
 !/.default-gems
 !/tools
 /tools/.env
+/tools/secrets
 
 !/README.md
 !/LICENSE
