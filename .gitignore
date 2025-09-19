@@ -73,6 +73,10 @@
 /.config/op/
 /.config/mise/config.toml
 /.config/.claude
+/.config/gcloud/**
+/.config/AWS VPN Client/**
+/.config/Google/**
+/.config/AWSVPNClient/**
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig
