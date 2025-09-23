@@ -78,6 +78,7 @@
 /.config/Google/**
 /.config/AWSVPNClient/**
 /.config/.wrangler/**
+/.config/.nuxtrc
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig
