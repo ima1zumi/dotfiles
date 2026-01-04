@@ -1,12 +1,9 @@
 {
   "dependencies": {
-    "coc-clangd": ">=0.30.2",
-    "coc-json": ">=1.9.2",
-    "coc-pairs": ">=1.4.2",
-    "coc-tsserver": ">=2.2.0",
-    "coc-solargraph": ">=1.2.4"
-  },
-  "disabled": [],
-  "locked": [],
-  "lastUpdate": 1755838246480
+    "coc-json": ">=1.9.3",
+    "coc-clangd": ">=0.32.0",
+    "coc-pairs": ">=1.5.2",
+    "coc-solargraph": ">=1.2.4",
+    "coc-tsserver": ">=2.3.1"
+  }
 }
