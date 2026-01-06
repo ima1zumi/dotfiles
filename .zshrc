@@ -40,6 +40,9 @@ export ASDF_RUBY_BUILD_VERSION="master"
 # reline
 export WITH_VTERM="1"
 
+# build ruby
+export MAKEFLAGS="--jobs $(sysctl -n hw.ncpu)"
+
 # history
 # setopt histignorealldups
 HISTSIZE=100000
@@ -219,3 +222,7 @@ zinit light-mode for \
 if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+# Created by `pipx` on 2026-01-01 07:35:29
+export PATH="$PATH:/Users/mi/.local/bin"
