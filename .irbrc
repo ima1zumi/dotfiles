@@ -9,7 +9,10 @@ IRB.conf[:PROMPT][:MY_PROMPT] = {
 }
 
 if ENV['DEBUG'] != '1'
-  require 'irb/theme/rk2025'
+  begin
+    require 'irb/theme/rk2025'
+  rescue LoadError
+  end
 else
   Reline::Face.config(:completion_dialog) do |conf|
     conf.define(:default, foreground: "#f8f8f2", background: "#282a36")
