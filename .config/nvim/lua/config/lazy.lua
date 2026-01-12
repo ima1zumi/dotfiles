@@ -27,6 +27,8 @@ require("lazy").setup({
     -- import your plugins
     { import = "plugins.nightfox" },
     { import = "plugins.oil" },
+    { import = "plugins.neogit" },
+    { import = "plugins.nvim-treesitter" },
     -- No need to setting
     { "vim-jp/vimdoc-ja" },
   },
