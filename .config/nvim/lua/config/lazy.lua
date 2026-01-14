@@ -25,16 +25,19 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     -- import your plugins
-    { import = "plugins.nightfox" },
     { import = "plugins.oil" },
     { import = "plugins.neogit" },
     { import = "plugins.nvim-treesitter" },
+    { import = "plugins.telescope" },
+    { import = "plugins.indent-blankline" },
     -- No need to setting
     { "vim-jp/vimdoc-ja" },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { "cocopon/iceberg.vim" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "nightfox" } },
+  install = { colorscheme = { "catppuccin" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
