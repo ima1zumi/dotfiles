@@ -1,1 +1,1 @@
-vim.cmd.colorscheme "iceberg"
+vim.cmd.colorscheme "catppuccin-frappe"

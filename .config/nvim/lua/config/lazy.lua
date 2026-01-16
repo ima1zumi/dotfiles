@@ -25,11 +25,13 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     -- import your plugins
+    { import = "plugins.mini-icons" },
     { import = "plugins.oil" },
     { import = "plugins.neogit" },
     { import = "plugins.nvim-treesitter" },
     { import = "plugins.telescope" },
     { import = "plugins.indent-blankline" },
+    { import = "plugins.lualine" },
     -- No need to setting
     { "vim-jp/vimdoc-ja" },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
