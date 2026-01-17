@@ -29,3 +29,6 @@ opt.smartcase = true -- 検索パターンに大文字を含むときは大文�
 
 -- ヘルプ
 opt.helplang = 'ja'
+
+-- undo
+opt.undofile = true
