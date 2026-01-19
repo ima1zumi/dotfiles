@@ -35,6 +35,12 @@ require("lazy").setup({
     { import = "plugins.mini-trailspace" }, -- 末尾の空白表示/Trimコマンド
     { import = "plugins.ansi" }, -- ANSI Escape sequenceの表示
     { import = "plugins.file-line" }, -- file:lineで開く
+    { import = "plugins.vim-operator-user" }, -- vim-operator-replaceなどの依存
+    { import = "plugins.vim-operator-replace" },
+    { import = "plugins.vim-operator-surround" },
+    { import = "plugins.vim-textobj-user" },
+    { import = "plugins.vim-textobj-line" }, -- sil
+    { import = "plugins.vim-operator-stay-cursor" },
     -- No need to setting
     { "vim-jp/vimdoc-ja" },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
