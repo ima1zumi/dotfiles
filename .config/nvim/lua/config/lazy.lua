@@ -40,7 +40,8 @@ require("lazy").setup({
     { import = "plugins.vim-operator-surround" },
     { import = "plugins.vim-textobj-user" },
     { import = "plugins.vim-textobj-line" }, -- sil
-    { import = "plugins.vim-operator-stay-cursor" },
+    { import = "plugins.vim-operator-stay-cursor" }, -- operator実行時にカーソルを移動させない
+    { import = "plugins.ts-comments" },
     -- No need to setting
     { "vim-jp/vimdoc-ja" },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
