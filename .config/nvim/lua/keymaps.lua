@@ -71,3 +71,25 @@ keymap('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 keymap('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 keymap('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 keymap('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+-- operator-stay-cursor-yankの挙動を再現
+
+local cursor_pre_yank = nil
+
+-- 1. y を押した瞬間のカーソル位置を記憶して、本来の 'y' を返す
+vim.keymap.set({ "n", "x" }, "y", function()
+  cursor_pre_yank = vim.api.nvim_win_get_cursor(0)
+  return "y"
+end, { expr = true, desc = "Yank without moving cursor" })
+
+-- 2. ヤンク完了後 (TextYankPost) にカーソルを復元
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("yank_restore_cursor", { clear = true }),
+  callback = function()
+    -- オペレーターが 'y' で、かつ位置情報が保存されていれば復元
+    if vim.v.event.operator == "y" and cursor_pre_yank then
+      vim.api.nvim_win_set_cursor(0, cursor_pre_yank)
+      cursor_pre_yank = nil -- リセット
+    end
+  end,
+})

@@ -40,10 +40,13 @@ require("lazy").setup({
     { import = "plugins.vim-operator-surround" },
     { import = "plugins.vim-textobj-user" },
     { import = "plugins.vim-textobj-line" }, -- sil
-    { import = "plugins.vim-operator-stay-cursor" }, -- operator実行時にカーソルを移動させない
-    { import = "plugins.ts-comments" },
+    { import = "plugins.ts-comments" }, -- TreeSitterを利用したコメント補助
+    { import = "plugins.vim-gitgutter" }, -- TreeSitterを利用したコメント補助
+    { import = "plugins.lsp" }, -- LSP
     -- No need to setting
     { "vim-jp/vimdoc-ja" },
+    { "RRethy/nvim-treesitter-endwise" },
+    { "github/copilot.vim" },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   },
   -- Configure any other settings here. See the documentation for more details.
