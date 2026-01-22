@@ -1,0 +1,7 @@
+require("config.lazy")
+require("autocmds")
+require("commands")
+require("options")
+require("keymaps")
+require("colorscheme")
+require("lsp")

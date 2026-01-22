@@ -42,7 +42,6 @@ require("lazy").setup({
     { import = "plugins.vim-textobj-line" }, -- sil
     { import = "plugins.ts-comments" }, -- TreeSitterを利用したコメント補助
     { import = "plugins.vim-gitgutter" }, -- TreeSitterを利用したコメント補助
-    { import = "plugins.lsp" }, -- LSP
     -- No need to setting
     { "vim-jp/vimdoc-ja" },
     { "RRethy/nvim-treesitter-endwise" },

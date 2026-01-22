@@ -101,6 +101,19 @@ repo = 'editorconfig/editorconfig-vim'
 [[plugins]]
 repo = 'github/copilot.vim'
 
+[[plugins]]
+repo = 'Julian/lean.nvim'
+depends = ['plenary.nvim']
+on_ft = ['lean']
+lua_post_source = '''
+require('lean').setup({
+  mappings = true,
+})
+'''
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
 # --*--*--
 # ファイラ
 # --*--*--
@@ -155,10 +168,10 @@ repo = 'osyo-manga/shabadou.vim'
 # --*--*--
 # LSP
 # --*--*--
-[[plugins]] # LSP
-repo = 'neoclide/coc.nvim'
-rev = 'release'
-merged = 0
+# [[plugins]] # LSP
+# repo = 'neoclide/coc.nvim'
+# rev = 'release'
+# merged = 0
 
 # --*--*--
 # SQL

@@ -1,3 +1,4 @@
+let maplocalleader = ","
 " https://knowledge.sakura.ad.jp/23248/
 " dein.vim settings {{{
 " install dir {{{
