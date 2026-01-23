@@ -32,3 +32,6 @@ opt.helplang = 'ja'
 
 -- undo
 opt.undofile = true
+
+-- gitgutter
+opt.signcolumn = "yes"
