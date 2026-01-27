@@ -35,6 +35,13 @@ def showkey
   STDIN.raw{10.times.map{STDIN.getbyte}}
 end
 
+def match_chrs(pattern)
+  (0x0000..0x1FFFFF).filter_map do
+    it.chr('UTF-8').match?(pattern) ? it.chr('UTF-8') : false
+  rescue RangeError
+  end
+end
+
 # def Reline.debug_info
 #   # return ['debug', 'info']
 #   r = Reline.core.line_editor.instance_variable_get(:@past_lines).dup
