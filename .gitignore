@@ -67,6 +67,7 @@
 /.config/gh/hosts.yml
 /.config/coc/**
 /.config/nvim/secrets.vim
+/.config/nvim/lazy-lock.json
 /.config/github-copilot/**
 /.config/configstore/update-notifier-npm.json
 /.config/raycast/**
