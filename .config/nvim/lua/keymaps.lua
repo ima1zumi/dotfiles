@@ -1,5 +1,12 @@
 local keymap = vim.keymap.set
 
+-- LSP
+keymap('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
+keymap('n', 'gr', vim.lsp.buf.references, { desc = 'Go to references' })
+keymap('n', 'K', vim.lsp.buf.hover, { desc = 'Hover' })
+keymap('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
+keymap('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
+
 -- esc escでハイライトを削除
 keymap("n", "<Esc><Esc>", ":nohlsearch<Return>", opts)
 
