@@ -5,13 +5,14 @@ return {
   branch = 'main',
   config = function()
     require("nvim-treesitter").setup()
-    require("nvim-treesitter").install({ 
+    require("nvim-treesitter").install({
       "c",
-      "rust",
       "javascript",
       "json",
       "lua",
       "ruby",
+      "rust",
+      "sql",
       "terraform",
       "vim",
       "vue",
