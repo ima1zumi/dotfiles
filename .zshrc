@@ -114,6 +114,9 @@ alias gpl='git pull --rebase'
 alias gplod='git pull --rebase origin $(defaultbranch)'
 alias gj='cd $(ghq list -p|fzf)'
 alias gprc='gh pr checkout'
+alias gwtl='git worktree list'
+alias gwta='git worktree add'
+alias gwtr='git worktree remove'
 
 function grau() {
   dir=`pwd | sed -e 's/.*\/\([^\/]*\)$/\1/'`
@@ -197,8 +200,8 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
-source ~/.local/share/zinit/plugins/b4b4r07---enhancd/init.sh
-zinit load "b4b4r07/enhancd"
+# source ~/.local/share/zinit/plugins/b4b4r07---enhancd/init.sh
+# zinit load "b4b4r07/enhancd"
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 zinit light zsh-users/zsh-autosuggestions
@@ -226,3 +229,11 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # Created by `pipx` on 2026-01-01 07:35:29
 export PATH="$PATH:/Users/mi/.local/bin"
+eval "$(mise activate zsh)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ima1zumi/Downloads/google-cloud-sdk 2/path.zsh.inc' ]; then . '/Users/ima1zumi/Downloads/google-cloud-sdk 2/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ima1zumi/Downloads/google-cloud-sdk 2/completion.zsh.inc' ]; then . '/Users/ima1zumi/Downloads/google-cloud-sdk 2/completion.zsh.inc'; fi
+export PATH="$HOME/.local/bin:$PATH"
