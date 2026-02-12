@@ -7,6 +7,7 @@ return {
     require("nvim-treesitter").setup()
     require("nvim-treesitter").install({
       "c",
+      "java",
       "javascript",
       "json",
       "lua",
@@ -16,7 +17,6 @@ return {
       "terraform",
       "vim",
       "vue",
-      "yaml"
     })
   end,
 }
