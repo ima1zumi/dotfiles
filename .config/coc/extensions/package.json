@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "coc-json": ">=1.9.3",
-    "coc-clangd": ">=0.32.0",
-    "coc-pairs": ">=1.5.2",
-    "coc-solargraph": ">=1.2.4",
-    "coc-tsserver": ">=2.3.1"
-  }
-}
