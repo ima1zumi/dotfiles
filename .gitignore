@@ -80,6 +80,7 @@
 /.config/AWSVPNClient/**
 /.config/.wrangler/**
 /.config/.nuxtrc
+/.config/nanoclaw/**
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig
