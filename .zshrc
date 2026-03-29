@@ -173,10 +173,6 @@ alias ghpd='gh pr diff'
 alias ghpm='gh pr merge'
 alias ghpo='gh pr checkout'
 
-# gcc
-alias gcc='gcc-13'
-alias g++='g++-13'
-
 # ruby
 
 function irbm() {
