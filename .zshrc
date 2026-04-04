@@ -225,7 +225,6 @@ zinit light-mode for \
 if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # Created by `pipx` on 2026-01-01 07:35:29
 export PATH="$PATH:/Users/mi/.local/bin"
