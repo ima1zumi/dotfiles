@@ -45,3 +45,5 @@ compile_commands.json
 .vagrant/
 # VSCode Tours
 .tours/
+
+.claude/settings.local.json
