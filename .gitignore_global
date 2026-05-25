@@ -47,3 +47,4 @@ compile_commands.json
 .tours/
 
 .claude/settings.local.json
+CLAUDE.md
