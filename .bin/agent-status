@@ -462,6 +462,7 @@ class Sidebar
           lines << line
           @rows[lines.size] = item.pane.pane_id
         end
+        lines << ''
       end
     end
     lines = lines.first(height)
