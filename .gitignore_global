@@ -48,3 +48,6 @@ compile_commands.json
 
 .claude/settings.local.json
 CLAUDE.md
+
+# Neovim Tutor
+learning.md
