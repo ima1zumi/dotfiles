@@ -379,7 +379,7 @@ class Sidebar
     @console.raw do
       print "\e[?25l\e[?1000h\e[?1006h"
       next_load = 0
-      trap('WINCH') { next_load = 0 }
+      trap('WINCH') { next_load = 0; @frame = nil }
       loop do
         if now >= next_load
           info = tmux('display', '-p', '-t', @me, "\#{window_id}\t\#{window_panes}").chomp.split("\t")
@@ -467,7 +467,10 @@ class Sidebar
     end
     lines = lines.first(height)
     lines += [''] * (height - lines.size)
-    print "\e[H", lines.map { |l| "#{l}\e[K" }.join("\r\n")
+    # 出力するたびに tmux が端末のカーソルを動かすので、変わったときだけ描く
+    frame = "\e[H#{lines.map { |l| "#{l}\e[K" }.join("\r\n")}"
+    print frame unless frame == @frame
+    @frame = frame
   end
 
   # 1 件 2 行。1 行目は番号・状態・タイトル、2 行目は作業内容かパス
