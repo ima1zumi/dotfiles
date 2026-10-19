@@ -178,7 +178,11 @@ def codex_agents(panes_by_id)
   cwds = codex_panes.map(&:pane_current_path).uniq.map { |cwd| sql_quote(cwd) }.join(',')
   sql = "select id, cwd, coalesce(name, '') as name, rollout_path from threads " \
         "where archived = 0 and cwd in (#{cwds}) order by updated_at_ms desc limit 100"
-  rows = JSON.parse(IO.popen(['sqlite3', '-readonly', '-json', db, sql], err: File::NULL, &:read).to_s) rescue []
+  # Codex が書き込み中だと busy で失敗することがあるので、少し待ち、それでも駄目なら前回の結果を使う
+  output = IO.popen(['sqlite3', '-readonly', '-json', '-cmd', '.timeout 500', db, sql], err: File::NULL, &:read)
+  $codex_rows ||= {}
+  rows = $codex_rows[sql] = (JSON.parse(output) rescue []) if $?.success?
+  rows ||= $codex_rows.fetch(sql, [])
   # 開いている thread には lock ファイルがある
   open_ids = Dir.glob(File.join(CODEX_DIR, 'thread-writer-locks', '*.lock')).map { |p| File.basename(p, '.lock') }
 
@@ -408,14 +412,14 @@ class Sidebar
   def load_items
     all = panes.reject { |pane| pane.agent_sidebar == '1' }
     by_window = find_agents(all).group_by { |agent| agent.pane.window_id }
-    @items = all.group_by(&:window_id).flat_map do |window_id, list|
+    # status bar と同じく 1 window 1 項目。agent が複数いる window は一番優先度の高いものを出す
+    @items = all.group_by(&:window_id).map do |window_id, list|
       if (found = by_window[window_id])
-        found.sort_by { |a| a.pane.pane_index.to_i }.map do |a|
-          Item.new(a.pane, a.display_state, a.title.to_s.empty? ? a.kind : a.title, a.activity)
-        end
+        a = found.min_by { |agent| [STATES.index(agent.display_state), agent.pane.pane_index.to_i] }
+        Item.new(a.pane, a.display_state, a.title.to_s.empty? ? a.kind : a.title, a.activity)
       else
         pane = list.find { |p| p.pane_active == '1' } || list.first
-        [Item.new(pane, nil, pane.window_name, short_path(pane.pane_current_path))]
+        Item.new(pane, nil, pane.window_name, short_path(pane.pane_current_path))
       end
     end
     @cursor = nil unless @items.any? { |item| item.pane.pane_id == @cursor }
