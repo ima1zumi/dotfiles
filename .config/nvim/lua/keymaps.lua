@@ -100,3 +100,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end
   end,
 })
+
+keymap("n", "<leader>r", "<cmd>SnipRun<CR>", { desc = "Run current file/block" })
+keymap("v", "<leader>r", "<cmd>SnipRun<CR>", { desc = "Run selection" })
