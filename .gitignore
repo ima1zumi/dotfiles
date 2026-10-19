@@ -81,6 +81,8 @@
 /.config/.wrangler/**
 /.config/.nuxtrc
 /.config/nanoclaw/**
+/.config/do-gu/**
+/.config/1Password/**
 !/.gitignore_global
 !/.gitconfig_shared
 !/.gitconfig
