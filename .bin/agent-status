@@ -1,0 +1,558 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# tmux 上の Claude Code / Codex の状態と作業内容を表示する。
+# hook は使わず、各エージェントが自分で書き出しているファイルを読むだけにしている。
+#
+#   Claude Code: ~/.claude/sessions/<pid>.json（status と tmux pane）
+#                ~/.claude/projects/*/<sessionId>.jsonl（タイトル・prompt・ツール呼び出し）
+#   Codex:       ~/.codex/state_*.sqlite の threads（cwd と rollout のパス）
+#                ~/.codex/sessions/**/rollout-*.jsonl（turn の開始・終了・ツール呼び出し）
+#
+# Usage:
+#   agent-status refresh     window/pane option を更新し、status-right 用のサマリを出力する
+#   agent-status list        一覧を表示する
+#   agent-status pick        fzf で選んだ pane へ移動する
+#   agent-status show PANE   1 つの pane の詳細を表示する
+#   agent-status toggle WIN  WIN の左に sidebar を開く・閉じる（--all で全 window）
+#   agent-status ensure WIN  全 window 表示中なら WIN にも sidebar を開く（after-new-window 用）
+#   agent-status sidebar     sidebar 本体（j/k・クリックで選択、Enter で移動、q で閉じる）
+
+require 'json'
+require 'securerandom'
+require 'tmpdir'
+
+CLAUDE_DIR = File.expand_path('~/.claude')
+CODEX_DIR = File.expand_path('~/.codex')
+
+# 表示の優先順位。window に複数のエージェントがいるときは先頭に近いものを代表にする
+STATES = %w[waiting done working idle].freeze
+GLYPHS = { 'waiting' => '▲', 'done' => '✓', 'working' => '●', 'idle' => '·' }.freeze
+COLORS = { 'waiting' => 203, 'done' => 114, 'working' => 221, 'idle' => 244 }.freeze
+
+PANE_FIELDS = %w[
+  pane_id window_id session_name window_index pane_index pane_current_command
+  pane_current_path pane_title window_name window_active pane_active session_attached
+  @agent_state @agent_done @agent_icon @agent_label @agent_sidebar
+].freeze
+
+Pane = Struct.new(*PANE_FIELDS.map { |f| f.delete('@').to_sym }) do
+  def location = "#{session_name}:#{window_index}.#{pane_index}"
+  def viewing? = window_active == '1' && session_attached != '0'
+end
+
+Agent = Struct.new(:kind, :pane, :state, :title, :prompt, :tool, :reply, :cwd, :shell, keyword_init: true) do
+  # refresh が覚えている「見ていない間に終わった」フラグを反映した状態
+  def display_state
+    state == 'idle' && pane.agent_done == '1' ? 'done' : state
+  end
+
+  # いま何をしているかの 1 行
+  def activity
+    line = state == 'working' ? (tool || reply) : (reply || tool)
+    shell ? "bg #{line}" : line
+  end
+end
+
+def tmux(*args)
+  IO.popen(['tmux', *args], err: File::NULL, &:read).to_s
+end
+
+# パスや pane のタイトルには改行やタブも入りうるので、推測できない区切りで分ける
+def panes
+  sep = SecureRandom.hex(8)
+  format = PANE_FIELDS.map { |f| "\#{#{f}}" }.join(sep) + sep * 2
+  tmux('list-panes', '-a', '-F', format).split("#{sep * 2}\n").filter_map do |record|
+    fields = record.split(sep, -1)
+    Pane.new(*fields) if fields.size == PANE_FIELDS.size
+  end
+end
+
+def alive?(pid)
+  Process.kill(0, Integer(pid))
+  true
+rescue StandardError
+  false
+end
+
+# JSONL を末尾から 1 レコードずつ返す。巨大な transcript でも末尾だけ読めば済むようにしている
+def reverse_records(path, filter: nil, limit: 16 << 20)
+  File.open(path, 'rb') do |f|
+    pos = f.size
+    rest = +''
+    while pos > 0 && f.size - pos < limit
+      len = [256 << 10, pos].min
+      pos -= len
+      f.seek(pos)
+      lines = (f.read(len) + rest).split("\n")
+      rest = pos > 0 ? lines.shift.to_s : +''
+      lines.reverse_each do |line|
+        line.force_encoding(Encoding::UTF_8).scrub!('')
+        next if filter && !line.match?(filter)
+        record = JSON.parse(line) rescue next
+        yield record
+      end
+    end
+  end
+rescue Errno::ENOENT
+  nil
+end
+
+# transcript やパスは外から操作されうるので、端末に出す文字列からは制御文字（ESC など）を取り除く
+def clean(text) = text.to_s.scrub('').gsub(/[\p{Cc}\p{Cf}]/, '')
+
+def one_line(text, max = 200)
+  return nil if text.nil?
+  line = clean(text.to_s.gsub(/\s+/, ' ')).strip
+  return nil if line.empty?
+  line.size > max ? "#{line[0, max]}…" : line
+end
+
+def summarize_tool(name, input)
+  input = JSON.parse(input) rescue input if input.is_a?(String)
+  detail =
+    if input.is_a?(Hash)
+      input.values_at('description', 'command', 'cmd', 'file_path', 'pattern', 'url', 'query', 'prompt').compact.first
+    else
+      input
+    end
+  detail = detail.join(' ') if detail.is_a?(Array)
+  # シェル実行は数が多いので `$ 説明` と短く書く
+  return "$ #{one_line(detail, 120)}" if %w[Bash exec_command shell].include?(name)
+  [name, one_line(detail, 120)].compact.join(': ')
+end
+
+def short_path(path)
+  home = Regexp.escape(Dir.home)
+  path.to_s.sub(%r{\A#{home}/ghq/[^/]+/}, '').sub(/\A#{home}/, '~')
+end
+
+def strip_title(title)
+  title.to_s.sub(/\A[^\p{L}\p{N}]+/, '').strip
+end
+
+# --- Claude Code ------------------------------------------------------------
+
+CLAUDE_FILTER = /"type":"(?:assistant|ai-title|last-prompt)"/
+
+def claude_agents(panes_by_id)
+  Dir.glob(File.join(CLAUDE_DIR, 'sessions', '*.json')).filter_map do |path|
+    session = JSON.parse(File.read(path)) rescue next
+    pane = panes_by_id[session['tmux'].to_s[/%\d+\z/]] or next
+    next unless alive?(session['pid'])
+
+    # shell は turn が終わったあとに background shell だけが動いている状態
+    agent = Agent.new(
+      kind: 'claude', pane: pane, cwd: session['cwd'], shell: session['status'] == 'shell',
+      state: { 'busy' => 'working', 'waiting' => 'waiting' }.fetch(session['status'], 'idle'),
+    )
+    transcript = Dir.glob(File.join(CLAUDE_DIR, 'projects', '*', "#{session['sessionId']}.jsonl")).first
+    read_claude_transcript(agent, transcript) if transcript
+    agent.title ||= strip_title(pane.pane_title)
+    agent
+  end
+end
+
+def read_claude_transcript(agent, path)
+  reverse_records(path, filter: CLAUDE_FILTER) do |record|
+    case record['type']
+    when 'ai-title' then agent.title ||= one_line(record['aiTitle'])
+    when 'last-prompt' then agent.prompt ||= one_line(record['lastPrompt'])
+    when 'assistant'
+      Array(record.dig('message', 'content')).reverse_each do |block|
+        case block['type']
+        when 'tool_use' then agent.tool ||= summarize_tool(block['name'], block['input'])
+        when 'text' then agent.reply ||= one_line(block['text'])
+        end
+      end
+    end
+    break if agent.title && agent.prompt && agent.tool && agent.reply
+  end
+end
+
+# --- Codex ------------------------------------------------------------------
+
+CODEX_FILTER = /"type":"(?:event_msg|response_item)"/
+
+def sql_quote(value) = "'#{value.to_s.gsub("'", "''")}'"
+
+def codex_agents(panes_by_id)
+  codex_panes = panes_by_id.values.select { |pane| pane.pane_current_command == 'codex' }
+  return [] if codex_panes.empty?
+
+  db = Dir.glob(File.join(CODEX_DIR, 'state_*.sqlite')).max_by { |p| p[/state_(\d+)/, 1].to_i }
+  return [] unless db
+
+  cwds = codex_panes.map(&:pane_current_path).uniq.map { |cwd| sql_quote(cwd) }.join(',')
+  sql = "select id, cwd, coalesce(name, '') as name, rollout_path from threads " \
+        "where archived = 0 and cwd in (#{cwds}) order by updated_at_ms desc limit 100"
+  # Codex が書き込み中だと busy で失敗することがあるので、少し待ち、それでも駄目なら前回の結果を使う
+  output = IO.popen(['sqlite3', '-readonly', '-json', '-cmd', '.timeout 500', db, sql], err: File::NULL, &:read)
+  $codex_rows ||= {}
+  rows = $codex_rows[sql] = (JSON.parse(output) rescue []) if $?.success?
+  rows ||= $codex_rows.fetch(sql, [])
+  # 開いている thread には lock ファイルがある
+  open_ids = Dir.glob(File.join(CODEX_DIR, 'thread-writer-locks', '*.lock')).map { |p| File.basename(p, '.lock') }
+
+  used = []
+  codex_panes.filter_map do |pane|
+    candidates = rows.select { |row| row['cwd'] == pane.pane_current_path && !used.include?(row['id']) }
+    opened = candidates.select { |row| open_ids.include?(row['id']) }
+    candidates = opened unless opened.empty?
+    # Codex は pane のタイトルに thread 名を出すので、同じ cwd に複数あるときはそれで見分ける
+    row = candidates.find { |r| !r['name'].empty? && pane.pane_title.start_with?(r['name']) } || candidates.first
+    next unless row
+
+    used << row['id']
+    agent = Agent.new(kind: 'codex', pane: pane, cwd: row['cwd'], state: nil)
+    read_codex_rollout(agent, row['rollout_path'])
+    agent.state ||= 'idle'
+    agent.title = row['name'].empty? ? strip_title(pane.pane_title.sub(/ \| [^|]*\z/, '')) : one_line(row['name'])
+    agent
+  end
+end
+
+def read_codex_rollout(agent, path)
+  reverse_records(path, filter: CODEX_FILTER) do |record|
+    payload = record['payload'] || {}
+    case [record['type'], payload['type']]
+    when %w[event_msg task_started] then agent.state ||= 'working'
+    when %w[event_msg task_complete], %w[event_msg turn_aborted] then agent.state ||= 'idle'
+    when %w[event_msg user_message] then agent.prompt ||= one_line(payload['message'])
+    when %w[event_msg agent_message] then agent.reply ||= one_line(payload['message'])
+    when %w[response_item function_call] then agent.tool ||= summarize_tool(payload['name'], payload['arguments'])
+    when %w[response_item custom_tool_call] then agent.tool ||= summarize_tool(payload['name'], payload['input'])
+    when %w[response_item message]
+      text = Array(payload['content']).map { |c| c['text'] }.compact.join(' ')
+      case payload['role']
+      when 'user' then agent.prompt ||= one_line(text) unless text.lstrip.start_with?('<', '#')
+      when 'assistant' then agent.reply ||= one_line(text)
+      end
+    end
+    break if agent.state && agent.prompt && agent.tool && agent.reply
+  end
+end
+
+# --- 表示 -------------------------------------------------------------------
+
+def find_agents(all)
+  by_id = all.to_h { |pane| [pane.pane_id, pane] }
+  claude_agents(by_id) + codex_agents(by_id)
+end
+
+def agents
+  find_agents(panes).sort_by do |agent|
+    [STATES.index(agent.display_state), agent.pane.session_name, agent.pane.window_index.to_i, agent.pane.pane_index.to_i]
+  end
+end
+
+def tmux_icon(state) = "#[fg=colour#{COLORS[state]}]#{GLYPHS[state]}#[fg=default]"
+def ansi(state, text) = "\e[38;5;#{COLORS[state]}m#{text}\e[0m"
+
+WIDE = /\p{Emoji_Presentation}|[ᄀ-ᅟ⺀-꓏가-힣豈-﫿︰-﹏＀-｠￠-￦\u{1F300}-\u{1FAFF}\u{20000}-\u{3FFFD}]/
+
+def truncate(text, width)
+  used = 0
+  out = +''
+  clean(text).each_char do |char|
+    w = char.match?(WIDE) ? 2 : 1
+    return "#{out}…" if used + w > width - 1
+    used += w
+    out << char
+  end
+  out
+end
+
+def refresh
+  all = panes
+  by_id = all.to_h { |pane| [pane.pane_id, pane] }
+  found = claude_agents(by_id) + codex_agents(by_id)
+  commands = []
+
+  # set-option は client 全体を再描画させるので、値が変わったときだけ書き込む
+  set = lambda do |scope, target, name, old, new|
+    commands << %W[set #{scope} -t #{target} #{name} #{new}] if old != new
+  end
+
+  # 見ていない window で working/waiting → idle になったものを done として覚えておく
+  found.each do |agent|
+    pane = agent.pane
+    done = pane.agent_done == '1'
+    if pane.viewing? || agent.state != 'idle'
+      done = false
+    elsif %w[working waiting].include?(pane.agent_state)
+      done = true
+    end
+    set.call('-p', pane.pane_id, '@agent_state', pane.agent_state, agent.state)
+    set.call('-p', pane.pane_id, '@agent_done', pane.agent_done, (pane.agent_done = done ? '1' : '0'))
+  end
+
+  by_window = found.group_by { |agent| agent.pane.window_id }
+  by_window.each do |window_id, list|
+    top = list.min_by { |agent| STATES.index(agent.display_state) }
+    current = top.pane
+    set.call('-w', window_id, '@agent_icon', current.agent_icon, tmux_icon(top.display_state))
+    label = one_line(top.title, 60).to_s.sub(/;+\z/, '')
+    label = top.kind if label.empty?
+    set.call('-w', window_id, '@agent_label', current.agent_label, label.gsub('#', '##'))
+  end
+  all.reject { |pane| by_window.key?(pane.window_id) || pane.agent_icon.empty? }.map(&:window_id).uniq.each do |window_id|
+    commands << %W[set -wu -t #{window_id} @agent_icon] << %W[set -wu -t #{window_id} @agent_label]
+  end
+  tmux(*commands.flat_map { |c| [*c, ';'] }) unless commands.empty?
+
+  counts = found.map(&:display_state).tally
+  summary = (STATES - ['idle']).filter_map { |s| "#{tmux_icon(s)}#{counts[s]}" if counts[s] }.join(' ')
+  print "#{summary} " unless summary.empty?
+end
+
+def list_lines(width)
+  agents.map do |agent|
+    state = agent.display_state
+    head = "#{ansi(state, GLYPHS[state])} #{agent.pane.location} #{agent.kind.ljust(6)} "
+    [agent, "#{head}#{truncate(agent.title, width - 4 - agent.pane.location.size - 8)}",
+     "    \e[2m#{truncate(agent.activity, width - 5)}\e[0m"]
+  end
+end
+
+def list
+  width = (IO.console&.winsize&.last rescue nil) || 80
+  out = list_lines(width).map { |_, a, b| "#{a}\n#{b}" }
+  puts out.empty? ? '(エージェントはいません)' : out
+end
+
+def jump(pane_id)
+  tmux('switch-client', '-t', pane_id, ';', 'select-window', '-t', pane_id, ';', 'select-pane', '-t', pane_id)
+end
+
+# --- sidebar ----------------------------------------------------------------
+
+SELF = File.expand_path(__FILE__)
+
+def sidebar_panes
+  tmux('list-panes', '-a', '-F', "\#{pane_id}\t\#{window_id}\t\#{@agent_sidebar}").each_line
+    .map { |line| line.chomp.split("\t") }.select { |_, _, flag| flag == '1' }
+end
+
+# 開いた直後に印を付ける。sidebar の起動を待つと、その間に開いた分を見落として二重に開いてしまう
+def open_sidebar(window_id)
+  width = tmux('show', '-gv', '@agent_sidebar_width').strip
+  id = tmux('split-window', '-hbfd', '-l', width.empty? ? '32' : width, '-t', window_id, '-P', '-F', '#{pane_id}',
+            "#{SELF} sidebar").strip
+  tmux('set', '-p', '-t', id, '@agent_sidebar', '1') unless id.empty?
+end
+
+# toggle と ensure が同時に動いて二重に開かないように直列化する
+def with_lock(&)
+  File.open(File.join(Dir.tmpdir, "agent-status-#{Process.uid}.lock"), File::RDWR | File::CREAT, 0o600) do |f|
+    f.flock(File::LOCK_EX)
+    yield
+  end
+end
+
+def toggle(window_id, all)
+  existing = sidebar_panes
+  if all && tmux('show', '-gv', '@agent_sidebar_all').strip == '1'
+    tmux('set', '-gu', '@agent_sidebar_all')
+    existing.each { |pane_id, _| tmux('kill-pane', '-t', pane_id) }
+  elsif all
+    tmux('set', '-g', '@agent_sidebar_all', '1')
+    windows = tmux('list-windows', '-a', '-F', '#{window_id}').split
+    (windows - existing.map { |_, w| w }).each { |w| open_sidebar(w) }
+  else
+    mine = existing.select { |_, w| w == window_id }
+    mine.empty? ? open_sidebar(window_id) : mine.each { |pane_id, _| tmux('kill-pane', '-t', pane_id) }
+  end
+end
+
+def ensure_sidebar(window_id)
+  return unless tmux('show', '-gv', '@agent_sidebar_all').strip == '1'
+  open_sidebar(window_id) if sidebar_panes.none? { |_, w| w == window_id }
+end
+
+Item = Struct.new(:pane, :state, :title, :detail)
+
+# 各 window の左端で動く一覧。全 window を並び順に出し、agent がいる window はその状態と作業内容を出す
+class Sidebar
+  def initialize
+    @me = ENV.fetch('TMUX_PANE')
+    @console = IO.console
+    @cursor = nil
+    @items = []
+    @rows = {}
+  end
+
+  def run
+    tmux('set', '-p', '-t', @me, '@agent_sidebar', '1')
+    $stdout.sync = true
+    @console.raw do
+      # 幅を見誤ってもはみ出した分が折り返さず切れるように、autowrap を切っておく
+      print "\e[?25l\e[?7l\e[?1000h\e[?1006h"
+      next_load = 0
+      trap('WINCH') { next_load = 0; @frame = nil }
+      loop do
+        if now >= next_load
+          break unless still_needed?
+
+          update { load_items }
+          next_load = now + 2
+        end
+        next unless @console.wait_readable(0.5)
+        input = @console.read_nonblock(256, exception: false)
+        next unless input.is_a?(String)
+        break if handle(input) == :quit
+        update
+      end
+    ensure
+      print "\e[?1000l\e[?1006l\e[?7h\e[?25h"
+    end
+  end
+
+  private
+
+  def now = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
+  # 落ちると pane ごと閉じてしまうので、1 回失敗しても前回の表示のまま続ける
+  def update
+    yield if block_given?
+    draw
+  rescue StandardError
+    nil
+  end
+
+  # 横の pane がすべて閉じたら終わる。同じ window に sidebar が 2 つあれば、後から開いた方が終わる
+  def still_needed?
+    list = tmux('list-panes', '-t', @me, '-F', "\#{pane_id} \#{window_id} \#{@agent_sidebar}").split("\n").map(&:split)
+    return false if list.empty?
+
+    @window = list.find { |id, _| id == @me }&.at(1) || @window
+    sidebars = list.select { |_, _, flag| flag == '1' }.map(&:first)
+    return false if sidebars.size == list.size
+
+    sidebars.max_by { |id| id.delete('%').to_i } != @me || sidebars.size == 1
+  end
+
+  def load_items
+    all = panes.reject { |pane| pane.agent_sidebar == '1' }
+    by_window = find_agents(all).group_by { |agent| agent.pane.window_id }
+    # status bar と同じく 1 window 1 項目。agent が複数いる window は一番優先度の高いものを出す
+    @items = all.group_by(&:window_id).map do |window_id, list|
+      if (found = by_window[window_id])
+        a = found.min_by { |agent| [STATES.index(agent.display_state), agent.pane.pane_index.to_i] }
+        Item.new(a.pane, a.display_state, a.title.to_s.empty? ? a.kind : a.title, a.activity)
+      else
+        pane = list.find { |p| p.pane_active == '1' } || list.first
+        Item.new(pane, nil, pane.window_name, short_path(pane.pane_current_path))
+      end
+    end
+    @cursor = nil unless @items.any? { |item| item.pane.pane_id == @cursor }
+  end
+
+  def handle(input)
+    input.scan(/\e\[<\d+;\d+;\d+[Mm]|\e\[[AB]|./m) do |key|
+      case key
+      when 'q', "\x03" then return :quit
+      when 'j', "\e[B" then move(1)
+      when 'k', "\e[A" then move(-1)
+      when "\r" then jump(@cursor) if @cursor
+      when /\e\[<(\d+);\d+;(\d+)M/
+        button, row = $1.to_i, $2.to_i
+        if button == 0 && @rows[row]
+          @cursor = @rows[row]
+          jump(@cursor)
+        elsif button == 64 || button == 65
+          move(button == 64 ? -1 : 1)
+        end
+      end
+    end
+  end
+
+  def move(delta)
+    ids = @items.map { |item| item.pane.pane_id }
+    return if ids.empty?
+
+    index = ids.index(@cursor)
+    @cursor = ids[index ? (index + delta).clamp(0, ids.size - 1) : 0]
+  end
+
+  def draw
+    height, width = @console.winsize
+    lines = []
+    @rows = {}
+    counts = @items.map(&:state).compact.tally
+    lines << (STATES - ['idle']).filter_map { |s| ansi(s, "#{GLYPHS[s]}#{counts[s]}") if counts[s] }.join(' ')
+    sessions = @items.map { |item| item.pane.session_name }.uniq
+    sessions.each do |session|
+      lines << "\e[2m#{session}\e[0m" if sessions.size > 1
+      @items.select { |item| item.pane.session_name == session }.each do |item|
+        block(item, width).each do |line|
+          lines << line
+          @rows[lines.size] = item.pane.pane_id
+        end
+        lines << ''
+      end
+    end
+    lines = lines.first(height)
+    lines += [''] * (height - lines.size)
+    # 出力するたびに tmux が端末のカーソルを動かすので、変わったときだけ描く
+    frame = "\e[H#{lines.map { |l| "#{l}\e[K" }.join("\r\n")}"
+    print frame unless frame == @frame
+    @frame = frame
+  end
+
+  # 1 件 2 行。1 行目は番号・状態・タイトル、2 行目は作業内容かパス
+  def block(item, width)
+    here = item.pane.window_id == @window
+    selected = item.pane.pane_id == @cursor
+    bar = here ? "\e[38;5;111m▎\e[0m" : ' '
+    style = selected ? "\e[7m" : here ? "\e[1m" : ''
+    mark = item.state ? ansi(item.state, GLYPHS[item.state]) : ' '
+    [
+      "#{bar}#{style}#{item.pane.window_index}\e[0m#{mark}#{style}#{truncate(item.title, width - 2 - item.pane.window_index.size - 1)}\e[0m",
+      "#{bar}\e[2m#{truncate(item.detail, width - 2)}\e[0m",
+    ]
+  end
+end
+
+def show(pane_id)
+  agent = agents.find { |a| a.pane.pane_id == pane_id } or abort "#{pane_id}: エージェントが見つかりません"
+  state = agent.display_state
+  puts "#{ansi(state, "#{GLYPHS[state]} #{state}")}  #{agent.kind}  #{agent.pane.location}"
+  puts "\e[1m#{clean(agent.title)}\e[0m", "\e[2m#{clean(agent.cwd)}\e[0m", ''
+  [['prompt', agent.prompt], ['tool', agent.tool], ['reply', agent.reply]].each do |label, text|
+    puts "\e[36m#{label}\e[0m  #{text ? clean(text) : '-'}", ''
+  end
+end
+
+def pick
+  width = (IO.console&.winsize&.last rescue nil) || 80
+  input = list_lines(width).map { |agent, a, _| "#{agent.pane.pane_id}\t#{a}" }.join("\n")
+  abort '(エージェントはいません)' if input.empty?
+  selected = IO.popen(
+    ['fzf', '--ansi', '--delimiter', "\t", '--with-nth', '2', '--no-sort', '--reverse',
+     '--preview', "#{SELF} show {1}", '--preview-window', 'down,60%,wrap'],
+    'r+',
+  ) do |io|
+    io.write(input)
+    io.close_write
+    io.read
+  end
+  pane_id = selected.to_s.split("\t").first
+  jump(pane_id) if pane_id&.start_with?('%')
+end
+
+require 'io/console'
+require 'io/wait'
+
+case ARGV.shift
+when 'refresh' then refresh
+when 'list' then list
+when 'toggle' then with_lock { toggle(ARGV.first.to_s, ARGV.include?('--all')) }
+when 'ensure' then with_lock { ensure_sidebar(ARGV.first.to_s) }
+when 'sidebar' then Sidebar.new.run
+when 'show' then show(ARGV.first.to_s)
+when 'pick' then pick
+else
+  warn File.read(__FILE__)[/^# Usage:.*?(?=\n\n)/m].gsub(/^# ?/, '')
+  exit 1
+end
