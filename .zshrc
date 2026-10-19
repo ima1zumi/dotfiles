@@ -236,3 +236,11 @@ if [ -f '/Users/ima1zumi/Downloads/google-cloud-sdk 2/path.zsh.inc' ]; then . '/
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/ima1zumi/Downloads/google-cloud-sdk 2/completion.zsh.inc' ]; then . '/Users/ima1zumi/Downloads/google-cloud-sdk 2/completion.zsh.inc'; fi
 export PATH="$HOME/.local/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/mi/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
