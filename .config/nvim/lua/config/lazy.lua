@@ -43,6 +43,7 @@ require("lazy").setup({
     { import = "plugins.ts-comments" }, -- TreeSitterを利用したコメント補助
     { import = "plugins.vim-gitgutter" }, -- Git差分表示
     { import = "plugins.gitlinker" }, -- GitHubなどのリンクを取得
+    { import = "plugins.sniprun" },
     -- No need to setting
     { "vim-jp/vimdoc-ja" },
     { "RRethy/nvim-treesitter-endwise" },
