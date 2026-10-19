@@ -11,9 +11,12 @@
 #
 # Usage:
 #   agent-status refresh     window/pane option を更新し、status-right 用のサマリを出力する
-#   agent-status list [-w]   一覧を表示する（-w で 2 秒ごとに再描画する）
+#   agent-status list        一覧を表示する
 #   agent-status pick        fzf で選んだ pane へ移動する
 #   agent-status show PANE   1 つの pane の詳細を表示する
+#   agent-status toggle WIN  WIN の左に sidebar を開く・閉じる（--all で全 window）
+#   agent-status ensure WIN  全 window 表示中なら WIN にも sidebar を開く（after-new-window 用）
+#   agent-status sidebar     sidebar 本体（j/k・クリックで選択、Enter で移動、q で閉じる）
 
 require 'json'
 
@@ -28,7 +31,7 @@ COLORS = { 'waiting' => 203, 'done' => 114, 'working' => 221, 'idle' => 244 }.fr
 PANE_FIELDS = %w[
   pane_id window_id session_name window_index pane_index pane_current_command
   pane_current_path pane_title window_active session_attached
-  @agent_state @agent_done @agent_icon
+  @agent_state @agent_done @agent_icon @agent_label
 ].freeze
 
 Pane = Struct.new(*PANE_FIELDS.map { |f| f.delete('@').to_sym }) do
@@ -243,6 +246,11 @@ def refresh
   found = claude_agents(by_id) + codex_agents(by_id)
   commands = []
 
+  # set-option は client 全体を再描画させるので、値が変わったときだけ書き込む
+  set = lambda do |scope, target, name, old, new|
+    commands << %W[set #{scope} -t #{target} #{name} #{new}] if old != new
+  end
+
   # 見ていない window で working/waiting → idle になったものを done として覚えておく
   found.each do |agent|
     pane = agent.pane
@@ -252,16 +260,16 @@ def refresh
     elsif %w[working waiting].include?(pane.agent_state)
       done = true
     end
-    pane.agent_done = done ? '1' : '0'
-    commands << %W[set -p -t #{pane.pane_id} @agent_state #{agent.state}]
-    commands << %W[set -p -t #{pane.pane_id} @agent_done #{pane.agent_done}]
+    set.call('-p', pane.pane_id, '@agent_state', pane.agent_state, agent.state)
+    set.call('-p', pane.pane_id, '@agent_done', pane.agent_done, (pane.agent_done = done ? '1' : '0'))
   end
 
   by_window = found.group_by { |agent| agent.pane.window_id }
   by_window.each do |window_id, list|
     top = list.min_by { |agent| STATES.index(agent.display_state) }
-    commands << %W[set -w -t #{window_id} @agent_icon #{tmux_icon(top.display_state)}]
-    commands << %W[set -w -t #{window_id} @agent_label #{top.title.to_s.empty? ? top.kind : top.title}]
+    current = top.pane
+    set.call('-w', window_id, '@agent_icon', current.agent_icon, tmux_icon(top.display_state))
+    set.call('-w', window_id, '@agent_label', current.agent_label, top.title.to_s.empty? ? top.kind : top.title)
   end
   all.reject { |pane| by_window.key?(pane.window_id) || pane.agent_icon.empty? }.map(&:window_id).uniq.each do |window_id|
     commands << %W[set -wu -t #{window_id} @agent_icon] << %W[set -wu -t #{window_id} @agent_label]
@@ -282,15 +290,179 @@ def list_lines(width)
   end
 end
 
-def list(watch)
-  loop do
-    width = (IO.console&.winsize&.last rescue nil) || 80
-    out = list_lines(width).map { |_, a, b| "#{a}\n#{b}" }
-    out = ['(エージェントはいません)'] if out.empty?
-    print "\e[H\e[2J" if watch
-    puts out
-    break unless watch
-    sleep 2
+def list
+  width = (IO.console&.winsize&.last rescue nil) || 80
+  out = list_lines(width).map { |_, a, b| "#{a}\n#{b}" }
+  puts out.empty? ? '(エージェントはいません)' : out
+end
+
+def wrap(text, width, max_lines)
+  lines = [+'']
+  used = 0
+  text.to_s.each_char do |char|
+    w = char.match?(WIDE) ? 2 : 1
+    if used + w > width
+      break lines[-1] = truncate("#{lines[-1]}#{char}", width) if lines.size == max_lines
+      lines << +''
+      used = 0
+    end
+    lines[-1] << char
+    used += w
+  end
+  lines.reject(&:empty?)
+end
+
+def jump(pane_id)
+  tmux('switch-client', '-t', pane_id, ';', 'select-window', '-t', pane_id, ';', 'select-pane', '-t', pane_id)
+end
+
+# --- sidebar ----------------------------------------------------------------
+
+SELF = File.expand_path(__FILE__)
+SIDEBAR_WIDTH = 36
+
+def sidebar_panes
+  tmux('list-panes', '-a', '-F', "\#{pane_id}\t\#{window_id}\t\#{@agent_sidebar}").each_line
+    .map { |line| line.chomp.split("\t") }.select { |_, _, flag| flag == '1' }
+end
+
+def open_sidebar(window_id)
+  tmux('split-window', '-hbfd', '-l', SIDEBAR_WIDTH.to_s, '-t', window_id, "#{SELF} sidebar")
+end
+
+def toggle(window_id, all)
+  existing = sidebar_panes
+  if all && tmux('show', '-gv', '@agent_sidebar_all').strip == '1'
+    tmux('set', '-gu', '@agent_sidebar_all')
+    existing.each { |pane_id, _| tmux('kill-pane', '-t', pane_id) }
+  elsif all
+    tmux('set', '-g', '@agent_sidebar_all', '1')
+    windows = tmux('list-windows', '-a', '-F', '#{window_id}').split
+    (windows - existing.map { |_, w| w }).each { |w| open_sidebar(w) }
+  else
+    mine = existing.select { |_, w| w == window_id }
+    mine.empty? ? open_sidebar(window_id) : mine.each { |pane_id, _| tmux('kill-pane', '-t', pane_id) }
+  end
+end
+
+def ensure_sidebar(window_id)
+  return unless tmux('show', '-gv', '@agent_sidebar_all').strip == '1'
+  open_sidebar(window_id) if sidebar_panes.none? { |_, w| w == window_id }
+end
+
+# 各 window の左端で動く一覧。window の並び順で表示し、表示位置が変わらないようにしている
+class Sidebar
+  def initialize
+    @me = ENV.fetch('TMUX_PANE')
+    @console = IO.console
+    @cursor = nil
+    @agents = []
+    @rows = {}
+  end
+
+  def run
+    tmux('set', '-p', '-t', @me, '@agent_sidebar', '1')
+    $stdout.sync = true
+    @console.raw do
+      print "\e[?25l\e[?1000h\e[?1006h"
+      next_load = 0
+      trap('WINCH') { next_load = 0 }
+      loop do
+        if now >= next_load
+          info = tmux('display', '-p', '-t', @me, "\#{window_id}\t\#{window_panes}").chomp.split("\t")
+          break if info[1].to_i <= 1 # 横の pane がすべて閉じたら sidebar も閉じる
+
+          @window = info[0]
+          load_agents
+          draw
+          next_load = now + 2
+        end
+        next unless @console.wait_readable(0.5)
+        input = @console.read_nonblock(256, exception: false)
+        next unless input.is_a?(String)
+        break if handle(input) == :quit
+        draw
+      end
+    ensure
+      print "\e[?1000l\e[?1006l\e[?25h"
+    end
+  end
+
+  private
+
+  def now = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
+  def load_agents
+    @agents = agents.sort_by do |a|
+      [a.pane.session_name, a.pane.window_index.to_i, a.pane.pane_index.to_i]
+    end
+    @cursor = nil unless @agents.any? { |a| a.pane.pane_id == @cursor }
+  end
+
+  def handle(input)
+    input.scan(/\e\[<\d+;\d+;\d+[Mm]|\e\[[AB]|./m) do |key|
+      case key
+      when 'q', "\x03" then return :quit
+      when 'j', "\e[B" then move(1)
+      when 'k', "\e[A" then move(-1)
+      when "\r" then jump(@cursor) if @cursor
+      when /\e\[<(\d+);\d+;(\d+)M/
+        button, row = $1.to_i, $2.to_i
+        if button == 0 && @rows[row]
+          @cursor = @rows[row]
+          jump(@cursor)
+        elsif button == 64 || button == 65
+          move(button == 64 ? -1 : 1)
+        end
+      end
+    end
+  end
+
+  def move(delta)
+    ids = @agents.map { |a| a.pane.pane_id }
+    return if ids.empty?
+
+    index = ids.index(@cursor)
+    @cursor = ids[index ? (index + delta).clamp(0, ids.size - 1) : 0]
+  end
+
+  def draw
+    height, width = @console.winsize
+    lines = []
+    @rows = {}
+    counts = @agents.map(&:display_state).tally
+    summary = (STATES - ['idle']).filter_map { |s| ansi(s, "#{GLYPHS[s]}#{counts[s]}") if counts[s] }.join(' ')
+    lines << "\e[1m Agents\e[0m  #{summary}"
+    lines << ''
+    sessions = @agents.map { |a| a.pane.session_name }.uniq
+    sessions.each do |session|
+      lines << "\e[2m #{session}\e[0m" if sessions.size > 1
+      @agents.select { |a| a.pane.session_name == session }.each do |agent|
+        block(agent, width).each do |line|
+          lines << line
+          @rows[lines.size] = agent.pane.pane_id
+        end
+        lines << ''
+      end
+    end
+    lines << "\e[2m (エージェントはいません)\e[0m" if @agents.empty?
+    lines = lines.first(height - 1)
+    lines += [''] * (height - 1 - lines.size)
+    lines << "\e[2m #{truncate('j/k クリック:選択 ↵:移動 q:閉じる', width - 1)}\e[0m"
+    print "\e[H", lines.map { |l| "#{l}\e[K" }.join("\r\n")
+  end
+
+  def block(agent, width)
+    state = agent.display_state
+    here = agent.pane.window_id == @window
+    selected = agent.pane.pane_id == @cursor
+    bar = here ? "\e[38;5;111m▎\e[0m" : ' '
+    style = selected ? "\e[7m" : here ? "\e[1m" : ''
+    title = truncate("#{agent.pane.window_index} #{agent.title}", width - 4)
+    [
+      "#{bar}#{ansi(state, GLYPHS[state])} #{style}#{title}\e[0m",
+      *wrap(agent.activity, width - 4, 2).map { |l| "#{bar}  \e[2m#{l}\e[0m" },
+    ]
   end
 end
 
@@ -319,14 +491,18 @@ def pick
     io.read
   end
   pane_id = selected.to_s.split("\t").first
-  tmux('switch-client', '-t', pane_id) if pane_id&.start_with?('%')
+  jump(pane_id) if pane_id&.start_with?('%')
 end
 
 require 'io/console'
+require 'io/wait'
 
 case ARGV.shift
 when 'refresh' then refresh
-when 'list' then list(ARGV.include?('-w'))
+when 'list' then list
+when 'toggle' then toggle(ARGV.first.to_s, ARGV.include?('--all'))
+when 'ensure' then ensure_sidebar(ARGV.first.to_s)
+when 'sidebar' then Sidebar.new.run
 when 'show' then show(ARGV.first.to_s)
 when 'pick' then pick
 else
