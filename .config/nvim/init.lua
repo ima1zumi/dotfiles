@@ -1,4 +1,5 @@
 require("config.lazy")
+require("plugin-review").setup()
 require("autocmds")
 require("commands")
 require("options")

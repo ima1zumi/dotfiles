@@ -54,5 +54,6 @@ require("lazy").setup({
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "catppuccin" } },
   -- automatically check for plugin updates
-  checker = { enabled = true, notify = true },
+  -- 取り込みは plugin-review のレビューを通してから :LazyReviewedUpdate で行う
+  checker = { enabled = true, notify = false },
 })
