@@ -16,7 +16,7 @@
 #   agent-status show PANE   1 つの pane の詳細を表示する
 #   agent-status toggle WIN  WIN の左に sidebar を開く・閉じる（--all で全 window）
 #   agent-status ensure WIN  全 window 表示中なら WIN にも sidebar を開く（after-new-window 用）
-#   agent-status sidebar     sidebar 本体（j/k・クリックで選択、Enter で移動、q で閉じる）
+#   agent-status sidebar     sidebar 本体（クリックで移動、j/k で選んで Enter でも移動、q で閉じる）
 
 require 'json'
 require 'securerandom'
@@ -454,12 +454,11 @@ class Sidebar
       when 'q', "\x03" then return :quit
       when 'j', "\e[B" then move(1)
       when 'k', "\e[A" then move(-1)
-      when "\r" then jump(@cursor) if @cursor
+      when "\r" then go(@cursor) if @cursor
       when /\e\[<(\d+);\d+;(\d+)M/
         button, row = $1.to_i, $2.to_i
         if button == 0 && @rows[row]
-          @cursor = @rows[row]
-          jump(@cursor)
+          go(@rows[row])
         elsif button == 64 || button == 65
           move(button == 64 ? -1 : 1)
         end
@@ -471,8 +470,14 @@ class Sidebar
     ids = @items.map { |item| item.pane.pane_id }
     return if ids.empty?
 
-    index = ids.index(@cursor)
+    index = ids.index(@cursor) || @items.index { |item| item.pane.window_id == @window }
     @cursor = ids[index ? (index + delta).clamp(0, ids.size - 1) : 0]
+  end
+
+  # sidebar は window ごとに別にあるので、選択を残すと戻ってきたときに古い位置が印として残る
+  def go(pane_id)
+    jump(pane_id)
+    @cursor = nil
   end
 
   def draw
@@ -504,8 +509,8 @@ class Sidebar
   def block(item, width)
     here = item.pane.window_id == @window
     selected = item.pane.pane_id == @cursor
-    bar = here ? "\e[38;5;111m▎\e[0m" : ' '
-    style = selected ? "\e[7m" : here ? "\e[1m" : ''
+    bar = selected ? "\e[38;5;111m▎\e[0m" : ' '
+    style = here ? "\e[7m" : ''
     mark = item.state ? ansi(item.state, GLYPHS[item.state]) : ' '
     [
       "#{bar}#{style}#{item.pane.window_index}\e[0m#{mark}#{style}#{truncate(item.title, width - 2 - item.pane.window_index.size - 1)}\e[0m",
