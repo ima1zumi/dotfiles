@@ -47,6 +47,7 @@ compile_commands.json
 .tours/
 
 .claude/settings.local.json
+.claude/worktrees/
 CLAUDE.md
 
 # Neovim Tutor
